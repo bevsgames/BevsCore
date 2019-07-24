@@ -8,6 +8,7 @@
 	<name>BevsHeart</name>
 
 	<properties>
+		<author>BevsGames</author>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -106,7 +107,7 @@
 
 							<archive>
 								<manifestEntries>
-									<Built-By>BevsGames</Built-By>
+									<Built-By>${project.properties.author}</Built-By>
 								</manifestEntries>
 							</archive>
 						</configuration>
