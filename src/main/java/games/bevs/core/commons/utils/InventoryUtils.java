@@ -1,6 +1,7 @@
 package games.bevs.core.commons.utils;
 
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
@@ -43,5 +44,10 @@ public class InventoryUtils
 	public static void clearCursor(Player player)
 	{
 		player.setItemOnCursor(null);
+	}
+	
+	public static void addItem(Inventory inv, ItemStack item)
+	{
+		inv.addItem(item);
 	}
 }

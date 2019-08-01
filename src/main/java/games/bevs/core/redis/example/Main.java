@@ -11,8 +11,8 @@ public class Main {
 	private static JedisSubscriber<JsonObject> messagesSubscriber;
 
 	public static void main(String[] args) {
-		Redis redis = new Redis();
-		redis.connect();
+//		Redis redis = new Redis();
+//		redis.connect();
 
 		JedisSettings settings = new JedisSettings("78.31.71.65", 6379, "McpvpIsLife4378@13123!F");
 

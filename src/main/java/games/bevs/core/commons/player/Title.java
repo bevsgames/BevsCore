@@ -1,4 +1,4 @@
-package games.bevs.core.commons;
+package games.bevs.core.commons.player;
 import java.util.stream.Stream;
 
 import org.bukkit.Bukkit;

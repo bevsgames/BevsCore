@@ -3,7 +3,7 @@ package games.bevs.core.client;
 import java.util.HashSet;
 import java.util.UUID;
 
-import games.bevs.core.commons.MCPlayer;
+import games.bevs.core.commons.player.MCPlayer;
 import lombok.Getter;
 import lombok.Setter;
 

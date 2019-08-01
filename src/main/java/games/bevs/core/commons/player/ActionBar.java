@@ -1,4 +1,4 @@
-package games.bevs.core.commons;
+package games.bevs.core.commons.player;
 
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
