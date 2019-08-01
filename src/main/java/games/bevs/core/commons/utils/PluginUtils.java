@@ -10,4 +10,9 @@ public class PluginUtils
 	{
 		Bukkit.getPluginManager().registerEvents(listener, plugin);
 	}
+	
+	public static void repeat(JavaPlugin plugin, Runnable run, long deplay, long sprint)
+	{
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, run, deplay, sprint);
+	}
 }

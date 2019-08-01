@@ -52,6 +52,12 @@ public class Module implements Listener
 		Console.log(CC.green + this.getName(), CC.r + message);
 	}
 	
+	public void debug(String message)
+	{
+		//add hide condition
+		Console.log(CC.yellow + this.getName(), CC.gray + message);
+	}
+	
 	public void registerListener(Listener listener)
 	{
 		PluginUtils.registerListener(listener, this.getPlugin());
