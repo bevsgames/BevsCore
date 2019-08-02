@@ -6,7 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import games.bevs.core.client.Rank;
+import games.bevs.core.module.client.Rank;
 import lombok.Getter;
 import lombok.Setter;
 

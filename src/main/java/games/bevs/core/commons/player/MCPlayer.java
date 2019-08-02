@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
 import games.bevs.core.commons.utils.MCNameUtils;
 import lombok.Getter;
@@ -51,5 +52,10 @@ public class MCPlayer
 		OfflinePlayer player = Bukkit.getOfflinePlayer(getUniquieId());
 		String username = player.getName();
 		return username;
+	}
+	
+	public Player getPlayer()
+	{
+		return Bukkit.getPlayer(this.getUniquieId());
 	}
 }

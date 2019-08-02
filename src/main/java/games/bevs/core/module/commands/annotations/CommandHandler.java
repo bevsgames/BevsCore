@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import games.bevs.core.client.Rank;
+import games.bevs.core.module.client.Rank;
 
 @Target(value={ElementType.METHOD})
 @Retention(value=RetentionPolicy.RUNTIME)

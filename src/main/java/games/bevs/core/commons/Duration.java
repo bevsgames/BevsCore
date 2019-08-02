@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Duration 
 {
+	public static final Duration ZERO_DURATION = new Duration(0);
 	private long timeInMills;
 	
 	public Duration(Integer amount, TimeUnit timeUnits)

@@ -1,4 +1,4 @@
-package games.bevs.core.client;
+package games.bevs.core.module.client;
 
 import java.net.InetAddress;
 import java.util.UUID;

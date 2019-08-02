@@ -1,10 +1,9 @@
-package games.bevs.core.client.events;
+package games.bevs.core.module.client.events;
 
-import games.bevs.core.client.Client;
 import games.bevs.core.commons.event.EventBase;
+import games.bevs.core.module.client.Client;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 @AllArgsConstructor
 public class ClientEventBase extends EventBase
