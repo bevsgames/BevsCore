@@ -1,13 +1,13 @@
-package games.bevs.core.redis;
+package games.bevs.core.commons.redis;
 
 import java.util.logging.Logger;
 
 import com.google.gson.JsonObject;
 
-import games.bevs.core.redis.subscribe.JedisSubscriptionGenerator;
-import games.bevs.core.redis.subscribe.JedisSubscriptionHandler;
-import games.bevs.core.redis.subscribe.impli.JsonJedisSubscriptionGenerator;
-import games.bevs.core.redis.subscribe.impli.StringJedisSubscriptionGenerator;
+import games.bevs.core.commons.redis.subscribe.JedisSubscriptionGenerator;
+import games.bevs.core.commons.redis.subscribe.JedisSubscriptionHandler;
+import games.bevs.core.commons.redis.subscribe.impli.JsonJedisSubscriptionGenerator;
+import games.bevs.core.commons.redis.subscribe.impli.StringJedisSubscriptionGenerator;
 import lombok.Getter;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPubSub;

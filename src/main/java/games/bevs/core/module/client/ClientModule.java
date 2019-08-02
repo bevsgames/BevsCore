@@ -14,5 +14,4 @@ public class ClientModule extends Module
 	{
 		super(plugin, commandModule);
 	}
-
 }

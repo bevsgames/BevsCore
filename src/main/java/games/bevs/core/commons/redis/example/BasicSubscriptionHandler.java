@@ -1,7 +1,7 @@
-package games.bevs.core.redis.example;
+package games.bevs.core.commons.redis.example;
 import com.google.gson.JsonObject;
 
-import games.bevs.core.redis.subscribe.JedisSubscriptionHandler;
+import games.bevs.core.commons.redis.subscribe.JedisSubscriptionHandler;
 
 public class BasicSubscriptionHandler implements JedisSubscriptionHandler<JsonObject> {
 
