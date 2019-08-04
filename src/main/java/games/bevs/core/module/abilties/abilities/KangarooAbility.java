@@ -35,10 +35,10 @@ public class KangarooAbility extends Ability {
 
 	@Getter
 	@Setter
-	private double upwardsForce = 0.8f;
+	private double upwardsForce = 1.2f;
 	@Getter
 	@Setter
-	private double forwardForce = 1.2f;
+	private double forwardForce = 1.32f;
 
 	public ItemStack kangarooItem = new ItemStackBuilder(Material.FIREWORK).displayName(ChatColor.GOLD + "Kangaroo")
 			.build();
@@ -62,12 +62,12 @@ public class KangarooAbility extends Ability {
 			if (!player.isSneaking()) {
 				Vector vector = player.getEyeLocation().getDirection();
 				vector.multiply(0.0F);
-				vector.setY(1.2F);
+				vector.setY(upwardsForce);
 				player.setVelocity(vector);
 
 			} else {
 				Vector vector = player.getEyeLocation().getDirection();
-				vector.multiply(1.34F);
+				vector.multiply(forwardForce);
 				vector.setY(0.8D);
 				player.setVelocity(vector);
 			}
