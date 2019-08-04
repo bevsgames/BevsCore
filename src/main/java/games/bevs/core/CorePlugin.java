@@ -16,7 +16,12 @@ public class CorePlugin extends JavaPlugin {
 		inst = this;
 		CommandModule commandModule = new CommandModule(this);
 		ClientModule clientModule = new ClientModule(this, commandModule);
+<<<<<<< .merge_file_a22516
 
+=======
+		commandModule.setClientModule(clientModule); //this allows us to check ranks
+		
+>>>>>>> .merge_file_a09816
 		new CombatModule(this, commandModule, clientModule);
 		new AbilityModule(this, commandModule, true);
 	}

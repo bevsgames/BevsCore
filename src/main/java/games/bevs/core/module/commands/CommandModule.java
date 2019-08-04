@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
+import games.bevs.core.module.client.ClientModule;
 import games.bevs.core.module.commands.annotations.CommandHandler;
 import games.bevs.core.module.commands.types.CommandArgs;
 
@@ -21,8 +22,12 @@ public class CommandModule extends Module implements CommandExecutor {
 	public CommandModule(JavaPlugin plugin) 
 	{
 		super(plugin);
-
 		this.miniCommandMap = new MiniCommandMap(plugin, this);
+	}
+	
+	public void setClientModule(ClientModule clientModule)
+	{
+		this.miniCommandMap.setClientModule(clientModule);
 	}
 	
 	public void registerCommands(Object obj) 
