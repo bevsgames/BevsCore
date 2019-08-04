@@ -77,9 +77,9 @@ public class KangarooAbility extends Ability {
 	public void onKangarooMove(PlayerMoveEvent e) {
 		Player player = ((PlayerMoveEvent) e).getPlayer();
 		if (hasAbility(player)) {
-			if (player.hasMetadata(KANGAROO)) {
-				Block b = player.getLocation().getBlock();
-				if ((b.getType() == Material.AIR) && (b.getRelative(BlockFace.DOWN).getType() != Material.AIR)) {
+			Block b = player.getLocation().getBlock();
+			if ((b.getType() == Material.AIR) && (b.getRelative(BlockFace.DOWN).getType() != Material.AIR)) {
+				if (player.hasMetadata(KANGAROO)) {
 					player.removeMetadata(KANGAROO, CorePlugin.getInstance());
 				}
 			}
