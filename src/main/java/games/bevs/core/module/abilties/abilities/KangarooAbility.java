@@ -9,6 +9,8 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
@@ -20,24 +22,18 @@ import games.bevs.core.commons.itemstack.ItemStackBuilder;
 import games.bevs.core.module.abilties.AbilityInfo;
 import games.bevs.core.module.abilties.types.Ability;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  * The ability to jump either upwards or forward
  */
 @NoArgsConstructor
 @AllArgsConstructor
-@AbilityInfo(name = "Kangaroo", author = "teddyyy", description = { "Click your item while shifting",
+@AbilityInfo(name = "Kangaroo", author = "teddyyy", description = { "Clicking your item while shifting",
 		"will launch you forward", "without shifting it will launch", "you upwards." })
 public class KangarooAbility extends Ability {
 
-	@Getter
-	@Setter
 	private double upwardsForce = 1.2f;
-	@Getter
-	@Setter
 	private double forwardForce = 1.32f;
 
 	public ItemStack kangarooItem = new ItemStackBuilder(Material.FIREWORK).displayName(ChatColor.GOLD + "Kangaroo")
@@ -88,6 +84,13 @@ public class KangarooAbility extends Ability {
 				}
 			}
 		}
+	}
+
+	@EventHandler
+	public void onKangarooFall(EntityDamageEvent e) {
+		if (e.getEntity() instanceof Player && hasAbility((Player) e.getEntity()) && e.getCause() == DamageCause.FALL
+				&& e.getFinalDamage() > 7)
+			e.setDamage(7.0);
 	}
 
 }
