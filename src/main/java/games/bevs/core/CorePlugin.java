@@ -14,6 +14,7 @@ public class CorePlugin extends JavaPlugin {
 	{
 		CommandModule commandModule = new CommandModule(this);
 		ClientModule clientModule = new ClientModule(this, commandModule);
+		commandModule.setClientModule(clientModule); //this allows us to check ranks
 		
 		new CombatModule(this, commandModule, clientModule);
 		new AbilityModule(this, commandModule, true);

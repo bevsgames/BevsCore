@@ -16,59 +16,24 @@ import org.bukkit.plugin.SimplePluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import games.bevs.core.module.Module;
+import games.bevs.core.module.client.Client;
+import games.bevs.core.module.client.ClientModule;
+import games.bevs.core.module.client.Rank;
 import games.bevs.core.module.commands.annotations.CommandHandler;
 import games.bevs.core.module.commands.bukkit.BukkitCommand;
+import games.bevs.core.module.commands.bukkit.SimpleCommand;
 import games.bevs.core.module.commands.types.CommandArgs;
+import lombok.NonNull;
+import lombok.Setter;
 
 public class MiniCommandMap 
 {
 	private Map<String, Map.Entry<Method, Object>> commandMap = new HashMap<String, Map.Entry<Method, Object>>();
+	private Map<String, SimpleCommand> simpleCommandMap = new HashMap<>();
 	private CommandMap map;
 	private JavaPlugin plugin;
 	private CommandExecutor commandExecutor;
-	
-	public boolean commandExecutor(CommandSender sender, Command cmd, String commandName, String[] args) 
-	{
-        for (int i = args.length; i >= 0; --i) 
-        {
-            StringBuffer buffer = new StringBuffer();
-            buffer.append(commandName.toLowerCase());
-            for (int x = 0; x < i; ++x) 
-                buffer.append("." + args[x].toLowerCase());
-            String cmdLabel = buffer.toString();
-            
-            if (!this.commandMap.containsKey(cmdLabel)) continue;
-            
-            Method method = this.commandMap.get(cmdLabel).getKey();
-            Object methodObject = this.commandMap.get(cmdLabel).getValue();
-            CommandHandler command = method.getAnnotation(CommandHandler.class);
-            if (command.permission() != "" && !sender.hasPermission(command.permission())) {
-            	sender.sendMessage("need permission");
-                return true;
-            }
-            if (command.inGameOnly() && !(sender instanceof Player)) 
-            {
-                sender.sendMessage("This command is only performable in game");
-                return true;
-            }
-            
-            try {
-                method.invoke(methodObject, new CommandArgs(sender, cmd, commandName, args, cmdLabel.split("\\.").length - 1));
-            }
-            catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
-            }
-            return true;
-        }
-        
-        //incorrect command
-        this.defaultCommand(new CommandArgs(sender, cmd, commandName, args, 0));
-        return true;
-    }
-	
-	private void defaultCommand(CommandArgs args) {
-    	args.getSender().sendMessage("WRONG COMMAND");
-    }
+	private @NonNull @Setter ClientModule clientModule;
 	
 	public MiniCommandMap(JavaPlugin plugin, CommandExecutor commandExecutor)
 	{
@@ -88,6 +53,101 @@ public class MiniCommandMap
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	private Rank getRank(CommandSender sender)
+	{
+        if(sender instanceof Player)
+        {
+        	Client client = clientModule.getPlayer((Player) sender);
+            if(client != null)
+            	return client.getRank();
+            else
+            	return Rank.NORMAL;
+        }
+        
+        return Rank.STAFF;
+	}
+	
+	public boolean commandExecutor(CommandSender sender, Command cmd, String commandName, String[] args) 
+	{
+		Rank rank = this.getRank(sender);
+		
+		//SimpleCommand
+        SimpleCommand simpleCmd = this.getSimpleCommand(commandName);
+        if(simpleCmd != null)
+        {
+        	if(!( rank.hasPermissionsOf(simpleCmd.getRequiredRank()) || sender.hasPermission(simpleCmd.getPermission())))
+        	{
+        		sender.sendMessage("need permission");
+        		return false;
+        	}
+        	
+        	simpleCmd.onExecute(new CommandArgs(sender, cmd, commandName, args, args.length));
+    		return true;
+        }
+		
+		//@CommandHandler
+        for (int i = args.length; i >= 0; --i) 
+        {
+            StringBuffer buffer = new StringBuffer();
+            buffer.append(commandName.toLowerCase());
+            for (int x = 0; x < i; ++x) 
+                buffer.append("." + args[x].toLowerCase());
+            String cmdLabel = buffer.toString();
+            
+            if (!this.commandMap.containsKey(cmdLabel)) continue;
+            
+            Method method = this.commandMap.get(cmdLabel).getKey();
+            Object methodObject = this.commandMap.get(cmdLabel).getValue();
+            CommandHandler command = method.getAnnotation(CommandHandler.class);
+            
+           
+            
+            if ((!rank.hasPermissionsOf(command.requiredRank())) && (command.permission() != "" && !sender.hasPermission(command.permission()))) {
+            	sender.sendMessage("need permission");
+                return true;
+            }
+            
+            if (command.inGameOnly() && !(sender instanceof Player)) 
+            {
+                sender.sendMessage("This command is only performable in game");
+                return true;
+            }
+            
+            try {
+                method.invoke(methodObject, new CommandArgs(sender, cmd, commandName, args, cmdLabel.split("\\.").length - 1));
+            }
+            catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+            return true;
+        }
+        
+       
+        
+        //incorrect command
+        this.defaultCommand(new CommandArgs(sender, cmd, commandName, args, 0));
+        return true;
+    }
+	
+	private void defaultCommand(CommandArgs args) {
+    	args.getSender().sendMessage("WRONG COMMAND");
+    }
+	
+	private SimpleCommand getSimpleCommand(String commandName)
+	{
+		return this.simpleCommandMap.get(commandName.toLowerCase());
+	}
+	
+	public void registerSimpleCommand(SimpleCommand simpleCommand)
+	{
+		this.simpleCommandMap.put(simpleCommand.getCommand().toLowerCase(), simpleCommand);
+	}
+	
+	public void unregisterSimpleCommand(String commandName)
+	{
+		this.simpleCommandMap.remove(commandName.toLowerCase());
 	}
 	
 	public void registerCommand(CommandHandler command, String label, Method m, Object obj, Module module) 
