@@ -10,6 +10,10 @@ import games.bevs.core.module.punishment.types.PunishLog;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Player store
+ *
+ */
 @Getter
 @Setter
 public class Client extends MCPlayer
