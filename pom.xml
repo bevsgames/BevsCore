@@ -44,7 +44,7 @@
 		<dependency>
 			<groupId>com.github.bevsgames</groupId>
 			<artifactId>BevsSpigot</artifactId>
-			<version>9caa65fe57</version>
+			<version>7545c371c6</version>
 			<scope>provided</scope>
 		</dependency>
 
