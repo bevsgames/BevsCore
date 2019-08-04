@@ -11,5 +11,5 @@ public @interface AbilityInfo
 {
 	public String name();
 	public String author() default "Unknown";
-	public String description();
+	public String[] description();
 }

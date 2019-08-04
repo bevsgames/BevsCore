@@ -19,7 +19,7 @@ import lombok.AllArgsConstructor;
  *  When the players is gonna die, it'll launch a firework
  */
 @AllArgsConstructor
-@AbilityInfo(name="Dummy", author = "Sprock", description = "Will do a cute little firework effect")
+@AbilityInfo(name="Dummy", author = "Sprock", description = {"Will do a cute little firework effect"})
 public class DummyAbility extends Ability
 {
 	@EventHandler

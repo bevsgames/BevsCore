@@ -22,7 +22,7 @@ import lombok.Setter;
  */
 @NoArgsConstructor
 @AllArgsConstructor
-@AbilityInfo(name="Grandpa", author = "Sprock", description = "Hitting player with a selected item, sends anyone flying")
+@AbilityInfo(name="Grandpa", author = "Sprock", description = { "Hitting player with a selected item, sends anyone flying" })
 public class GandpaAbility extends Ability
 {
 	//Ability Settings

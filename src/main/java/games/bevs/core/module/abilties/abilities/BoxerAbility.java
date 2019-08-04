@@ -17,7 +17,7 @@ import lombok.Setter;
  */
 @NoArgsConstructor
 @AllArgsConstructor
-@AbilityInfo(name="Boxer", author = "Sprock", description = "Fists will do more damage")
+@AbilityInfo(name="Boxer", author = "Sprock", description = {"Fists will do more damage"})
 public class BoxerAbility extends Ability
 {
 	private @Getter @Setter double damageDeal = 4;

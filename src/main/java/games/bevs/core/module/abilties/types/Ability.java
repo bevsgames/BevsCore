@@ -57,7 +57,7 @@ public class Ability implements Listener
 		return this.getAbilityInfo().author();
 	}
 	
-	public String getDescription()
+	public String[] getDescription()
 	{
 		return this.getAbilityInfo().description();
 	}
