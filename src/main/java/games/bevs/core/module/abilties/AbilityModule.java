@@ -7,6 +7,7 @@ import games.bevs.core.module.Module;
 import games.bevs.core.module.abilties.abilities.BoxerAbility;
 import games.bevs.core.module.abilties.abilities.DummyAbility;
 import games.bevs.core.module.abilties.abilities.GandpaAbility;
+import games.bevs.core.module.abilties.abilities.KangarooAbility;
 import games.bevs.core.module.abilties.types.DummyAbilityParent;
 import games.bevs.core.module.commands.CommandModule;
 
@@ -46,6 +47,7 @@ public class AbilityModule extends Module
 		dummy.addAbility(new BoxerAbility());
 		dummy.addAbility(new DummyAbility());
 		dummy.addAbility(new GandpaAbility());
+		dummy.addAbility(new KangarooAbility());
 	}
 
 }

@@ -9,15 +9,25 @@ import games.bevs.core.module.commands.CommandModule;
 
 public class CorePlugin extends JavaPlugin {
 
+	private static CorePlugin inst;
+
 	@Override
-	public void onEnable() 
-	{
+	public void onEnable() {
+		inst = this;
 		CommandModule commandModule = new CommandModule(this);
 		ClientModule clientModule = new ClientModule(this, commandModule);
-		
+
 		new CombatModule(this, commandModule, clientModule);
 		new AbilityModule(this, commandModule, true);
 	}
 
+	@Override
+	public void onDisable() {
+		inst = null;
+	}
+
+	public static CorePlugin getInstance() {
+		return inst;
+	}
 
 }
