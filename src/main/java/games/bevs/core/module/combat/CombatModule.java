@@ -221,9 +221,11 @@ public class CombatModule extends Module {
 				}
 				else if(entityDamager instanceof Projectile)
 				{
+					
 					ProjectileSource shooter = ((Projectile)entityDamager).getShooter();
 					if(shooter != null && shooter instanceof LivingEntity)
 						livingEntityDamager = (LivingEntity)shooter;
+					entityDamager.remove();//remove arrow
 				}
 			}
 			CustomDamageEvent customDamageEvent = new CustomDamageEvent(e.getFinalDamage(), knockbackTotal, livingEntity, livingEntityDamager);

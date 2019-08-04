@@ -4,13 +4,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.inventory.ItemStack;
 
-import games.bevs.core.module.abilties.Ability;
 import games.bevs.core.module.abilties.AbilityInfo;
+import games.bevs.core.module.abilties.types.Ability;
 import games.bevs.core.module.combat.event.CustomDamageEvent;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * This ability will deal more damage with your fist
+ */
+@NoArgsConstructor
 @AllArgsConstructor
 @AbilityInfo(name="Boxer", author = "Sprock", description = "Fists will do more damage")
 public class BoxerAbility extends Ability

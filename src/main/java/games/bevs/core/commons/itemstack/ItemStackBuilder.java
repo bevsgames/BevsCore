@@ -21,6 +21,10 @@ public class ItemStackBuilder {
 	public ItemStackBuilder(Material material, int amount) {
 		this.itemStack = new ItemStack(material, amount);
 	}
+	
+	public ItemStackBuilder(Material material) {
+		this.itemStack = new ItemStack(material);
+	}
 
 	public ItemStackBuilder amount(int amount) {
 		this.itemStack.setAmount(amount);

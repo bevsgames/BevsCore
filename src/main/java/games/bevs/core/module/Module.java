@@ -1,6 +1,5 @@
 package games.bevs.core.module;
 
-import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,8 +16,24 @@ public class Module implements Listener
 {
 	private @Getter JavaPlugin plugin;
 	private @Setter Config config;
+	private @Getter @Setter boolean debug;
 	private @Getter @Setter CommandModule commandModule;
 	private @Getter @Setter ClientModule clientModule;
+	
+	public Module(JavaPlugin plugin, CommandModule commandModule, boolean debug)
+	{
+		this.plugin = plugin;
+		this.commandModule = commandModule;
+		this.debug = debug;
+		
+		if(this.getModInfo().hasConfig())
+		{
+			this.config = new Config(this.getName(), "config", plugin);
+			this.config.save();
+		}
+		
+		this.enable();
+	}
 	
 	public Module(JavaPlugin plugin, CommandModule commandModule, ClientModule clientModule)
 	{

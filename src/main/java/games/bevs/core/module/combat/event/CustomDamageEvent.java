@@ -59,7 +59,7 @@ public class CustomDamageEvent extends EventBase implements Cancellable
 	 */
 	public boolean willDie()
 	{
-		return (this.getAttackerLivingEntity().getHealth() - this.getDamage()) < 0.01;
+		return (this.getVictimLivingEntity().getHealth() - this.getDamage()) < 0.01;
 	}
 	
 	public boolean hasAttacker()

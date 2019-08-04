@@ -65,6 +65,7 @@ public class CommandModule extends Module implements CommandExecutor {
 	                	if(parentModule != null) alias = parentModule.getName() + "." + alias;
 	                	this.miniCommandMap.registerCommand(command, alias, method, obj, parentModule);
 	                }
+	                parentModule.log("registered command '" + commandLabel + "'.");
                 }
             } 
         }
