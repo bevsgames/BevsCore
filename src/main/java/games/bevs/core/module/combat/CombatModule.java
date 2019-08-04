@@ -1,21 +1,29 @@
 package games.bevs.core.module.combat;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Sound;
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 
+import games.bevs.core.commons.utils.InventoryUtils;
 import games.bevs.core.commons.utils.PacketUtils;
 import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
@@ -130,8 +138,48 @@ public class CombatModule extends Module {
 		PacketUtils.sendPacket(reciever, (new PacketPlayOutAnimation(((CraftEntity) livingEntity).getHandle(), 1)));
 	}
 	
+	private void triggerPlayerDeathEvent(Location deathLoc, Player player)
+	{
+		List<ItemStack> drops = new ArrayList<>();
+		
+		drops.addAll(Arrays.asList(player.getInventory().getContents()));
+		drops.addAll(Arrays.asList(player.getInventory().getArmorContents()));
+		
+		PlayerDeathEvent e = new PlayerDeathEvent(player, drops, (int) player.getExp(), 0, 0, 0, player.getName() + " died.");
+		Bukkit.getPluginManager().callEvent(e);
+		
+		if(deathLoc.getWorld().getGameRuleValue("keepinventory").equalsIgnoreCase("false"))
+		{
+			player.setExp(e.getNewExp());
+			player.setLevel(e.getNewLevel());
+			
+			if(e.getDroppedExp() > 0)
+			{
+				ExperienceOrb orb = deathLoc.getWorld().spawn(deathLoc, ExperienceOrb.class);
+				orb.setExperience(e.getDroppedExp());
+			}
+			
+			for (ItemStack stack : e.getDrops()) 
+			{
+			      if (stack == null || stack.getType() == Material.AIR || stack.getAmount() == 0)
+			    	  continue; 
+			      deathLoc.getWorld().dropItemNaturally(deathLoc, stack);
+			} 
+			
+			player.getInventory().clear();
+		}
+		
+		if(e.getDeathMessage() != null)
+			Bukkit.broadcastMessage(e.getDeathMessage());
+	}
+	
 	private void respawn(LivingEntity livingEntity)
 	{
+		if(livingEntity instanceof Player)
+		{
+			Player player = ((Player)livingEntity);
+			triggerPlayerDeathEvent(livingEntity.getLocation(), player);
+		}
 		livingEntity.sendMessage("You have died and have been respawned");
 		livingEntity.setHealth(livingEntity.getMaxHealth());
 		livingEntity.teleport(livingEntity.getWorld().getSpawnLocation());
