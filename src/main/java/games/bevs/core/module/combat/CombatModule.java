@@ -2,6 +2,7 @@ package games.bevs.core.module.combat;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
@@ -105,8 +106,22 @@ public class CombatModule extends Module {
 		return knockback;
 	}
 
+	/**
+	 * Play a red effect on the entity
+	 * @param livingEntity
+	 */
 	private void broadcastDamageEffect(LivingEntity livingEntity)
 	{
+		Location loc = livingEntity.getLocation();
+		
+		String sound = PacketUtils.getLivingEntitySound(livingEntity);
+		
+		if(livingEntity instanceof Player)
+		{
+			Player player = ((Player)livingEntity);
+			PacketUtils.playDamageAlert(player);
+		}
+		livingEntity.getNearbyEntities(5, 5, 5).stream().filter(entity -> entity instanceof Player).forEach(player -> PacketUtils.playSound((Player) player, sound, loc.getX(), loc.getY(), loc.getZ(), 1f, 1f));
 		Bukkit.getOnlinePlayers().forEach(player -> playDamageEffect(livingEntity, player));
 	}
 	
@@ -173,6 +188,7 @@ public class CombatModule extends Module {
 				
 				newHealth -= customDamageEvent.getDamage();
 				
+				broadcastDamageEffect(livingEntity);
 				if(newHealth <= 0.01)
 				{
 					//Player died
@@ -180,9 +196,9 @@ public class CombatModule extends Module {
 					e.setCancelled(true);
 					return;
 				}
+				
 				livingEntity.setHealth(newHealth);
 				livingEntity.setVelocity(customDamageEvent.getKnockback());
-				broadcastDamageEffect(livingEntity);
 			}
 			
 			e.setCancelled(true);
