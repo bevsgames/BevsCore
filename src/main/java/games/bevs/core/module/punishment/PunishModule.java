@@ -1,6 +1,5 @@
 package games.bevs.core.module.punishment;
 
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import games.bevs.core.commons.Duration;
@@ -8,7 +7,7 @@ import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
 import games.bevs.core.module.client.Client;
 import games.bevs.core.module.client.ClientModule;
-import games.bevs.core.module.commands.CommandModule;
+import games.bevs.core.module.commandv2.CommandModule;
 import games.bevs.core.module.punishment.types.PunishLog;
 
 @ModInfo(name = "Punishment")

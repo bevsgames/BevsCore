@@ -6,7 +6,7 @@ import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
 import games.bevs.core.module.chat.ChatModule;
 import games.bevs.core.module.client.ClientModule;
-import games.bevs.core.module.commands.CommandModule;
+import games.bevs.core.module.commandv2.CommandModule;
 import lombok.Getter;
 
 /**

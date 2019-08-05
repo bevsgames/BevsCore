@@ -8,7 +8,8 @@ import games.bevs.core.commons.server.Config;
 import games.bevs.core.commons.server.Console;
 import games.bevs.core.commons.utils.PluginUtils;
 import games.bevs.core.module.client.ClientModule;
-import games.bevs.core.module.commands.CommandModule;
+import games.bevs.core.module.commandv2.CommandModule;
+import games.bevs.core.module.commandv2.types.BevsCommand;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -83,20 +84,10 @@ public class Module implements Listener
 		this.registerListener(this);
 	}
 	
-	/**
-	 * Commands registered here will fall under the modules name
-	 * eg if the module ""
-	 */
-	public void registerCommand(Object obj)
+	public  void registerCommand(BevsCommand simpleCommand)
 	{
 		if(this.commandModule == null) return;
-		this.commandModule.registerCommands(obj, this);
-	}
-	
-	
-	public void registerGeneralCommand(Object obj)
-	{
-		this.commandModule.registerCommands(obj, null);
+		this.commandModule.registerBevsCommand(simpleCommand);
 	}
 	
 	private ModInfo getModInfo()
