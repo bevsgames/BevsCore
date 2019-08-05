@@ -93,8 +93,6 @@ public class AbilityDummyCommand extends BevsCommand
 		}
 		else if(args.length == 1)
 		{
-		
-			String status = args[0];
 			return this.dummyAbilityParent.getAbilitiesNames().stream().collect(Collectors.toList());
 		}
 		return null;

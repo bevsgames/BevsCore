@@ -30,7 +30,7 @@ import lombok.NonNull;
  */
 public class DummyAbilityParent implements IAbilityParent
 {
-	private @Getter ArrayList<Ability> abilities = new ArrayList<>();
+	private ArrayList<Ability> abilities = new ArrayList<>();
 	private @Getter HashSet<String> abilitiesNames = new HashSet<>();
 	private @Getter HashSet<String> enabledAbilitiesNames = new HashSet<>(); 
 	
@@ -43,8 +43,6 @@ public class DummyAbilityParent implements IAbilityParent
 		
 		abilityModule.registerCommand(new AbilityDummyCommand(clientModule, this));
 	}
-	
-	
 	
 	public Ability getAbility(String name)
 	{
