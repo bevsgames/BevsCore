@@ -1,6 +1,5 @@
 package games.bevs.core.module.abilties.abilities;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.FireworkEffect.Type;

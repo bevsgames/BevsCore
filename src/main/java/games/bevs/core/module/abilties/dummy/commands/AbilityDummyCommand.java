@@ -9,10 +9,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import games.bevs.core.commons.CC;
+import games.bevs.core.commons.Rank;
 import games.bevs.core.module.abilties.dummy.DummyAbilityParent;
 import games.bevs.core.module.abilties.types.Ability;
 import games.bevs.core.module.client.ClientModule;
-import games.bevs.core.module.client.Rank;
 import games.bevs.core.module.commandv2.types.BevsCommand;
 
 public class AbilityDummyCommand extends BevsCommand

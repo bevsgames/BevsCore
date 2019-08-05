@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import games.bevs.core.commons.Rank;
 import games.bevs.core.commons.managers.PlayerManager;
 
 public class ClientManager extends PlayerManager<Client> 

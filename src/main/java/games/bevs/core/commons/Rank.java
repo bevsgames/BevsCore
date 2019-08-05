@@ -1,6 +1,5 @@
-package games.bevs.core.module.client;
+package games.bevs.core.commons;
 
-import games.bevs.core.commons.CC;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

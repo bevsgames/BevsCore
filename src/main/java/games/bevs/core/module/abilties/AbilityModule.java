@@ -48,6 +48,7 @@ public class AbilityModule extends Module
 		dummy.addAbility(new DummyAbility());
 		dummy.addAbility(new GandpaAbility());
 		dummy.addAbility(new KangarooAbility());
+		
 	}
 
 }

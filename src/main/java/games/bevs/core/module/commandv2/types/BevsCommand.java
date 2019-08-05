@@ -10,10 +10,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
+import games.bevs.core.commons.Rank;
 import games.bevs.core.commons.utils.StringUtils;
 import games.bevs.core.module.client.Client;
 import games.bevs.core.module.client.ClientModule;
-import games.bevs.core.module.client.Rank;
 import lombok.Getter;
 
 public class BevsCommand extends Command implements TabCompleter 
