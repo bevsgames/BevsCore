@@ -1,5 +1,6 @@
 package games.bevs.core.commons.utils;
 
+import java.util.Arrays;
 import java.util.List;
 
 import games.bevs.core.commons.CC;
@@ -20,6 +21,16 @@ public class StringUtils
 				strBuilder.append(( i == (listStr.size() - 1) ? "," : "and"));
 		}
 		return strBuilder.toString();
+	}
+	
+	/**
+	 * will turn a string into a boolean
+	 * @param stateStr
+	 * @return
+	 */
+	public static boolean toBoolean(String stateStr)
+	{
+		return Arrays.asList(new String[] {"yes", "true", "on"}).contains(stateStr.toLowerCase());
 	}
 	
 	public static String error(String header, String message)

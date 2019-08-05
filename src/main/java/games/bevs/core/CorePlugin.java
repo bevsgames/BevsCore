@@ -6,6 +6,7 @@ import games.bevs.core.module.abilties.AbilityModule;
 import games.bevs.core.module.client.ClientModule;
 import games.bevs.core.module.combat.CombatModule;
 import games.bevs.core.module.commandv2.CommandModule;
+import games.bevs.core.module.essentials.EssentialsModule;
 
 public class CorePlugin extends JavaPlugin {
 
@@ -20,6 +21,8 @@ public class CorePlugin extends JavaPlugin {
 
 		new CombatModule(this, commandModule, clientModule);
 		new AbilityModule(this, commandModule, true);
+		
+		new EssentialsModule(this, commandModule, clientModule);
 	}
 
 	@Override
