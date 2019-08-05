@@ -52,24 +52,25 @@ public class KangarooAbility extends Ability {
 		if (hasAbility(player)) {
 			if (player.getItemInHand() == null)
 				return;
-			if (player.getItemInHand() != kangarooItem)
+			if (!player.getItemInHand().isSimilar(kangarooItem))
 				return;
+			if (!player.hasMetadata(KANGAROO)) {
+				if (!player.isSneaking()) {
+					Vector vector = player.getEyeLocation().getDirection();
+					vector.multiply(0.0F);
+					vector.setY(upwardsForce);
+					player.setVelocity(vector);
 
-			if (!player.isSneaking()) {
-				Vector vector = player.getEyeLocation().getDirection();
-				vector.multiply(0.0F);
-				vector.setY(upwardsForce);
-				player.setVelocity(vector);
-
-			} else {
-				Vector vector = player.getEyeLocation().getDirection();
-				vector.multiply(forwardForce);
-				vector.setY(0.8D);
-				player.setVelocity(vector);
+				} else {
+					Vector vector = player.getEyeLocation().getDirection();
+					vector.multiply(forwardForce);
+					vector.setY(0.8D);
+					player.setVelocity(vector);
+				}
+				player.setFallDistance(-10.0F);
+				player.setMetadata(KANGAROO, new FixedMetadataValue(CorePlugin.getInstance(), null));
 			}
-			player.setFallDistance(-5.0F);
-			player.setMetadata(KANGAROO, new FixedMetadataValue(CorePlugin.getInstance(), null));
-
+			e.setCancelled(true);// we don't want the player to launch the fire work :P
 		}
 	}
 
