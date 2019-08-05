@@ -1,4 +1,4 @@
-package games.bevs.core.module.abilties.types;
+package games.bevs.core.module.abilties.dummy;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -8,14 +8,13 @@ import java.util.Optional;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import games.bevs.core.commons.CC;
 import games.bevs.core.commons.server.Console;
 import games.bevs.core.commons.utils.PluginUtils;
 import games.bevs.core.module.abilties.AbilityModule;
+import games.bevs.core.module.abilties.dummy.commands.AbilityDummyCommand;
 import games.bevs.core.module.abilties.interfaces.IAbilityParent;
-import games.bevs.core.module.client.Rank;
-import games.bevs.core.module.commands.annotations.CommandHandler;
-import games.bevs.core.module.commands.types.CommandArgs;
+import games.bevs.core.module.abilties.types.Ability;
+import games.bevs.core.module.client.ClientModule;
 import lombok.Getter;
 import lombok.NonNull;
 
@@ -32,62 +31,20 @@ import lombok.NonNull;
 public class DummyAbilityParent implements IAbilityParent
 {
 	private ArrayList<Ability> abilities = new ArrayList<>();
-	private HashSet<String> abilitiesNames = new HashSet<>();
-	private HashSet<String> enabledAbilitiesNames = new HashSet<>(); 
+	private @Getter HashSet<String> abilitiesNames = new HashSet<>();
+	private @Getter HashSet<String> enabledAbilitiesNames = new HashSet<>(); 
 	
 	private @Getter @NonNull JavaPlugin plugin;
 	private @Getter @NonNull AbilityModule abilityModule;
 	
-	public DummyAbilityParent(JavaPlugin plugin, AbilityModule abilityModule)
+	public DummyAbilityParent(JavaPlugin plugin, ClientModule clientModule, AbilityModule abilityModule)
 	{
 		this.plugin = plugin;
 		
-		abilityModule.registerCommand(this);
+		abilityModule.registerCommand(new AbilityDummyCommand(clientModule, this));
 	}
 	
-	@CommandHandler(name = "", requiredRank = Rank.STAFF)
-	public void abilityCmd(CommandArgs args) 
-	{
-		
-		args.getPlayer().sendMessage(CC.aqua + "Enabled Abilities");
-		this.enabledAbilitiesNames.forEach(abilityName -> args.getPlayer().sendMessage(abilityName));
-		args.getPlayer().sendMessage(CC.gray + "Enabled more with '/ability add [abilityName]");
-	}
-	
-	@CommandHandler(name = "add", requiredRank = Rank.STAFF)
-	public void getAbilityCmd(CommandArgs args) 
-	{
-		String abilityName = args.getArgs(0);
-		
-		Ability ability = getAbility(abilityName);
-		if(ability == null)
-		{
-			args.getSender().sendMessage(CC.red + abilityName + " Not found.");
-			return;
-		}
-		
-		ability.getItems().forEach(item -> args.getPlayer().getInventory().addItem(item));
-		args.getSender().sendMessage(CC.green + "Given " + ability.getName() + " Ability!");
-		enabledAbilitiesNames.add(ability.getName().toLowerCase());
-	}
-	
-	@CommandHandler(name = "remove", requiredRank = Rank.STAFF)
-	public void clearAbilityCmd(CommandArgs args) 
-	{
-		String abilityName = args.getArgs(0);
-		
-		Ability ability = getAbility(abilityName);
-		if(ability == null)
-		{
-			args.getSender().sendMessage(CC.red + abilityName + " Not found.");
-			return;
-		}
-		
-		enabledAbilitiesNames.remove(ability.getName().toLowerCase());
-		args.getSender().sendMessage(CC.green + "removed " + ability.getName() + " Ability!");
-	}
-	
-	private Ability getAbility(String name)
+	public Ability getAbility(String name)
 	{
 		Optional<Ability> ability = this.abilities.stream()
 												  .filter(abl -> abl.getName().equalsIgnoreCase(name))

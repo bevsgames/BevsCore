@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.util.Vector;
 
 import games.bevs.core.commons.event.EventBase;
 import games.bevs.core.module.combat.types.DamageModifier;
 import games.bevs.core.module.combat.types.KnockbackMultipler;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public class CustomDamageEvent extends EventBase implements Cancellable
@@ -29,11 +31,16 @@ public class CustomDamageEvent extends EventBase implements Cancellable
 	private Player victimPlayer;
 	private Player attackerPlayer;
 	
-	private double initDamage = 0.0d;
-	private Vector initKnockback;
+	private @Setter double initDamage = 0.0d;
+	private @Setter Vector initKnockback;
 	
-	public CustomDamageEvent(double initDamage, Vector initKnockback, LivingEntity victimLivingEntity, LivingEntity attackerLivingEntity)
+	private @Setter @Getter double maxDamage = 10000d;
+	
+	private DamageCause initCause;
+	
+	public CustomDamageEvent(DamageCause initCause, double initDamage, Vector initKnockback, LivingEntity victimLivingEntity, LivingEntity attackerLivingEntity)
 	{
+		this.initCause = initCause;
 		this.initDamage = initDamage;
 		this.initKnockback = initKnockback;
 		
@@ -100,6 +107,8 @@ public class CustomDamageEvent extends EventBase implements Cancellable
 		double damage = this.getInitDamage();
 		for(DamageModifier modifier : this.getDamageModifiers())
 			damage += modifier.getDamage();
+		if(damage > this.getMaxDamage())
+			return this.getMaxDamage();
 		return damage;
 	}
 	

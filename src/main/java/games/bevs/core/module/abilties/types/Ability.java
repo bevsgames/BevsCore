@@ -6,6 +6,7 @@ import java.util.List;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import games.bevs.core.module.abilties.AbilityInfo;
 import games.bevs.core.module.abilties.interfaces.IAbilityParent;
@@ -60,5 +61,10 @@ public class Ability implements Listener
 	public String[] getDescription()
 	{
 		return this.getAbilityInfo().description();
+	}
+	
+	public JavaPlugin getPlugin()
+	{
+		return this.parent.getPlugin();
 	}
 }

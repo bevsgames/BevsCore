@@ -32,19 +32,26 @@ import lombok.NoArgsConstructor;
 @AbilityInfo(name = "Kangaroo", author = "teddyyy", description = { "Clicking your item while shifting",
 		"will launch you forward", "without shifting it will launch", "you upwards." })
 public class KangarooAbility extends Ability {
-
+	// Ability Settings
 	private double upwardsForce = 1.2f;
 	private double forwardForce = 1.32f;
+	private Material itemMaterial = Material.FIREWORK;
+	private String itemName = ChatColor.GOLD + "Kangaroo";
+	private double maxFallDamage = 7.0;
 
-	public ItemStack kangarooItem = new ItemStackBuilder(Material.FIREWORK).displayName(ChatColor.GOLD + "Kangaroo")
-			.build();
+	// Class variables
+	private final String KANGAROO_METADATA = "KANGAROO";
+	public ItemStack kangarooItem;
+
+	@Override
+	public void onLoad() {
+		this.kangarooItem = new ItemStackBuilder(itemMaterial).displayName(itemName).build();
+	}
 
 	@Override
 	public List<ItemStack> getItems() {
 		return Arrays.asList(kangarooItem);
 	}
-
-	private final String KANGAROO = "KANGAROO";
 
 	@EventHandler
 	public void onKangaroo(PlayerInteractEvent e) {
@@ -54,7 +61,7 @@ public class KangarooAbility extends Ability {
 				return;
 			if (!player.getItemInHand().isSimilar(kangarooItem))
 				return;
-			if (!player.hasMetadata(KANGAROO)) {
+			if (!player.hasMetadata(KANGAROO_METADATA)) {
 				if (!player.isSneaking()) {
 					Vector vector = player.getEyeLocation().getDirection();
 					vector.multiply(0.0F);
@@ -68,9 +75,13 @@ public class KangarooAbility extends Ability {
 					player.setVelocity(vector);
 				}
 				player.setFallDistance(-10.0F);
-				player.setMetadata(KANGAROO, new FixedMetadataValue(CorePlugin.getInstance(), null));
+				player.setMetadata(KANGAROO_METADATA, new FixedMetadataValue(CorePlugin.getInstance(), null));
 			}
+
 			e.setCancelled(true);// we don't want the player to launch the fire work :P
+			player.setFallDistance(-5.0F);
+			player.setMetadata(KANGAROO_METADATA, new FixedMetadataValue(CorePlugin.getInstance(), null));
+
 		}
 	}
 
@@ -80,8 +91,8 @@ public class KangarooAbility extends Ability {
 		if (hasAbility(player)) {
 			Block b = player.getLocation().getBlock();
 			if ((b.getType() == Material.AIR) && (b.getRelative(BlockFace.DOWN).getType() != Material.AIR)) {
-				if (player.hasMetadata(KANGAROO)) {
-					player.removeMetadata(KANGAROO, CorePlugin.getInstance());
+				if (player.hasMetadata(KANGAROO_METADATA)) {
+					player.removeMetadata(KANGAROO_METADATA, CorePlugin.getInstance());
 				}
 			}
 		}
@@ -90,8 +101,8 @@ public class KangarooAbility extends Ability {
 	@EventHandler
 	public void onKangarooFall(EntityDamageEvent e) {
 		if (e.getEntity() instanceof Player && hasAbility((Player) e.getEntity()) && e.getCause() == DamageCause.FALL
-				&& e.getFinalDamage() > 7)
-			e.setDamage(7.0);
+				&& e.getFinalDamage() > maxFallDamage)
+			e.setDamage(maxFallDamage);
 	}
 
 }

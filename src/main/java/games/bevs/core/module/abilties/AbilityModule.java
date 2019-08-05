@@ -9,8 +9,8 @@ import games.bevs.core.module.abilties.abilities.DummyAbility;
 import games.bevs.core.module.abilties.abilities.GrandpaAbility;
 import games.bevs.core.module.abilties.abilities.KangarooAbility;
 import games.bevs.core.module.abilties.abilities.WormAbility;
-import games.bevs.core.module.abilties.types.DummyAbilityParent;
-import games.bevs.core.module.commands.CommandModule;
+import games.bevs.core.module.abilties.dummy.DummyAbilityParent;
+import games.bevs.core.module.commandv2.CommandModule;
 
 /**
  * Events
@@ -44,7 +44,7 @@ public class AbilityModule extends Module
 	{
 		
 		if(!this.isDebug()) return;
-		DummyAbilityParent dummy = new DummyAbilityParent(this.getPlugin(), this);
+		DummyAbilityParent dummy = new DummyAbilityParent(this.getPlugin(), this.getClientModule(), this);
 		dummy.addAbility(new BoxerAbility());
 		dummy.addAbility(new DummyAbility());
 		dummy.addAbility(new GrandpaAbility());

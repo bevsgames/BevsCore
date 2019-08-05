@@ -3,6 +3,7 @@ package games.bevs.core.module.abilties.interfaces;
 import java.util.List;
 
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import games.bevs.core.module.abilties.types.Ability;
 
@@ -23,4 +24,5 @@ public interface IAbilityParent
 	public boolean hasAbility(Ability ability, Player player);
 	public boolean hasAbility(String ability, Player player);
 	
+	public JavaPlugin getPlugin();
 }
