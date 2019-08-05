@@ -8,8 +8,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
-import games.bevs.core.module.client.ClientModule;
 import games.bevs.core.module.commandv2.types.BevsCommand;
+import games.bevs.core.module.player.PlayerDataModule;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +17,7 @@ import lombok.Setter;
 public class CommandModule extends Module
 {
 	private @Getter CommandMap commandMap;
-	private @Getter @Setter ClientModule clientModule;
+	private @Getter @Setter PlayerDataModule clientModule;
 
 	public CommandModule(JavaPlugin plugin) 
 	{

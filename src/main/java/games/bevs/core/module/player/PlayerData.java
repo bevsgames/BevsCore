@@ -1,4 +1,4 @@
-package games.bevs.core.module.client;
+package games.bevs.core.module.player;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -17,7 +17,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class Client extends MCPlayer
+public class PlayerData extends MCPlayer
 {
 	private @Getter int internalId;
 	private @Getter @Setter Rank rank = Rank.NORMAL;
@@ -31,12 +31,12 @@ public class Client extends MCPlayer
 	
 
 
-	public Client(UUID uniquieId, String username) 
+	public PlayerData(UUID uniquieId, String username) 
 	{
 		super(uniquieId, username);
 	}
 
-	public Client(UUID uniquieId) 
+	public PlayerData(UUID uniquieId) 
 	{
 		super(uniquieId);
 	}

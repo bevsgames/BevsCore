@@ -12,14 +12,14 @@ import games.bevs.core.commons.CC;
 import games.bevs.core.commons.Rank;
 import games.bevs.core.module.abilties.dummy.DummyAbilityParent;
 import games.bevs.core.module.abilties.types.Ability;
-import games.bevs.core.module.client.ClientModule;
 import games.bevs.core.module.commandv2.types.BevsCommand;
+import games.bevs.core.module.player.PlayerDataModule;
 
 public class AbilityDummyCommand extends BevsCommand
 {
 	private DummyAbilityParent dummyAbilityParent;
 	
-	public AbilityDummyCommand(ClientModule clientModule, DummyAbilityParent dummyAbilityParent) 
+	public AbilityDummyCommand(PlayerDataModule clientModule, DummyAbilityParent dummyAbilityParent) 
 	{
 		super("ability", Rank.STAFF, clientModule);
 		this.dummyAbilityParent = dummyAbilityParent;

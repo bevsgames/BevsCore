@@ -6,8 +6,8 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import games.bevs.core.commons.Rank;
-import games.bevs.core.module.client.ClientModule;
 import games.bevs.core.module.commandv2.types.BevsCommand;
+import games.bevs.core.module.player.PlayerDataModule;
 
 /**
  * Kills all entities in your world
@@ -20,7 +20,7 @@ import games.bevs.core.module.commandv2.types.BevsCommand;
  */
 public class ButcherCommand extends BevsCommand
 {
-	public ButcherCommand(ClientModule clientModule)
+	public ButcherCommand(PlayerDataModule clientModule)
 	{
 		super("butcher", Rank.MOD, clientModule);
 	}

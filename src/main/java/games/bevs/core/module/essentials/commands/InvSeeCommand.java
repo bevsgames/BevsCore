@@ -5,8 +5,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import games.bevs.core.commons.Rank;
-import games.bevs.core.module.client.ClientModule;
 import games.bevs.core.module.commandv2.types.BevsCommand;
+import games.bevs.core.module.player.PlayerDataModule;
 
 /**
  * open a player inventory
@@ -18,7 +18,7 @@ import games.bevs.core.module.commandv2.types.BevsCommand;
  */
 public class InvSeeCommand extends BevsCommand
 {
-	public InvSeeCommand(ClientModule clientModule)
+	public InvSeeCommand(PlayerDataModule clientModule)
 	{
 		super("invsee", Rank.MOD, clientModule);
 	}

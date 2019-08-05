@@ -5,8 +5,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import games.bevs.core.commons.Rank;
-import games.bevs.core.module.client.ClientModule;
 import games.bevs.core.module.commandv2.types.BevsCommand;
+import games.bevs.core.module.player.PlayerDataModule;
 
 /**
  * Heal a players health
@@ -20,7 +20,7 @@ import games.bevs.core.module.commandv2.types.BevsCommand;
  */
 public class HealCommand extends BevsCommand
 {
-	public HealCommand(ClientModule clientModule)
+	public HealCommand(PlayerDataModule clientModule)
 	{
 		super("heal", Rank.MOD, clientModule);
 	}

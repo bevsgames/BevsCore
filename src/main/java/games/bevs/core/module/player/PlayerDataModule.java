@@ -1,4 +1,4 @@
-package games.bevs.core.module.client;
+package games.bevs.core.module.player;
 
 import java.util.UUID;
 
@@ -17,20 +17,20 @@ import games.bevs.core.module.commandv2.CommandModule;
  *
  */
 @ModInfo(name = "Client")
-public class ClientModule extends Module
+public class PlayerDataModule extends Module
 {
 
-	public ClientModule(JavaPlugin plugin, CommandModule commandModule)
+	public PlayerDataModule(JavaPlugin plugin, CommandModule commandModule)
 	{
 		super(plugin, commandModule);
 	}
 	
-	public Client getPlayer(UUID uniqueId)
+	public PlayerData getPlayer(UUID uniqueId)
 	{
 		return null;
 	}
 	
-	public Client getPlayer(Player player)
+	public PlayerData getPlayer(Player player)
 	{
 		return this.getPlayer(player.getUniqueId());
 	}

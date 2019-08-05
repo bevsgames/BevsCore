@@ -5,8 +5,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import games.bevs.core.commons.Rank;
-import games.bevs.core.module.client.ClientModule;
 import games.bevs.core.module.commandv2.types.BevsCommand;
+import games.bevs.core.module.player.PlayerDataModule;
 
 /**
  * Heal a players health
@@ -23,7 +23,7 @@ public class FeedCommand extends BevsCommand
 	private static final int MAX_FOOD_LEVEL = 20;
 	private static final float GOOD_SATURATION = 12.8f; //Saturation from eating a steak
 	
-	public FeedCommand(ClientModule clientModule)
+	public FeedCommand(PlayerDataModule clientModule)
 	{
 		super("feed", Rank.MOD, clientModule);
 	}

@@ -12,21 +12,21 @@ import org.bukkit.entity.Player;
 
 import games.bevs.core.commons.Rank;
 import games.bevs.core.commons.utils.StringUtils;
-import games.bevs.core.module.client.Client;
-import games.bevs.core.module.client.ClientModule;
+import games.bevs.core.module.player.PlayerData;
+import games.bevs.core.module.player.PlayerDataModule;
 import lombok.Getter;
 
 public class BevsCommand extends Command implements TabCompleter 
 {
 	public static final String COMMAND_NO_PERMISSION = "You do not have permission for this command!";
-	private @Getter ClientModule clientModule;
+	private @Getter PlayerDataModule clientModule;
 	private @Getter Rank requiredRank;
 
 	public BevsCommand(String name, String description, String usageMessage, List<String> aliases) {
 		super(name, description, usageMessage, aliases);
 	}
 
-	public BevsCommand(String name, Rank requiredRank, ClientModule clientModule) {
+	public BevsCommand(String name, Rank requiredRank, PlayerDataModule clientModule) {
 		super(name);
 		this.requiredRank = requiredRank;
 	}
@@ -44,7 +44,7 @@ public class BevsCommand extends Command implements TabCompleter
 
 	private Rank getRank(CommandSender sender) {
 		if (sender instanceof Player) {
-			Client client = clientModule.getPlayer((Player) sender);
+			PlayerData client = clientModule.getPlayer((Player) sender);
 			if (client != null)
 				return client.getRank();
 			else

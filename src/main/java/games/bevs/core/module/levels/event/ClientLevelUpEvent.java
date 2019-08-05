@@ -2,20 +2,20 @@ package games.bevs.core.module.levels.event;
 
 import org.bukkit.event.Cancellable;
 
-import games.bevs.core.module.client.Client;
-import games.bevs.core.module.client.events.ClientEventBase;
+import games.bevs.core.module.player.PlayerData;
+import games.bevs.core.module.player.events.PlayerDataEventBase;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ClientLevelUpEvent extends ClientEventBase implements Cancellable
+public class ClientLevelUpEvent extends PlayerDataEventBase implements Cancellable
 {
 	private int fromLevel;
 	private int toLevel;
 	private boolean cancelled = false;
 	
-	public ClientLevelUpEvent(Client client, int fromLevel, int toLevel)
+	public ClientLevelUpEvent(PlayerData client, int fromLevel, int toLevel)
 	{
 		super(client);
 		this.fromLevel = fromLevel;

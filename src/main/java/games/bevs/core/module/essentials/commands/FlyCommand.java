@@ -6,8 +6,8 @@ import org.bukkit.entity.Player;
 
 import games.bevs.core.commons.Rank;
 import games.bevs.core.commons.utils.StringUtils;
-import games.bevs.core.module.client.ClientModule;
 import games.bevs.core.module.commandv2.types.BevsCommand;
+import games.bevs.core.module.player.PlayerDataModule;
 
 /**
  * Get to set players flight
@@ -25,7 +25,7 @@ import games.bevs.core.module.commandv2.types.BevsCommand;
  */
 public class FlyCommand extends BevsCommand
 {
-	public FlyCommand(ClientModule clientModule)
+	public FlyCommand(PlayerDataModule clientModule)
 	{
 		super("fly", Rank.MOD, clientModule);
 	}

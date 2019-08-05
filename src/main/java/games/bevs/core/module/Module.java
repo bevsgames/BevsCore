@@ -7,9 +7,9 @@ import games.bevs.core.commons.CC;
 import games.bevs.core.commons.server.Config;
 import games.bevs.core.commons.server.Console;
 import games.bevs.core.commons.utils.PluginUtils;
-import games.bevs.core.module.client.ClientModule;
 import games.bevs.core.module.commandv2.CommandModule;
 import games.bevs.core.module.commandv2.types.BevsCommand;
+import games.bevs.core.module.player.PlayerDataModule;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +19,7 @@ public class Module implements Listener
 	private @Setter Config config;
 	private @Getter @Setter boolean debug;
 	private @Getter @Setter CommandModule commandModule;
-	private @Getter @Setter ClientModule clientModule;
+	private @Getter @Setter PlayerDataModule clientModule;
 	
 	public Module(JavaPlugin plugin, CommandModule commandModule, boolean debug)
 	{
@@ -36,7 +36,7 @@ public class Module implements Listener
 		this.enable();
 	}
 	
-	public Module(JavaPlugin plugin, CommandModule commandModule, ClientModule clientModule)
+	public Module(JavaPlugin plugin, CommandModule commandModule, PlayerDataModule clientModule)
 	{
 		this.plugin = plugin;
 		this.commandModule = commandModule;

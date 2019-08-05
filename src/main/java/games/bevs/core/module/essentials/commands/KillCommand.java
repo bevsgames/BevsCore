@@ -5,8 +5,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import games.bevs.core.commons.Rank;
-import games.bevs.core.module.client.ClientModule;
 import games.bevs.core.module.commandv2.types.BevsCommand;
+import games.bevs.core.module.player.PlayerDataModule;
 
 /**
  * kill a player
@@ -22,7 +22,7 @@ public class KillCommand extends BevsCommand
 {
 	private static final int DEATH_DAMAGE = 1000;
 	
-	public KillCommand(ClientModule clientModule)
+	public KillCommand(PlayerDataModule clientModule)
 	{
 		super("kill", Rank.MOD, clientModule);
 	}
