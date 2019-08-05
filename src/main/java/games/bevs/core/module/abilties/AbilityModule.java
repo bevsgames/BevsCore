@@ -7,14 +7,9 @@ import games.bevs.core.module.Module;
 import games.bevs.core.module.abilties.abilities.BoxerAbility;
 import games.bevs.core.module.abilties.abilities.DummyAbility;
 import games.bevs.core.module.abilties.abilities.GandpaAbility;
-<<<<<<< HEAD
+import games.bevs.core.module.abilties.abilities.KangarooAbility;
 import games.bevs.core.module.abilties.dummy.DummyAbilityParent;
 import games.bevs.core.module.commandv2.CommandModule;
-=======
-import games.bevs.core.module.abilties.abilities.KangarooAbility;
-import games.bevs.core.module.abilties.types.DummyAbilityParent;
-import games.bevs.core.module.commands.CommandModule;
->>>>>>> c00745c8a95a35e09508dd21b216bed51c663446
 
 /**
  * Events

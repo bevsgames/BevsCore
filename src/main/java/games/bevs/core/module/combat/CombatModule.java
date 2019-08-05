@@ -227,7 +227,7 @@ public class CombatModule extends Module {
 					entityDamager.remove();//remove arrow
 				}
 			}
-			CustomDamageEvent customDamageEvent = new CustomDamageEvent(e.getFinalDamage(), knockbackTotal, livingEntity, livingEntityDamager);
+			CustomDamageEvent customDamageEvent = new CustomDamageEvent(e.getCause(), e.getFinalDamage(), knockbackTotal, livingEntity, livingEntityDamager);
 			customDamageEvent.call();
 			
 			if(!customDamageEvent.isCancelled()) 

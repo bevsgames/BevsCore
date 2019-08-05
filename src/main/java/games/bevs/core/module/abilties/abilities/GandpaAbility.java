@@ -33,6 +33,7 @@ public class GandpaAbility extends Ability
 	//Class variables
 	private @Getter ItemStack knockbackItem;
 	
+	@Override
 	public void onLoad()
 	{
 		this.knockbackItem = new ItemStackBuilder(itemMaterial).displayName(itemName).build();
