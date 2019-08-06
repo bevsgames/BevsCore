@@ -1,12 +1,9 @@
 package games.bevs.core.module.client;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.UUID;
 
 import games.bevs.core.commons.player.MCPlayer;
-import games.bevs.core.module.punishment.PunishType;
-import games.bevs.core.module.punishment.types.PunishLog;
 import lombok.Getter;
 import lombok.Setter;
 

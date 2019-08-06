@@ -44,13 +44,15 @@ public class BevsCommand extends Command implements TabCompleter
 
 	private Rank getRank(CommandSender sender) {
 		if (sender instanceof Player) {
-			Client client = clientModule.getPlayer((Player) sender);
-			if (client != null)
+			Client client = clientModule.getPlayer((Player) sender); 
+			if (client != null ) 
+				
 				return client.getRank();
 			else
 				return Rank.NORMAL;
 		}
 
+		
 		return Rank.STAFF;
 	}
 	

@@ -74,8 +74,6 @@ public class KangarooAbility extends Ability {
 					vector.setY(0.8D);
 					player.setVelocity(vector);
 				}
-				player.setFallDistance(-10.0F);
-				player.setMetadata(KANGAROO_METADATA, new FixedMetadataValue(CorePlugin.getInstance(), null));
 			}
 
 			e.setCancelled(true);// we don't want the player to launch the fire work :P
