@@ -13,11 +13,8 @@ import games.bevs.core.module.sponge.types.LauncherType;
 
 public class CorePlugin extends JavaPlugin {
 
-	private static CorePlugin inst;
-
 	@Override
 	public void onEnable() {
-		inst = this;
 		CommandModule commandModule = new CommandModule(this);
 		PlayerDataModule clientModule = new PlayerDataModule(this, commandModule);
 		commandModule.setClientModule(clientModule); // this allows us to check ranks
@@ -34,12 +31,8 @@ public class CorePlugin extends JavaPlugin {
 	}
 
 	@Override
-	public void onDisable() {
-		inst = null;
-	}
-
-	public static CorePlugin getInstance() {
-		return inst;
+	public void onDisable() 
+	{
 	}
 
 }

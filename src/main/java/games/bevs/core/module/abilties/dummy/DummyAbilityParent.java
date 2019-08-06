@@ -85,8 +85,8 @@ public class DummyAbilityParent implements IAbilityParent
 	}
 
 	@Override
-	public boolean hasAbility(String ability, Player player) {
-		return enabledAbilitiesNames.contains(ability);
+	public boolean hasAbility(String abilityName, Player player) {
+		return enabledAbilitiesNames.contains(abilityName);
 	}
 
 }

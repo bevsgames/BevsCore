@@ -23,15 +23,18 @@ public class BevsCommand extends Command implements TabCompleter
 	public static final String COMMAND_NO_PERMISSION = "You do not have permission for this command!";
 	private @Getter @Setter CommandModule commandModule;
 	private @Getter Rank requiredRank;
+	private @Getter @Setter String displayName;
 
 	public BevsCommand(String name, String description, String usageMessage, List<String> aliases, Rank requiredRank) {
 		super(name, description, usageMessage, aliases);
+		this.setDisplayName(StringUtils.capitalize(this.getName()));
 		this.requiredRank = requiredRank;
 		this.setPermission("bevs.games." + this.requiredRank.name());
 	}
 
 	public BevsCommand(String name, Rank requiredRank, PlayerDataModule clientModule) {
 		super(name);
+		this.setDisplayName(StringUtils.capitalize(this.getName()));
 		this.requiredRank = requiredRank;
 		this.setPermission("bevs.games." + this.requiredRank.name());
 	}
@@ -66,17 +69,17 @@ public class BevsCommand extends Command implements TabCompleter
 	
 	protected String error(String message)
 	{
-		return StringUtils.error(this.getName(), message);
+		return StringUtils.error(this.getDisplayName(), message);
 	}
 	
 	protected String success(String message)
 	{
-		return StringUtils.success(this.getName(), message);
+		return StringUtils.success(this.getDisplayName(), message);
 	}
 	
 	protected String info(String message)
 	{
-		return StringUtils.info(this.getName(), message);
+		return StringUtils.info(this.getDisplayName(), message);
 	}
 
 	@Override

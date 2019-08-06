@@ -1,11 +1,14 @@
 package games.bevs.core.commons.utils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import games.bevs.core.commons.CC;
 
 public class StringUtils {
+	private static List<String> ignoreCapWords =  Arrays.asList(new String[]{ "a", "an", "and", "or", "of", "to", "but", "out", "by", "from", "the" });
+	
 	public static String listToString(List<String> listStr) {
 		StringBuilder strBuilder = new StringBuilder();
 		for (int i = 0; i < listStr.size(); i++) {
@@ -58,6 +61,32 @@ public class StringUtils {
             s.append(string);
         return s.toString(); 
     }
+	
+	private static boolean isIgnoreCaps(String word)
+	{
+		return ignoreCapWords.contains(word);
+	}
+	
+	public static String capitalize(String original)
+	{
+		StringBuilder str = new StringBuilder();
+		
+		for(String word : original.split(" "))
+		{
+			if(isIgnoreCaps(word))
+				continue;
+			str.append(word);
+		}
+		
+		return str.toString();
+	}
+	
+	public static String capitalizeFirstLetter(String original) {
+	    if (original == null || original.length() == 0) {
+	        return original;
+	    }
+	    return original.substring(0, 1).toUpperCase() + original.substring(1);
+	}
 
 	public static String error(String header, String message) {
 		return CC.red + header + CC.bRed + " !! " + CC.r + CC.gray + message;
