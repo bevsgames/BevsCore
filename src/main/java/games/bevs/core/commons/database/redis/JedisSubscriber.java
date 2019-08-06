@@ -33,6 +33,7 @@ public class JedisSubscriber<K> {
 			@Override
 			public void onMessage(String channel, String message) 
 			{
+				System.out.println("message in coming redis");
 				if (jedisSubscriptionGenerator != null) 
 				{
 					K object = jedisSubscriptionGenerator.generateSubscription(message);

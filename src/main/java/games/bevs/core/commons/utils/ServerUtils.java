@@ -13,7 +13,8 @@ public class ServerUtils
 	 */
 	public static boolean isOnBungee()
 	{
-		return Bukkit.spigot().getSpigotConfig().getBoolean("settings.bungeecord");
+		//return Bukkit.spigot().getSpigotConfig().getBoolean("settings.bungeecord");
+		return !Bukkit.getOnlineMode();
 	}
 	
 	public static void broadcast(String message)

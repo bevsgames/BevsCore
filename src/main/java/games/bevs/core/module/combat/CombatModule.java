@@ -44,7 +44,10 @@ import net.minecraft.server.v1_8_R3.PacketPlayOutAnimation;
  * </ul>
  */
 @ModInfo(name = "Combat")
-public class CombatModule extends Module {
+public class CombatModule extends Module 
+{
+	private static final double PROJECTILE_KNOCKBACK_REDUCTER = 0.5;
+	
 	private CombatSettings combatSettings;
 
 	public CombatModule(JavaPlugin plugin, CommandModule commandModule, PlayerDataModule clientModule,
@@ -226,7 +229,7 @@ public class CombatModule extends Module {
 					if(shooter != null && shooter instanceof LivingEntity)
 						livingEntityDamager = (LivingEntity)shooter;
 					knockbackTotal = entityDamager.getVelocity();
-					knockbackTotal = knockbackTotal.multiply(0.5);
+					knockbackTotal = knockbackTotal.multiply(PROJECTILE_KNOCKBACK_REDUCTER);
 					entityDamager.remove();//remove arrow
 				}
 			}

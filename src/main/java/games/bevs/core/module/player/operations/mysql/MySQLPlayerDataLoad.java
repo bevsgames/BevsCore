@@ -1,12 +1,12 @@
-package games.bevs.core.module.player.operations.redis;
+package games.bevs.core.module.player.operations.mysql;
 
 import games.bevs.core.commons.database.operation.DatabaseSettings;
 import games.bevs.core.commons.database.operation.DatabseOperation;
 
-public class RedisPlayerDataSave extends DatabseOperation
+public class MySQLPlayerDataLoad extends DatabseOperation
 {
 
-	public RedisPlayerDataSave(DatabaseSettings settings)
+	public MySQLPlayerDataLoad(DatabaseSettings settings)
 	{
 		super(settings);
 	}

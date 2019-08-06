@@ -20,7 +20,7 @@ public class JedisPublisher<K>
 
 			if (this.jedisSettings.hasPassword())
 				jedis.auth(this.jedisSettings.getPassword());
-
+			System.out.println("Writing to redis");
 			jedis.publish(this.channel, message.toString());
 		}
 		finally {
