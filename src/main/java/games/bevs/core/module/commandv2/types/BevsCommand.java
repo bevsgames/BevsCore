@@ -15,11 +15,12 @@ import games.bevs.core.commons.utils.StringUtils;
 import games.bevs.core.module.player.PlayerData;
 import games.bevs.core.module.player.PlayerDataModule;
 import lombok.Getter;
+import lombok.Setter;
 
 public class BevsCommand extends Command implements TabCompleter 
 {
 	public static final String COMMAND_NO_PERMISSION = "You do not have permission for this command!";
-	private @Getter PlayerDataModule clientModule;
+	private @Getter @Setter PlayerDataModule playerDataModule;
 	private @Getter Rank requiredRank;
 
 	public BevsCommand(String name, String description, String usageMessage, List<String> aliases) {
@@ -44,7 +45,7 @@ public class BevsCommand extends Command implements TabCompleter
 
 	private Rank getRank(CommandSender sender) {
 		if (sender instanceof Player) {
-			PlayerData client = clientModule.getPlayer((Player) sender);
+			PlayerData client = playerDataModule.getPlayer((Player) sender);
 			if (client != null)
 				return client.getRank();
 			else

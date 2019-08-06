@@ -52,6 +52,8 @@ public class AbilityDummyCommand extends BevsCommand
 	
 	@Override
 	public boolean onExecute(CommandSender sender, String commandName, String[] args) {
+		System.out.println("0 " + args[0] );
+		System.out.println("1 " + args[1] );
 		if(args.length == 1 && args[0].equalsIgnoreCase("list"))
 		{
 			sender.sendMessage(CC.aqua + "Enabled Abilties");

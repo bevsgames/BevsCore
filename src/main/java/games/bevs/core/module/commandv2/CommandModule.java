@@ -1,6 +1,8 @@
 package games.bevs.core.module.commandv2;
 
 import java.lang.reflect.Field;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
@@ -11,13 +13,22 @@ import games.bevs.core.module.Module;
 import games.bevs.core.module.commandv2.types.BevsCommand;
 import games.bevs.core.module.player.PlayerDataModule;
 import lombok.Getter;
-import lombok.Setter;
 
+/**
+ * 
+ * NOTE: YOU MUST set PlayerDataModule,
+ * TODO: FIX THIS SO ITS COULD JUST USE PERMISSIONS TOO
+ */
 @ModInfo(name="Commands")
 public class CommandModule extends Module
 {
 	private @Getter CommandMap commandMap;
-	private @Getter @Setter PlayerDataModule clientModule;
+	private @Getter PlayerDataModule playerDataModule;
+	
+	/**
+	 * Holds all the commands untill we set the PlayerDataManager
+	 */
+	private @Getter Queue<BevsCommand> registeringCommandQueue = new LinkedList<>();
 
 	public CommandModule(JavaPlugin plugin) 
 	{
@@ -37,16 +48,39 @@ public class CommandModule extends Module
 		}
 	}
 	
+	
+	@Override
 	public void registerCommand(BevsCommand command)
 	{
 		this.registerBevsCommand(command);
+	}
+	
+	public void setPlayerDataModule(PlayerDataModule playerDataModule)
+	{
+		this.playerDataModule = playerDataModule;
+	
+		BevsCommand command = this.registeringCommandQueue.poll();
+		while(command != null)
+		{
+			this.registerBevsCommand(command);
+			command = this.registeringCommandQueue.poll();
+		}
 	}
 	
 	/**
 	 * Call to register a command
 	 * @param command
 	 */
-	public void registerBevsCommand(BevsCommand command) {
+	public void registerBevsCommand(BevsCommand command) 
+	{
+		//Queue commands till PlayerDataModule has been set
+		if(this.getPlayerDataModule() == null)
+		{
+			registeringCommandQueue.add(command);
+			return;
+		}
+		
+		command.setPlayerDataModule(this.getPlayerDataModule());
 		commandMap.register(command.getName(), command);
 	}
 }
