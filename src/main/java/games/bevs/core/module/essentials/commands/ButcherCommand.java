@@ -38,6 +38,7 @@ public class ButcherCommand extends BevsCommand
 			world.getEntities().stream()
 							   .filter(entity -> !(entity instanceof Player))
 							   .forEach(entity -> entity.remove());
+			player.sendMessage(this.success("Destroyed all living entities in " + world.getName()));
 		} 
 		else 
 		{
@@ -47,8 +48,10 @@ public class ButcherCommand extends BevsCommand
 							   .filter(entity -> !(entity instanceof Player))
 							   .filter(entity -> !((LivingEntity)entity).isCustomNameVisible())
 							   .forEach(entity -> entity.remove());
+			player.sendMessage(this.success("Destroyed all living entities in " + world.getName()));
+			player.sendMessage(this.info("To kill ALL entities, use '/butcher all'"));
 		}
-		player.sendMessage(this.success("Destroyed all living entities (That aren't named) in " + world.getName()));
+		
 		return true;
 	}
 	

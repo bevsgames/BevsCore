@@ -64,6 +64,10 @@ public class StringUtils {
 	}
 
 	public static String success(String header, String message) {
-		return CC.green + header + CC.bRed + " ** " + CC.r + CC.gray + message;
+		return CC.green + header + CC.bGreen + " ** " + CC.r + CC.gray + message;
+	}
+
+	public static String info(String header, String message) {
+		return CC.aqua + header + CC.bAqua + " ?? " + CC.r + CC.gray + message;
 	}
 }

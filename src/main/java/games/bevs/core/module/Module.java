@@ -86,8 +86,13 @@ public class Module implements Listener
 	
 	public  void registerCommand(BevsCommand simpleCommand)
 	{
-		if(this.commandModule == null) return;
+		if(this.commandModule == null) 
+		{
+			this.log(CC.red + "failed to registered command '" + simpleCommand.getName() + "'");
+			return;
+		}
 		this.commandModule.registerBevsCommand(simpleCommand);
+		this.log("registered command '" + simpleCommand.getName() + "'");
 	}
 	
 	private ModInfo getModInfo()

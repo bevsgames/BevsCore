@@ -70,12 +70,18 @@ public class BevsCommand extends Command implements TabCompleter
 	{
 		return StringUtils.success(this.getName(), message);
 	}
+	
+	protected String info(String message)
+	{
+		return StringUtils.info(this.getName(), message);
+	}
 
 	@Override
 	public boolean execute(CommandSender sender, String commandName, String[] args) 
 	{
 		Rank rank = this.getRank(sender);
-		if(!(rank.hasPermissionsOf(rank) || sender.hasPermission(this.getPermission())))
+		//Player doesn't have permission or rank
+		if(! (sender.hasPermission(this.getPermission()) || (rank.hasPermissionsOf(rank)) ))
 		{
 			sender.sendMessage(error(COMMAND_NO_PERMISSION));
 			return false;

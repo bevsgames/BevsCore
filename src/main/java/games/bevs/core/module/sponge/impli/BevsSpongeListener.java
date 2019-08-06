@@ -1,5 +1,6 @@
 package games.bevs.core.module.sponge.impli;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -24,11 +25,12 @@ public class BevsSpongeListener extends SpongeListener
 	{
 		Player player = e.getPlayer();
 		Action action = e.getAction();
+		if(action != Action.PHYSICAL ) return;
 		Block clickedBlock = e.getClickedBlock();
+		
 		Block standingBlock = clickedBlock.getRelative(BlockFace.DOWN);
 		
-		if(action == Action.PHYSICAL 
-				&& clickedBlock.getType() == Material.STONE_PLATE
+		if(clickedBlock.getType() == Material.STONE_PLATE
 				&& standingBlock.getType() == this.getModule().getSpongeSettings().getLaunchMaterial())
 		{
 			this.getModule().launch(player, standingBlock);
