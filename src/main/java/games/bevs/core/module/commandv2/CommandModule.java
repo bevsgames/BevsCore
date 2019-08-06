@@ -25,11 +25,6 @@ public class CommandModule extends Module
 	private @Getter CommandMap commandMap;
 	private @Getter PlayerDataModule playerDataModule;
 	
-	/**
-	 * Holds all the commands untill we set the PlayerDataManager
-	 */
-	private @Getter Queue<BevsCommand> registeringCommandQueue = new LinkedList<>();
-
 	public CommandModule(JavaPlugin plugin) 
 	{
 		super(plugin);
@@ -58,13 +53,6 @@ public class CommandModule extends Module
 	public void setPlayerDataModule(PlayerDataModule playerDataModule)
 	{
 		this.playerDataModule = playerDataModule;
-	
-		BevsCommand command = this.registeringCommandQueue.poll();
-		while(command != null)
-		{
-			this.registerBevsCommand(command);
-			command = this.registeringCommandQueue.poll();
-		}
 	}
 	
 	/**
@@ -73,14 +61,7 @@ public class CommandModule extends Module
 	 */
 	public void registerBevsCommand(BevsCommand command) 
 	{
-		//Queue commands till PlayerDataModule has been set
-		if(this.getPlayerDataModule() == null)
-		{
-			registeringCommandQueue.add(command);
-			return;
-		}
-		
-		command.setPlayerDataModule(this.getPlayerDataModule());
+		command.setCommandModule(this);
 		commandMap.register(command.getName(), command);
 	}
 }

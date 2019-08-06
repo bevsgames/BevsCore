@@ -41,9 +41,9 @@ public class FlyCommand extends BevsCommand
 		Player targetPlayer = player;
 		boolean isFlying = !player.isFlying();
 		
-		if(args.length >= 2)
+		if(args.length >= 1)
 		{
-			String targetName = args[1];
+			String targetName = args[0];
 			targetPlayer = Bukkit.getPlayer(targetName);
 			if(targetPlayer == null)
 			{
@@ -51,9 +51,9 @@ public class FlyCommand extends BevsCommand
 				return false;
 			}
 			
-			if(args.length == 3)
+			if(args.length == 2)
 			{
-				String statusStr = args[2];
+				String statusStr = args[1];
 				isFlying = StringUtils.toBoolean(statusStr);
 			} 
 			else

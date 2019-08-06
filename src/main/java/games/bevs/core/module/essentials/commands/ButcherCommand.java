@@ -32,7 +32,7 @@ public class ButcherCommand extends BevsCommand
 		Player player = (Player) sender;
 		World world = player.getWorld();
 		
-		if(args.length == 2 && args[1].equalsIgnoreCase("all"))
+		if(args.length == 1 && args[0].equalsIgnoreCase("all"))
 		{
 			//remove all entities
 			world.getEntities().stream()

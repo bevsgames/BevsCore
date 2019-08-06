@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
 
+import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
 import games.bevs.core.module.sponge.impli.BevsSpongeListener;
 import games.bevs.core.module.sponge.impli.ClassicSpongeListener;
@@ -22,6 +23,7 @@ import lombok.Getter;
  * which is handled on interaction Event (aka when a pleasure plate is step on)
  * and Classic which is mcpvp's which is based on move event 
  */
+@ModInfo(name = "Sponge")
 public class SpongeModule extends Module
 {
 	private @Getter NoFallDamageList noFallDamageList;

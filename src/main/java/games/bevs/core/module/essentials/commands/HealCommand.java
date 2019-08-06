@@ -35,9 +35,9 @@ public class HealCommand extends BevsCommand
 		Player player = (Player) sender;
 		Player targetPlayer = player;
 		
-		if(args.length >= 2)
+		if(args.length >= 1)
 		{
-			String targetName = args[1];
+			String targetName = args[0];
 			targetPlayer = Bukkit.getPlayer(targetName);
 			if(targetPlayer == null)
 			{
