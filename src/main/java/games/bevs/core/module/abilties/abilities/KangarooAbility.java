@@ -20,6 +20,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.util.Vector;
 
 import games.bevs.core.CorePlugin;
+import games.bevs.core.commons.ActionType;
 import games.bevs.core.commons.itemstack.ItemStackBuilder;
 import games.bevs.core.module.abilties.AbilityInfo;
 import games.bevs.core.module.abilties.types.Ability;
@@ -40,7 +41,8 @@ public class KangarooAbility extends Ability
 	private double forwardForce = 1.32f;
 	private Material itemMaterial = Material.FIREWORK;
 	private String itemName = ChatColor.GOLD + "Kangaroo";
-	private double maxFallDamage = 7.0;
+	private boolean allActions = true;
+	private ActionType actionType = ActionType.BLOCK;
 
 	//Class variables
 	private final String KANGAROO_METADATA = "KANGAROO";
@@ -60,21 +62,30 @@ public class KangarooAbility extends Ability
 	@EventHandler
 	public void onKangaroo(PlayerInteractEvent e) {
 		Player player = e.getPlayer();
-		
-		if(e.isCancelled())
-			return;
+		Action action = e.getAction();
 		
 		if (!hasAbility(player)) 
 			return;
 			
-		if(e.getAction() == Action.PHYSICAL) 
-			return;
-		
 		if(e.getItem() == null)
 			return;
 		
 		if(!e.getItem().isSimilar(kangarooItem))
 			return;
+		
+		if(!allActions)
+		{
+			if(!this.actionType.containsAction(action))
+				return;
+		}
+		else if(action == Action.PHYSICAL) 
+			return;
+		
+		if(player.hasMetadata(KANGAROO_METADATA))
+		{
+			e.setCancelled(true);
+			return;
+		}
 		
 		if (!player.isSneaking()) {
 			Vector vector = player.getEyeLocation().getDirection();
@@ -99,18 +110,11 @@ public class KangarooAbility extends Ability
 		if (hasAbility(player)) {
 			Block b = player.getLocation().getBlock();
 			if ((b.getType() == Material.AIR) && (b.getRelative(BlockFace.DOWN).getType() != Material.AIR)) {
-				if (player.hasMetadata(KANGAROO_METADATA)) {
+				if (player.hasMetadata(KANGAROO_METADATA)) 
+				{
 					player.removeMetadata(KANGAROO_METADATA, this.getPlugin());
 				}
 			}
 		}
 	}
-
-	@EventHandler
-	public void onKangarooFall(EntityDamageEvent e) {
-		if (e.getEntity() instanceof Player && hasAbility((Player) e.getEntity()) && e.getCause() == DamageCause.FALL
-				&& e.getFinalDamage() > maxFallDamage)
-			e.setDamage(maxFallDamage);
-	}
-
 }
