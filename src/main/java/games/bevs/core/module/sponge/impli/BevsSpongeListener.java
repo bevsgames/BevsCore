@@ -1,23 +1,24 @@
-package games.bevs.core.module.sponge.listeners;
+package games.bevs.core.module.sponge.impli;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import games.bevs.core.module.sponge.SpongeModule;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import games.bevs.core.module.sponge.types.LauncherType;
+import games.bevs.core.module.sponge.types.SpongeListener;
 
-@AllArgsConstructor
-public class BevsSpongeListener implements Listener
+public class BevsSpongeListener extends SpongeListener
 {
-	private @Getter SpongeModule module;
-
+	public BevsSpongeListener(SpongeModule module)
+	{
+		super(module, LauncherType.BEVS);
+	}
+	
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e)
 	{

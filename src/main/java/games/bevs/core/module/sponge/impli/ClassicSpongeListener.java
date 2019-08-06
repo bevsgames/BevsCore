@@ -1,24 +1,25 @@
-package games.bevs.core.module.sponge.listeners;
+package games.bevs.core.module.sponge.impli;
 
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import games.bevs.core.module.sponge.SpongeModule;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import games.bevs.core.module.sponge.types.LauncherType;
+import games.bevs.core.module.sponge.types.SpongeListener;
 
 /**
  * This method is the classic mcpvp method 
  * but it makes uses of playerMoveEvent which 
  * doesn't scale well
  */
-@AllArgsConstructor
-public class ClassicSpongeListener implements Listener 
+public class ClassicSpongeListener extends SpongeListener
 {
-	private @Getter SpongeModule module;
+	public ClassicSpongeListener(SpongeModule module)
+	{
+		super(module, LauncherType.CLASSIC);
+	}
 
 	@EventHandler(ignoreCancelled = true)
 	public void onPlayerMove(PlayerMoveEvent e) 
