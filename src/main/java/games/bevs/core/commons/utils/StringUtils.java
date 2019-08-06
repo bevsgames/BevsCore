@@ -75,7 +75,9 @@ public class StringUtils {
 		{
 			if(isIgnoreCaps(word))
 				continue;
-			str.append(word);
+			
+			
+			str.append(capitalizeFirstLetter(word));
 		}
 		
 		return str.toString();
