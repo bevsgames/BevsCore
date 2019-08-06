@@ -8,6 +8,8 @@ import games.bevs.core.module.commandv2.CommandModule;
 import games.bevs.core.module.essentials.EssentialsModule;
 import games.bevs.core.module.player.PlayerDataModule;
 import games.bevs.core.module.sponge.SpongeModule;
+import games.bevs.core.module.sponge.SpongeSettings;
+import games.bevs.core.module.sponge.types.LauncherType;
 
 public class CorePlugin extends JavaPlugin {
 
@@ -25,7 +27,10 @@ public class CorePlugin extends JavaPlugin {
 		
 		new EssentialsModule(this, commandModule, clientModule);
 		
-		new SpongeModule(this);
+		SpongeSettings spongeSettings = new SpongeSettings();
+		spongeSettings.setLauncherType(LauncherType.CLASSIC);
+		
+		new SpongeModule(this, spongeSettings);
 	}
 
 	@Override

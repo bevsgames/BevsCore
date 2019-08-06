@@ -24,13 +24,16 @@ public class BevsCommand extends Command implements TabCompleter
 	private @Getter @Setter CommandModule commandModule;
 	private @Getter Rank requiredRank;
 
-	public BevsCommand(String name, String description, String usageMessage, List<String> aliases) {
+	public BevsCommand(String name, String description, String usageMessage, List<String> aliases, Rank requiredRank) {
 		super(name, description, usageMessage, aliases);
+		this.requiredRank = requiredRank;
+		this.setPermission("bevs.games." + this.requiredRank.name());
 	}
 
 	public BevsCommand(String name, Rank requiredRank, PlayerDataModule clientModule) {
 		super(name);
 		this.requiredRank = requiredRank;
+		this.setPermission("bevs.games." + this.requiredRank.name());
 	}
 
 	protected List<String> getOnlinePlayers(CommandSender sender) {

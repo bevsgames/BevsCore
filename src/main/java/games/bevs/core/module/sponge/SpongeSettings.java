@@ -14,4 +14,6 @@ public class SpongeSettings
 {
 	private @Getter @Setter Material launchMaterial = Material.SPONGE;
 	private @Getter @Setter LauncherType launcherType = LauncherType.BEVS;
+	private @Getter @Setter double vertVelocity = 10;
+	private @Getter @Setter double hortVelocity = 4;
 }

@@ -65,7 +65,9 @@ public class SpongeModule extends Module
 		velocity = velocity.add(new Vector(-getSpongeDepth(block.getRelative(1, -1, 0)), 0, 0));
 		velocity = velocity.add(new Vector(0, 0, getSpongeDepth(block.getRelative(0, -1, -1))));
 		velocity = velocity.add(new Vector(0, 0, -getSpongeDepth(block.getRelative(0, -1, 1))));
-		velocity = velocity.multiply(0.5);
+		velocity.setX(velocity.getX() * this.getSpongeSettings().getVertVelocity());
+		velocity.setY(velocity.getY() * this.getSpongeSettings().getHortVelocity());
+		velocity.setZ(velocity.getZ() * this.getSpongeSettings().getVertVelocity());
 		player.setVelocity(velocity);
 	}
 
