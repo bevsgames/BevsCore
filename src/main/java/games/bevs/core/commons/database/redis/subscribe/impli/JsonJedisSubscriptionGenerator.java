@@ -1,11 +1,11 @@
-package games.bevs.core.commons.redis.subscribe.impli;
+package games.bevs.core.commons.database.redis.subscribe.impli;
 import java.io.StringReader;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 
-import games.bevs.core.commons.redis.subscribe.JedisSubscriptionGenerator;
+import games.bevs.core.commons.database.redis.subscribe.JedisSubscriptionGenerator;
 
 public class JsonJedisSubscriptionGenerator implements JedisSubscriptionGenerator<JsonObject> {
 

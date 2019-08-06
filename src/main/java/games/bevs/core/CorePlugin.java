@@ -7,6 +7,7 @@ import games.bevs.core.module.combat.CombatModule;
 import games.bevs.core.module.commandv2.CommandModule;
 import games.bevs.core.module.essentials.EssentialsModule;
 import games.bevs.core.module.player.PlayerDataModule;
+import games.bevs.core.module.sponge.SpongeModule;
 
 public class CorePlugin extends JavaPlugin {
 
@@ -23,6 +24,8 @@ public class CorePlugin extends JavaPlugin {
 		new AbilityModule(this, commandModule, true);
 		
 		new EssentialsModule(this, commandModule, clientModule);
+		
+		new SpongeModule(this);
 	}
 
 	@Override

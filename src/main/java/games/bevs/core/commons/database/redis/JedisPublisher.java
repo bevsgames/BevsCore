@@ -1,4 +1,4 @@
-package games.bevs.core.commons.redis;
+package games.bevs.core.commons.database.redis;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

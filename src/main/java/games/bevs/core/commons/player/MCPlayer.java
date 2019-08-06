@@ -24,10 +24,16 @@ public class MCPlayer
 	
 	public MCPlayer(UUID uniquieId)
 	{
+		this(uniquieId, true);
+	}
+	
+	public MCPlayer(UUID uniquieId, boolean fetchName)
+	{
 		this.uniquieId = uniquieId;
 		
 		//fetch username
-		this.username = this.fetchUsername();
+		if(fetchName)
+			this.username = this.fetchUsername();
 	}
 	
 	private String fetchUsername() 

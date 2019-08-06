@@ -1,11 +1,11 @@
-package games.bevs.core.commons.redis.example;
+package games.bevs.core.commons.database.redis.example;
 
 import com.google.gson.JsonObject;
 
-import games.bevs.core.commons.redis.JedisPublisher;
-import games.bevs.core.commons.redis.JedisSettings;
-import games.bevs.core.commons.redis.JedisSubscriber;
-import games.bevs.core.commons.redis.subscribe.JedisSubscriptionHandler;
+import games.bevs.core.commons.database.redis.JedisPublisher;
+import games.bevs.core.commons.database.redis.JedisSettings;
+import games.bevs.core.commons.database.redis.JedisSubscriber;
+import games.bevs.core.commons.database.redis.subscribe.JedisSubscriptionHandler;
 
 public class Main {
 	private static JedisPublisher<JsonObject> messagesPublisher;
