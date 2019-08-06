@@ -225,6 +225,8 @@ public class CombatModule extends Module {
 					ProjectileSource shooter = ((Projectile)entityDamager).getShooter();
 					if(shooter != null && shooter instanceof LivingEntity)
 						livingEntityDamager = (LivingEntity)shooter;
+					knockbackTotal = entityDamager.getVelocity();
+					knockbackTotal = knockbackTotal.multiply(0.5);
 					entityDamager.remove();//remove arrow
 				}
 			}

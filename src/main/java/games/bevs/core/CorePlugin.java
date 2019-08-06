@@ -19,15 +19,15 @@ public class CorePlugin extends JavaPlugin {
 		PlayerDataModule clientModule = new PlayerDataModule(this, commandModule);
 		commandModule.setClientModule(clientModule); // this allows us to check ranks
 
-//		new CombatModule(this, commandModule, clientModule);
+		new CombatModule(this, commandModule, clientModule);
 		new AbilityModule(this, commandModule, true);
 		
-//		new EssentialsModule(this, commandModule, clientModule);
+		new EssentialsModule(this, commandModule, clientModule);
 		
-//		SpongeSettings spongeSettings = new SpongeSettings();
-//		spongeSettings.setLauncherType(LauncherType.CLASSIC);
-//		
-//		new SpongeModule(this, spongeSettings);
+		SpongeSettings spongeSettings = new SpongeSettings();
+		spongeSettings.setLauncherType(LauncherType.CLASSIC);
+		
+		new SpongeModule(this, spongeSettings);
 	}
 
 	@Override
