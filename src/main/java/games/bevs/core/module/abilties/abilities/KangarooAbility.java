@@ -25,6 +25,8 @@ import lombok.NoArgsConstructor;
 
 /**
  * The ability to jump either upwards or forward
+ * 
+ * @owner BevsGames
  */
 @NoArgsConstructor
 @AllArgsConstructor

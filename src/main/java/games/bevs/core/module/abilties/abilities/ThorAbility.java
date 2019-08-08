@@ -3,9 +3,11 @@ package games.bevs.core.module.abilties.abilities;
 import java.util.Arrays;
 import java.util.List;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.LightningStrike;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,6 +30,8 @@ import lombok.Setter;
 
 /**
  * This ability strike lighting on the ground
+ * 
+ * @owner BevsGames
  */
 @NoArgsConstructor
 @AllArgsConstructor
@@ -89,8 +93,10 @@ public class ThorAbility extends CooldownAbility
 		Block block = e.getClickedBlock();
 		if(block == null) 
 			return;
+		Block highestBlock = world.getHighestBlockAt(block.getLocation());
+		highestBlock.getRelative(BlockFace.UP).setType(Material.FIRE);
 		
-		LightningStrike lighting = world.strikeLightning(block.getLocation());
+		LightningStrike lighting = world.strikeLightning(highestBlock.getLocation());
 		lighting.setMetadata(THOR_METADATA, new FixedMetadataValue(this.getPlugin(), player.getName()));
 		
 		this.setCooldown(player, THOR_COOLDOWN);
