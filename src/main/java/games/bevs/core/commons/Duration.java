@@ -2,6 +2,7 @@ package games.bevs.core.commons;
 
 import java.util.ArrayList;
 
+import games.bevs.core.commons.utils.MathUtils;
 import games.bevs.core.commons.utils.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -54,9 +55,9 @@ public class Duration
 		return remainingTime;
 	}
 	
-	public int getAsUit(TimeUnit timeUnit)
+	public double getAsUit(TimeUnit timeUnit)
 	{
-		return (int) (this.getMillis() / timeUnit.getMilli());
+		return MathUtils.round((double) this.getMillis() / timeUnit.getMilli(), 1);
 	}
 	
 	public String getFormatedTime()
@@ -73,23 +74,27 @@ public class Duration
 			{
 				remainer = remainer % timeUnit.getMilli();
 				String unitName = fitsIn == 1 ? timeUnit.getNameOfOne() : timeUnit.getNameOfMany();
-				timeStrs.add(fitsIn + " " + unitName + " ");
+				timeStrs.add( fitsIn + " " + unitName);
 			}
 		}
 		
-		return StringUtils.listToString(timeStrs);
+		//Bit of a hack but it'll just do it like this for now
+		String outputStr = StringUtils.listToString(timeStrs);
+		if(outputStr.length() > 0 && outputStr.charAt(outputStr.length() - 1) == ' ')
+			outputStr = outputStr.substring(0, outputStr.length() - 1);
+		return outputStr;
 	}
 	
 	@AllArgsConstructor
 	public enum TimeUnit
 	{
-		SECOND(1000, "second", "seconds"),
-		MINUTE(1000 * 60, "minute", "minutes"),
-		HOUR(1000 * 60 * 60, "hour", "hours"),
-		DAY(1000 * 60 * 60 * 24, "day", "days"),
-		WEEK(1000 * 60 * 60 * 24 * 7, "week", "weeks"),
-		MONTH(1000 * 60 * 60 * 24 * 30, "month", "months"),
-		YEAR(1000 * 60 * 60 * 365, "year", "years");
+		SECOND(1000l, "second", "seconds"),
+		MINUTE(1000l * 60, "minute", "minutes"),
+		HOUR(1000l * 60 * 60, "hour", "hours"),
+		DAY(1000l * 60 * 60 * 24, "day", "days"),
+		WEEK(1000l * 60 * 60 * 24 * 7, "week", "weeks"),
+		MONTH(1000l * 60 * 60 * 24 * 30, "month", "months"),
+		YEAR(1000l * 60 * 60 * 24 * 365, "year", "years");
 		
 		private @Getter long milli;
 		private @Getter String nameOfOne;

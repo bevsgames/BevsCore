@@ -3,7 +3,6 @@ package games.bevs.core.module.abilties.abilities;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -14,6 +13,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.metadata.MetadataValue;
 
 import games.bevs.core.commons.ActionType;
 import games.bevs.core.commons.Duration.TimeUnit;
@@ -100,9 +100,23 @@ public class ThorAbility extends CooldownAbility
 	@EventHandler
 	public void onPunch(CustomDamageEvent e)
 	{
-		if(e.getAttackerEntity() instanceof LightningStrike)
+		if(!(e.getAttackerEntity() instanceof LightningStrike))
+			return;
+		
+		if(!e.getAttackerEntity().hasMetadata(THOR_METADATA))
+			return;
+		
+		if(!e.isVictimIsPlayer())
+			return;
+					
+		List<MetadataValue> metaValues = e.getAttackerEntity().getMetadata(THOR_METADATA);
+		Player player = e.getVictimPlayer();
+		String username = player.getName();
+		
+		for(MetadataValue meta : metaValues)
 		{
-			Bukkit.broadcastMessage("You were hit by lighting!!!");
+			if(meta.asString().equalsIgnoreCase(username))
+				e.setCancelled("Thor's Lightning");;
 		}
 	}
 }

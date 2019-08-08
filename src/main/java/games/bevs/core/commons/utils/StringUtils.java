@@ -8,17 +8,18 @@ import games.bevs.core.commons.CC;
 public class StringUtils {
 	private static List<String> ignoreCapWords =  Arrays.asList(new String[]{ "a", "an", "and", "or", "of", "to", "but", "out", "by", "from", "the" });
 	
-	public static String listToString(List<String> listStr) {
+	public static String listToString(List<String> listStr) 
+	{
 		StringBuilder strBuilder = new StringBuilder();
-		for (int i = 0; i < listStr.size(); i++) {
-			if (i != 0)
-				strBuilder.append(" ");
+		for (int i = 0; i < listStr.size(); i++) 
+		{
+			if (i != 0) strBuilder.append(" ");
 
 			String element = listStr.get(i);
 			strBuilder.append(element);
 
 			if (i < (listStr.size() - 1))
-				strBuilder.append((i == (listStr.size() - 1) ? "," : "and"));
+				strBuilder.append((i == (listStr.size() - 2) ? " and" : ","));
 		}
 		return strBuilder.toString();
 	}

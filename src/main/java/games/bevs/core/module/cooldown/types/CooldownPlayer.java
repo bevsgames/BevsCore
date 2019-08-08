@@ -42,7 +42,7 @@ public class CooldownPlayer extends SimpleMCPlayer
 	 */
 	public boolean hasCooldown(String name)
 	{
-		return this.getCooldown(name).getMillis() < System.currentTimeMillis();
+		return this.getCooldown(name).getMillis() > System.currentTimeMillis();
 	}
 	
 	public void removeCooldown(String cooldownName)

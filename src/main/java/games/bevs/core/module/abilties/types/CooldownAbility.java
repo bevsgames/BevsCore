@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import games.bevs.core.commons.Duration;
 import games.bevs.core.commons.Duration.TimeUnit;
 import games.bevs.core.commons.io.Pair;
 import games.bevs.core.commons.server.Console;
@@ -64,7 +65,10 @@ public class CooldownAbility extends Ability
 			}
 			
 			String displayName = StringUtils.capitalize(this.getName());
-			player.sendMessage(StringUtils.error(displayName, "Cooldown wears off in " + playerCooldown.getCooldown(name).getRemainingTime().getAsUit(TimeUnit.SECOND) + "!"));
+			Duration timeLeft = playerCooldown.getCooldown(name).getRemainingTime();
+			timeLeft.add(1, TimeUnit.SECOND);//This is so they  don't see that it say's 0 for a second
+			
+			player.sendMessage(StringUtils.error(displayName, "Cooldown wears off in " + timeLeft.getFormatedTime() + "!"));
 			return true;
 		}
 		return false;
