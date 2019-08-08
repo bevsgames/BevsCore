@@ -42,8 +42,9 @@ public class ThorAbility extends CooldownAbility
 	private @Getter @Setter String itemName = "Thor's Hammer";
 	private @Getter @Setter Material itemMaterial = Material.WOOD_AXE;
 
-	private boolean allActions = false;
-	private ActionType actionType = ActionType.BLOCK;
+	private @Getter @Setter boolean allActions = false;
+	private @Getter @Setter ActionType actionType = ActionType.BLOCK;
+	private @Getter @Setter boolean causesFire = true;
 	
 	//Class variables
 	public static final String THOR_COOLDOWN = "ability.thor";
@@ -94,7 +95,8 @@ public class ThorAbility extends CooldownAbility
 		if(block == null) 
 			return;
 		Block highestBlock = world.getHighestBlockAt(block.getLocation());
-		highestBlock.getRelative(BlockFace.UP).setType(Material.FIRE);
+		if(this.isCausesFire())
+			highestBlock.getRelative(BlockFace.UP).setType(Material.FIRE);
 		
 		LightningStrike lighting = world.strikeLightning(highestBlock.getLocation());
 		lighting.setMetadata(THOR_METADATA, new FixedMetadataValue(this.getPlugin(), player.getName()));
