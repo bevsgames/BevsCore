@@ -3,8 +3,8 @@ package games.bevs.core.module.joinquit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.plugin.java.JavaPlugin;
 
+import games.bevs.core.BevsPlugin;
 import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
 import lombok.Getter;
@@ -15,14 +15,14 @@ public class JoinQuitModule extends Module
 {
 	private @Getter @Setter JoinQuitSettings joinQuitSettings;
 	
-	public JoinQuitModule(JavaPlugin plugin, JoinQuitSettings joinQuitSettings)
+	public JoinQuitModule(BevsPlugin plugin, JoinQuitSettings joinQuitSettings)
 	{
 		super(plugin);
 		
 		this.joinQuitSettings = joinQuitSettings;
 	}
 	
-	public JoinQuitModule(JavaPlugin plugin)
+	public JoinQuitModule(BevsPlugin plugin)
 	{
 		this(plugin, new JoinQuitSettings());
 	}
@@ -37,6 +37,8 @@ public class JoinQuitModule extends Module
 	public void onJoin(PlayerJoinEvent e)
 	{
 		e.setJoinMessage(this.getJoinQuitSettings().getJoinMessage());
+		
+		this.getJoinQuitSettings().getWelcomeMessages().forEach(message -> e.getPlayer().sendMessage(message));
 	}
 	
 	@EventHandler

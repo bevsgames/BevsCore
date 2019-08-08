@@ -1,7 +1,6 @@
 package games.bevs.core.module.levels;
 
-import org.bukkit.plugin.java.JavaPlugin;
-
+import games.bevs.core.BevsPlugin;
 import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
 import games.bevs.core.module.chat.ChatModule;
@@ -24,7 +23,7 @@ public class LevelsModule extends Module
 	private long[] experience = new long[MAX_LEVEL];
 	private long[] totalExperience = new long[MAX_LEVEL];
 	
-	public LevelsModule(JavaPlugin plugin, CommandModule commandModule, PlayerDataModule clientModule, ChatModule chatModule) 
+	public LevelsModule(BevsPlugin plugin, CommandModule commandModule, PlayerDataModule clientModule, ChatModule chatModule) 
 	{
 		super(plugin, commandModule, clientModule);
 		this.chatModule = chatModule;

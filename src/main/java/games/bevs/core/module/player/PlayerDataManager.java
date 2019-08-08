@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import games.bevs.core.commons.Rank;
 import games.bevs.core.commons.managers.PlayerManager;
+import games.bevs.core.commons.player.PlayerData;
 
 public class PlayerDataManager extends PlayerManager<PlayerData> 
 {
@@ -19,7 +20,7 @@ public class PlayerDataManager extends PlayerManager<PlayerData>
 	@Override
 	public PlayerData onPlayerCreation(UUID uniquieId, String username, InetAddress ipAddress) 
 	{
-		PlayerData client = new PlayerData(uniquieId, username);
+		PlayerData client = new PlayerData(uniquieId);
 		
 		client.setRank(Rank.STAFF);
 

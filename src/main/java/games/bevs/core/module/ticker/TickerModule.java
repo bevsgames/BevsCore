@@ -1,7 +1,6 @@
 package games.bevs.core.module.ticker;
 
-import org.bukkit.plugin.java.JavaPlugin;
-
+import games.bevs.core.BevsPlugin;
 import games.bevs.core.commons.utils.PluginUtils;
 import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
@@ -13,7 +12,7 @@ import games.bevs.core.module.Module;
 @ModInfo(name="ticker")
 public class TickerModule extends Module
 {
-	public TickerModule(JavaPlugin plugin) 
+	public TickerModule(BevsPlugin plugin) 
 	{
 		super(plugin);
 	}

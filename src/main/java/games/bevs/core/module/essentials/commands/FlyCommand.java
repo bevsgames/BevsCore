@@ -25,9 +25,9 @@ import games.bevs.core.module.player.PlayerDataModule;
  */
 public class FlyCommand extends BevsCommand
 {
-	public FlyCommand(PlayerDataModule clientModule)
+	public FlyCommand()
 	{
-		super("fly", Rank.MOD, clientModule);
+		super("fly", Rank.MOD);
 	}
 	
 	

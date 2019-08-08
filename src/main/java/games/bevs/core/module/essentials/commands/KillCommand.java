@@ -22,9 +22,9 @@ public class KillCommand extends BevsCommand
 {
 	private static final int DEATH_DAMAGE = 1000;
 	
-	public KillCommand(PlayerDataModule clientModule)
+	public KillCommand()
 	{
-		super("kill", Rank.MOD, clientModule);
+		super("kill", Rank.MOD);
 	}
 	
 	

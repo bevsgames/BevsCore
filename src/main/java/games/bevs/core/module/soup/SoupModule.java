@@ -8,8 +8,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.java.JavaPlugin;
 
+import games.bevs.core.BevsPlugin;
 import games.bevs.core.commons.Duration;
 import games.bevs.core.commons.utils.InventoryUtils;
 import games.bevs.core.module.ModInfo;
@@ -26,14 +26,14 @@ public class SoupModule extends Module
 	private @Getter WeakHashMap<Player, Long> playerCooldown = new WeakHashMap<>();
 	private @Getter SoupSettings soupSetting;
 
-	public SoupModule(JavaPlugin plugin, SoupSettings soupSetting) 
+	public SoupModule(BevsPlugin plugin, SoupSettings soupSetting) 
 	{
 		super(plugin);
 		
 		this.soupSetting = soupSetting;
 	}
 	
-	public SoupModule(JavaPlugin plugin) 
+	public SoupModule(BevsPlugin plugin) 
 	{
 		this(plugin, new SoupSettings());
 	}

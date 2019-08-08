@@ -20,9 +20,9 @@ import games.bevs.core.module.player.PlayerDataModule;
  */
 public class HealCommand extends BevsCommand
 {
-	public HealCommand(PlayerDataModule clientModule)
+	public HealCommand()
 	{
-		super("heal", Rank.MOD, clientModule);
+		super("heal", Rank.MOD);
 	}
 	
 	

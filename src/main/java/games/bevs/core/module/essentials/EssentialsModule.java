@@ -2,8 +2,7 @@ package games.bevs.core.module.essentials;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.bukkit.plugin.java.JavaPlugin;
-
+import games.bevs.core.BevsPlugin;
 import games.bevs.core.commons.utils.ClassGetterUtils;
 import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
@@ -15,7 +14,7 @@ import games.bevs.core.module.player.PlayerDataModule;
 public class EssentialsModule extends Module
 {
 
-	public EssentialsModule(JavaPlugin plugin, CommandModule commandModule, PlayerDataModule clientModule) {
+	public EssentialsModule(BevsPlugin plugin, CommandModule commandModule, PlayerDataModule clientModule) {
 		super(plugin, commandModule, clientModule);
 	}
 
@@ -34,11 +33,11 @@ public class EssentialsModule extends Module
 				"games.bevs.core.module.essentials.commands").forEach(clazz -> {
 			try {
 				
-				BevsCommand command = (BevsCommand) clazz.getConstructor(PlayerDataModule.class).newInstance(this.getClientModule());
+				BevsCommand command = (BevsCommand) clazz.newInstance();
 				this.registerCommand(command);
 				
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-					| InvocationTargetException | NoSuchMethodException | SecurityException e) {
+				 | SecurityException e) {
 				e.printStackTrace();
 			}
 		});

@@ -1,0 +1,108 @@
+package games.bevs.core.module.abilties.abilities;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.entity.LightningStrike;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
+
+import games.bevs.core.commons.ActionType;
+import games.bevs.core.commons.Duration.TimeUnit;
+import games.bevs.core.commons.itemstack.ItemStackBuilder;
+import games.bevs.core.module.abilties.AbilityInfo;
+import games.bevs.core.module.abilties.types.CooldownAbility;
+import games.bevs.core.module.combat.event.CustomDamageEvent;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+/**
+ * This ability strike lighting on the ground
+ */
+@NoArgsConstructor
+@AllArgsConstructor
+@AbilityInfo(name="Thor", author = "Sprock", description = {"Hitting Ground with an axe causes lighting to strike"})
+public class ThorAbility extends CooldownAbility
+{
+	//Ability Settings
+	private @Getter @Setter String itemName = "Thor's Hammer";
+	private @Getter @Setter Material itemMaterial = Material.WOOD_AXE;
+
+	private boolean allActions = false;
+	private ActionType actionType = ActionType.BLOCK;
+	
+	//Class variables
+	public static final String THOR_COOLDOWN = "ability.thor";
+	private static final String THOR_METADATA = "THOR";
+	private @Getter ItemStack thorHammerItem;
+	
+	@Override
+	public void onLoad()
+	{
+		this.initCooldown(THOR_COOLDOWN, 10, TimeUnit.SECOND);
+		
+		this.thorHammerItem = new ItemStackBuilder(itemMaterial).displayName(itemName).build();
+	}
+	
+	@Override
+	public List<ItemStack> getItems()
+	{
+		return Arrays.asList(thorHammerItem);
+	}
+	
+	@EventHandler
+	public void onThor(PlayerInteractEvent e) {
+		Player player = e.getPlayer();
+		Action action = e.getAction();
+		
+		if (!hasAbility(player)) 
+			return;
+			
+		if(e.getItem() == null)
+			return;
+		
+		if(!e.getItem().isSimilar(thorHammerItem))
+			return;
+		
+		if(!allActions)
+		{
+			if(!this.actionType.containsAction(action))
+				return;
+		}
+		else if(action == Action.PHYSICAL) 
+			return;
+		
+		if(this.hasCooldownAndNotify(player, THOR_COOLDOWN))
+			return;
+		
+		World world = e.getPlayer().getWorld();
+		Block block = e.getClickedBlock();
+		if(block == null) 
+			return;
+		
+		LightningStrike lighting = world.strikeLightning(block.getLocation());
+		lighting.setMetadata(THOR_METADATA, new FixedMetadataValue(this.getPlugin(), player.getName()));
+		
+		this.setCooldown(player, THOR_COOLDOWN);
+		e.setCancelled(true);
+	}
+	
+	@EventHandler
+	public void onPunch(CustomDamageEvent e)
+	{
+		if(e.getAttackerEntity() instanceof LightningStrike)
+		{
+			Bukkit.broadcastMessage("You were hit by lighting!!!");
+		}
+	}
+}

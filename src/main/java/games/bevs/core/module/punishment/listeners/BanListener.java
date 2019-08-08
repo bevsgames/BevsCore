@@ -4,7 +4,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
-import games.bevs.core.module.player.PlayerData;
+import games.bevs.core.commons.player.PlayerData;
 import games.bevs.core.module.player.events.PlayerDataLoadedEvent;
 
 public class BanListener implements Listener

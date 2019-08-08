@@ -1,12 +1,11 @@
 package games.bevs.core.module.punishment;
 
-import org.bukkit.plugin.java.JavaPlugin;
-
+import games.bevs.core.BevsPlugin;
 import games.bevs.core.commons.Duration;
+import games.bevs.core.commons.player.PlayerData;
 import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
 import games.bevs.core.module.commandv2.CommandModule;
-import games.bevs.core.module.player.PlayerData;
 import games.bevs.core.module.player.PlayerDataModule;
 import games.bevs.core.module.punishment.types.PunishLog;
 
@@ -14,9 +13,10 @@ import games.bevs.core.module.punishment.types.PunishLog;
 public class PunishModule extends Module
 {
 
-	public PunishModule(JavaPlugin plugin, CommandModule commandModule, PlayerDataModule clientModule) 
+	public PunishModule(BevsPlugin plugin, CommandModule commandModule, PlayerDataModule clientModule) 
 	{
 		super(plugin, commandModule, clientModule);
+		
 	}
 	
 	private PunishLog generatePunishLog(PunishType punishType, PlayerData client, PlayerData punisher, Duration duration, String reason)
@@ -41,6 +41,6 @@ public class PunishModule extends Module
 	public void kick(PlayerData client, PlayerData punisher, String reason)
 	{
 		this.generatePunishLog(PunishType.KICK, client, punisher, Duration.ZERO_DURATION, reason);
-		client.getPlayer().kickPlayer("Yeet");
+//		client.getPlayer().kickPlayer("Yeet");
 	}
 }

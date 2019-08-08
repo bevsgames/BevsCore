@@ -23,9 +23,9 @@ public class FeedCommand extends BevsCommand
 	private static final int MAX_FOOD_LEVEL = 20;
 	private static final float GOOD_SATURATION = 12.8f; //Saturation from eating a steak
 	
-	public FeedCommand(PlayerDataModule clientModule)
+	public FeedCommand()
 	{
-		super("feed", Rank.MOD, clientModule);
+		super("feed", Rank.MOD);
 	}
 	
 	

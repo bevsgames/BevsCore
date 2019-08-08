@@ -18,9 +18,9 @@ import games.bevs.core.module.player.PlayerDataModule;
  */
 public class PingCommand extends BevsCommand
 {
-	public PingCommand(PlayerDataModule clientModule)
+	public PingCommand()
 	{
-		super("ping", Rank.NORMAL, clientModule);
+		super("ping", Rank.NORMAL);
 	}
 	
 	@Override

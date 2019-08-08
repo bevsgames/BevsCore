@@ -2,7 +2,7 @@ package games.bevs.core.module.levels.event;
 
 import org.bukkit.event.Cancellable;
 
-import games.bevs.core.module.player.PlayerData;
+import games.bevs.core.commons.player.PlayerData;
 import games.bevs.core.module.player.events.PlayerDataEventBase;
 import lombok.Getter;
 import lombok.Setter;

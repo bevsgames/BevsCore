@@ -1,7 +1,6 @@
 package games.bevs.core.module.perk;
 
-import org.bukkit.plugin.java.JavaPlugin;
-
+import games.bevs.core.BevsPlugin;
 import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
 import games.bevs.core.module.commandv2.CommandModule;
@@ -18,7 +17,7 @@ import games.bevs.core.module.commandv2.CommandModule;
 public class PerkModule extends Module
 {
 
-	public PerkModule(JavaPlugin plugin, CommandModule commandModule)
+	public PerkModule(BevsPlugin plugin, CommandModule commandModule)
 	{
 		super(plugin, commandModule);
 	}

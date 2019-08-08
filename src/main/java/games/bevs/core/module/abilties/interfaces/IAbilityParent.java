@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import games.bevs.core.module.abilties.types.Ability;
+import games.bevs.core.module.cooldown.CooldownModule;
 
 public interface IAbilityParent
 {
@@ -25,4 +26,5 @@ public interface IAbilityParent
 	public boolean hasAbility(String ability, Player player);
 	
 	public JavaPlugin getPlugin();
+	public CooldownModule getCooldownModule();
 }

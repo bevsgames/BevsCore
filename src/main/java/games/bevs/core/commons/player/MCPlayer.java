@@ -11,25 +11,19 @@ import lombok.Getter;
 import lombok.NonNull;
 
 @Getter
-public class MCPlayer 
+public class MCPlayer extends SimpleMCPlayer
 {
 	private @NonNull String username;
-	private @NonNull UUID uniquieId;
 	
 	public MCPlayer(UUID uniquieId, String username)
 	{
-		this.uniquieId = uniquieId;
+		super(uniquieId);
 		this.username = username;
 	}
-	
-	public MCPlayer(UUID uniquieId)
-	{
-		this(uniquieId, true);
-	}
-	
+
 	public MCPlayer(UUID uniquieId, boolean fetchName)
 	{
-		this.uniquieId = uniquieId;
+		super(uniquieId);
 		
 		//fetch username
 		if(fetchName)

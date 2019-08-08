@@ -48,6 +48,12 @@ public class Duration
 		this.timeInMills -= amount * timeUnits.getMilli();
 	}
 	
+	public Duration getRemainingTime()
+	{
+		Duration remainingTime = new Duration(this.timeInMills - System.currentTimeMillis());
+		return remainingTime;
+	}
+	
 	public int getAsUit(TimeUnit timeUnit)
 	{
 		return (int) (this.getMillis() / timeUnit.getMilli());

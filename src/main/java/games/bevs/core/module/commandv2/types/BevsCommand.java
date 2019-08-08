@@ -11,9 +11,9 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import games.bevs.core.commons.Rank;
+import games.bevs.core.commons.player.PlayerData;
 import games.bevs.core.commons.utils.StringUtils;
 import games.bevs.core.module.commandv2.CommandModule;
-import games.bevs.core.module.player.PlayerData;
 import games.bevs.core.module.player.PlayerDataModule;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,7 +32,7 @@ public class BevsCommand extends Command implements TabCompleter
 		this.setPermission("bevs.games." + this.requiredRank.name());
 	}
 
-	public BevsCommand(String name, Rank requiredRank, PlayerDataModule clientModule) {
+	public BevsCommand(String name, Rank requiredRank) {
 		super(name);
 		this.setDisplayName(StringUtils.capitalize(this.getName()));
 		this.requiredRank = requiredRank;

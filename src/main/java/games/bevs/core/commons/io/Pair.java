@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Entry<L, R>
+public class Pair<L, R>
 {
 	private L left;
 	private R right;

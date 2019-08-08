@@ -18,7 +18,7 @@ public class KitPlayerManager extends PlayerManager<KitPlayer>
 	@Override
 	public KitPlayer onPlayerCreation(UUID uniquieId, String username, InetAddress ipAddress) 
 	{
-		KitPlayer kitPlayer = new KitPlayer(uniquieId, username);
+		KitPlayer kitPlayer = new KitPlayer(uniquieId);
 		return kitPlayer;
 	}
 

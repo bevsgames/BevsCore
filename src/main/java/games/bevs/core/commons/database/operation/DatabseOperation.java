@@ -1,7 +1,5 @@
 package games.bevs.core.commons.database.operation;
 
-import games.bevs.core.commons.database.mysql.MySQLManager;
-import games.bevs.core.commons.database.redis.RedisManager;
 import lombok.Getter;
 
 public class DatabseOperation

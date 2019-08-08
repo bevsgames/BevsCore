@@ -2,6 +2,7 @@ package games.bevs.core.module.combat.event;
 
 import java.util.ArrayList;
 
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -22,6 +23,8 @@ public class CustomDamageEvent extends EventBase implements Cancellable
 	private ArrayList<KnockbackMultipler> knockbackMultiplers = new ArrayList<>();
 	private ArrayList<DamageModifier> damageModifiers = new ArrayList<>();
 	
+	private Entity attackerEntity;
+	
 	private LivingEntity victimLivingEntity;
 	private LivingEntity attackerLivingEntity;
 	
@@ -38,14 +41,18 @@ public class CustomDamageEvent extends EventBase implements Cancellable
 	
 	private DamageCause initCause;
 	
-	public CustomDamageEvent(DamageCause initCause, double initDamage, Vector initKnockback, LivingEntity victimLivingEntity, LivingEntity attackerLivingEntity)
+	public CustomDamageEvent(DamageCause initCause, double initDamage, Vector initKnockback, LivingEntity victimLivingEntity, Entity attackerEntity)
 	{
 		this.initCause = initCause;
 		this.initDamage = initDamage;
 		this.initKnockback = initKnockback;
 		
+		
 		this.victimLivingEntity = victimLivingEntity;
-		this.attackerLivingEntity = attackerLivingEntity;
+		this.attackerEntity = attackerEntity;
+		
+		if(this.attackerEntity instanceof LivingEntity)
+			this.attackerLivingEntity = (LivingEntity) this.attackerEntity;
 		
 		if(victimLivingEntity instanceof Player)
 		{

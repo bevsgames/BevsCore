@@ -18,9 +18,9 @@ import games.bevs.core.module.player.PlayerDataModule;
  */
 public class InvSeeCommand extends BevsCommand
 {
-	public InvSeeCommand(PlayerDataModule clientModule)
+	public InvSeeCommand()
 	{
-		super("invsee", Rank.MOD, clientModule);
+		super("invsee", Rank.MOD);
 	}
 	
 	

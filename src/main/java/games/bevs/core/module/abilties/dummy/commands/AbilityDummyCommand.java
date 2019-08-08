@@ -19,9 +19,9 @@ public class AbilityDummyCommand extends BevsCommand
 {
 	private DummyAbilityParent dummyAbilityParent;
 	
-	public AbilityDummyCommand(PlayerDataModule clientModule, DummyAbilityParent dummyAbilityParent) 
+	public AbilityDummyCommand(DummyAbilityParent dummyAbilityParent) 
 	{
-		super("ability", Rank.STAFF, clientModule);
+		super("ability", Rank.STAFF);
 		this.dummyAbilityParent = dummyAbilityParent;
 	}
 	

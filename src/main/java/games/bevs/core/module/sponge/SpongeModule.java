@@ -3,9 +3,9 @@ package games.bevs.core.module.sponge;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
 
+import games.bevs.core.BevsPlugin;
 import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
 import games.bevs.core.module.sponge.impli.BevsSpongeListener;
@@ -29,16 +29,20 @@ public class SpongeModule extends Module
 	private @Getter NoFallDamageList noFallDamageList;
 	private @Getter SpongeSettings spongeSettings;
 
-	public SpongeModule(JavaPlugin plugin, SpongeSettings spongeSettings)
+	public SpongeModule(BevsPlugin plugin, SpongeSettings spongeSettings)
 	{
 		super(plugin);
 		this.spongeSettings = spongeSettings;
 		this.noFallDamageList = new NoFallDamageList();
-		
+	}
+	
+	@Override
+	public void onEnable()
+	{
 		setUpListeners();
 	}
 	
-	public SpongeModule(JavaPlugin plugin)
+	public SpongeModule(BevsPlugin plugin)
 	{
 		this(plugin, new SpongeSettings());
 	}

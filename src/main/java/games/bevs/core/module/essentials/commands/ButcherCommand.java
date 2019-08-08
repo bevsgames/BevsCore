@@ -20,9 +20,9 @@ import games.bevs.core.module.player.PlayerDataModule;
  */
 public class ButcherCommand extends BevsCommand
 {
-	public ButcherCommand(PlayerDataModule clientModule)
+	public ButcherCommand()
 	{
-		super("butcher", Rank.MOD, clientModule);
+		super("butcher", Rank.MOD);
 	}
 	
 	@Override
