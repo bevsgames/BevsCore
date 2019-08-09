@@ -79,6 +79,7 @@
 			<version>2.4</version>
 		</dependency>
 
+		<!-- Turns java classes into json -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
