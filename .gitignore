@@ -7,12 +7,14 @@
 .idea/
 *.iml
 *.iws
+
  
 # Mac
 .DS_Store
  
 # Maven
 log/
+build/
 target/
 pom.xml.tag
 pom.xml.releaseBackup
