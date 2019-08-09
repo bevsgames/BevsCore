@@ -1,10 +1,7 @@
 package games.bevs.core.module.cooldown.command;
 
-import java.util.List;
-
 import org.apache.commons.lang.math.NumberUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 

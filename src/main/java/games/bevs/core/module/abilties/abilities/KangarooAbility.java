@@ -16,7 +16,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.util.Vector;
 
-import games.bevs.core.CorePlugin;
 import games.bevs.core.commons.ActionType;
 import games.bevs.core.commons.itemstack.ItemStackBuilder;
 import games.bevs.core.module.abilties.AbilityInfo;
@@ -81,7 +80,7 @@ public class KangarooAbility extends Ability {
 
 			e.setCancelled(true);// we don't want the player to launch the fire work :P
 			player.setFallDistance(-5.0F);
-			player.setMetadata(KANGAROO_METADATA, new FixedMetadataValue(CorePlugin.getInstance(), null));
+			player.setMetadata(KANGAROO_METADATA, new FixedMetadataValue(this.getPlugin(), null));
 
 			Action action = e.getAction();
 
