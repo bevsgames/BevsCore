@@ -25,10 +25,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @AbilityInfo(name="Grandpa", author = "Sprock", description = { "Hitting player with a selected item", "sends anyone flying" })
-public class GandpaAbility extends Ability
+public class GrandpaAbility extends Ability
 {
 	//Ability Settings
-	public @Getter @Setter String itemName = "Granda's Cane";
+	public @Getter @Setter String itemName = "Grandpa's Cane";
 	public @Getter @Setter Material itemMaterial = Material.STICK;
 	public @Getter @Setter double knockbackMultipler = 3.0d;
 	

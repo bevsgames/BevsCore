@@ -17,8 +17,7 @@ import games.bevs.core.module.commandv2.CommandModule;
 import lombok.Getter;
 import lombok.Setter;
 
-public class BevsCommand extends Command implements TabCompleter 
-{
+public class BevsCommand extends Command implements TabCompleter {
 	public static final String COMMAND_NO_PERMISSION = "You do not have permission for this command!";
 	private @Getter @Setter CommandModule commandModule;
 	private @Getter Rank requiredRank;
@@ -51,10 +50,8 @@ public class BevsCommand extends Command implements TabCompleter
 
 	private Rank getRank(CommandSender sender) {
 		if (sender instanceof Player) {
-			if(this.getCommandModule() != null)
-			{
-				if(this.getCommandModule().getPlayerDataModule() != null)
-				{
+			if (this.getCommandModule() != null) {
+				if (this.getCommandModule().getPlayerDataModule() != null) {
 					PlayerData client = this.getCommandModule().getPlayerDataModule().getPlayer((Player) sender);
 					if (client != null)
 						return client.getRank();
@@ -65,33 +62,28 @@ public class BevsCommand extends Command implements TabCompleter
 
 		return Rank.STAFF;
 	}
-	
-	protected String error(String message)
-	{
+
+	protected String error(String message) {
 		return StringUtils.error(this.getDisplayName(), message);
 	}
-	
-	protected String success(String message)
-	{
+
+	protected String success(String message) {
 		return StringUtils.success(this.getDisplayName(), message);
 	}
-	
-	protected String info(String message)
-	{
+
+	protected String info(String message) {
 		return StringUtils.info(this.getDisplayName(), message);
 	}
 
 	@Override
-	public boolean execute(CommandSender sender, String commandName, String[] args) 
-	{
+	public boolean execute(CommandSender sender, String commandName, String[] args) {
 		Rank rank = this.getRank(sender);
-		//Player doesn't have permission or rank
-		if(! (sender.hasPermission(this.getPermission()) || (rank.hasPermissionsOf(rank)) ))
-		{
+		// Player doesn't have permission or rank
+		if (!(sender.hasPermission(this.getPermission()) || (rank.hasPermissionsOf(rank)))) {
 			sender.sendMessage(error(COMMAND_NO_PERMISSION));
 			return false;
 		}
-		
+
 		return this.onExecute(sender, commandName, args);
 	}
 
