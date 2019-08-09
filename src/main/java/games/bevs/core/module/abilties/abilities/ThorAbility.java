@@ -47,14 +47,13 @@ public class ThorAbility extends CooldownAbility
 	private @Getter @Setter boolean causesFire = true;
 	
 	//Class variables
-	public static final String THOR_COOLDOWN = "ability.thor";
 	private static final String THOR_METADATA = "THOR";
 	private @Getter ItemStack thorHammerItem;
 	
 	@Override
 	public void onLoad()
 	{
-		this.initCooldown(THOR_COOLDOWN, 10, TimeUnit.SECOND);
+		this.initDefaultCooldown(10, TimeUnit.SECOND);
 		
 		this.thorHammerItem = new ItemStackBuilder(itemMaterial).displayName(itemName).build();
 	}
@@ -87,7 +86,7 @@ public class ThorAbility extends CooldownAbility
 		else if(action == Action.PHYSICAL) 
 			return;
 		
-		if(this.hasCooldownAndNotify(player, THOR_COOLDOWN))
+		if(this.hasDefaultCooldownAndNotify(player))
 			return;
 		
 		World world = e.getPlayer().getWorld();
@@ -101,7 +100,7 @@ public class ThorAbility extends CooldownAbility
 		LightningStrike lighting = world.strikeLightning(highestBlock.getLocation());
 		lighting.setMetadata(THOR_METADATA, new FixedMetadataValue(this.getPlugin(), player.getName()));
 		
-		this.setCooldown(player, THOR_COOLDOWN);
+		this.setDefaultCooldown(player);
 		e.setCancelled(true);
 	}
 	

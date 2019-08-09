@@ -31,6 +31,36 @@ public class CooldownAbility extends Ability
 		this.managedCooldowns.put(name.toLowerCase(), pair);
 	}
 	
+	//========================{ Cooldown Default }========================\\
+	
+	public String getDefaultCooldownName()
+	{
+		return ("ability." + this.getName());
+	}
+	
+	public void initDefaultCooldown( int amount, TimeUnit timeUnit)
+	{
+		initCooldown(getDefaultCooldownName(), amount, timeUnit);
+	}
+	
+	public void setDefaultCooldown(Player player)
+	{
+		setCooldown(player, this.getDefaultCooldownName());
+	}
+	
+	public boolean hasDefaultCooldown(Player player)
+	{
+		return hasCooldown(player, this.getDefaultCooldownName());
+	}
+	
+	public boolean hasDefaultCooldownAndNotify(Player player)
+	{
+		return this.hasCooldownAndNotify(player, this.getDefaultCooldownName());
+	}
+	
+	
+	//========================{ Cooldown Normal }========================\\
+	
 	public void setCooldown(Player player, String name, int amount, TimeUnit timeUnit)
 	{
 		this.getCooldownModule().addCooldown(player.getUniqueId(), name.toLowerCase(), amount, timeUnit);
