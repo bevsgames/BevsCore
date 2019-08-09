@@ -107,7 +107,7 @@
 
 	<build>
 		<defaultGoal>clean install</defaultGoal>
-		<finalName>${project.name}</finalName>
+		<finalName>${project.name}-NoLibs</finalName>
 		<sourceDirectory>${basedir}/src/main/java</sourceDirectory>
 		<resources>
 			<resource>
@@ -139,6 +139,9 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
+							<outputFile>build\${project.name}.jar</outputFile>
+							<shadedArtifactAttached>true</shadedArtifactAttached>
+							<shadedClassifierName>withLibs</shadedClassifierName>
 							<filters>
 								<filter>
 									<artifact>*:*</artifact>
