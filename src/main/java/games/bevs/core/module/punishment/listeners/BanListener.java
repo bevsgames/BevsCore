@@ -4,15 +4,15 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
-import games.bevs.core.module.client.Client;
-import games.bevs.core.module.client.events.ClientLoadedEvent;
+import games.bevs.core.commons.player.PlayerData;
+import games.bevs.core.module.player.events.PlayerDataLoadedEvent;
 
 public class BanListener implements Listener
 {
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onLogin(ClientLoadedEvent e)
+	public void onLogin(PlayerDataLoadedEvent e)
 	{
-		Client client = e.getClient();
+		PlayerData client = e.getClient();
 	}
 
 }

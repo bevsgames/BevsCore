@@ -8,8 +8,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.plugin.java.JavaPlugin;
 
+import games.bevs.core.BevsPlugin;
 import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
 
@@ -22,7 +22,7 @@ public class CustomMessageModule extends Module
 {
 	private CustomMessageListener customMsgListener;
 	
-	public CustomMessageModule(JavaPlugin plugin)
+	public CustomMessageModule(BevsPlugin plugin)
 	{
 		super(plugin);
 	}

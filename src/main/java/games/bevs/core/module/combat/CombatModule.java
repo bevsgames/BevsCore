@@ -15,20 +15,21 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 
+import games.bevs.core.BevsPlugin;
 import games.bevs.core.commons.utils.PacketUtils;
 import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
-import games.bevs.core.module.client.ClientModule;
 import games.bevs.core.module.combat.event.CustomDamageEvent;
 import games.bevs.core.module.commandv2.CommandModule;
+import games.bevs.core.module.player.PlayerDataModule;
 import games.bevs.core.module.ticker.UnitType;
 import games.bevs.core.module.ticker.UpdateEvent;
 import net.minecraft.server.v1_8_R3.MathHelper;
@@ -43,16 +44,19 @@ import net.minecraft.server.v1_8_R3.PacketPlayOutAnimation;
  * </ul>
  */
 @ModInfo(name = "Combat")
-public class CombatModule extends Module {
+public class CombatModule extends Module 
+{
+	private static final double PROJECTILE_KNOCKBACK_REDUCTER = 0.5;
+	
 	private CombatSettings combatSettings;
 
-	public CombatModule(JavaPlugin plugin, CommandModule commandModule, ClientModule clientModule,
+	public CombatModule(BevsPlugin plugin, CommandModule commandModule, PlayerDataModule clientModule,
 			CombatSettings combatSettings) {
 		super(plugin, commandModule, clientModule);
 		this.combatSettings = combatSettings;
 	}
 
-	public CombatModule(JavaPlugin plugin, CommandModule commandModule, ClientModule clientModule) {
+	public CombatModule(BevsPlugin plugin, CommandModule commandModule, PlayerDataModule clientModule) {
 		this(plugin, commandModule, clientModule, new CombatSettings());
 	}
 
@@ -189,14 +193,14 @@ public class CombatModule extends Module {
 	 * event
 	 * @param e
 	 */
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onDamage(EntityDamageEvent e)
 	{
 		
 		if(e.getEntity() instanceof LivingEntity)
 		{
 			LivingEntity livingEntity = (LivingEntity) e.getEntity();
-			LivingEntity livingEntityDamager = null;
+			Entity entityDamager = null;
 			Vector knockbackTotal = livingEntity.getVelocity();
 			
 			//They are on damage cooldown
@@ -210,24 +214,26 @@ public class CombatModule extends Module {
 			if(e instanceof EntityDamageByEntityEvent)
 			{
 				EntityDamageByEntityEvent damgedByEntityE = (EntityDamageByEntityEvent) e;
-				Entity entityDamager = damgedByEntityE.getDamager();
+				entityDamager = damgedByEntityE.getDamager();
 				knockbackTotal.add(this.getKnockback(livingEntity, entityDamager));
 				
 				//Check if they were shot
 				if(entityDamager instanceof LivingEntity)
 				{
-					livingEntityDamager = (LivingEntity) entityDamager;
+					entityDamager = (LivingEntity) entityDamager;
 				}
 				else if(entityDamager instanceof Projectile)
 				{
 					
 					ProjectileSource shooter = ((Projectile)entityDamager).getShooter();
 					if(shooter != null && shooter instanceof LivingEntity)
-						livingEntityDamager = (LivingEntity)shooter;
+						entityDamager = (LivingEntity)shooter;
+					knockbackTotal = entityDamager.getVelocity();
+					knockbackTotal = knockbackTotal.multiply(PROJECTILE_KNOCKBACK_REDUCTER);
 					entityDamager.remove();//remove arrow
 				}
 			}
-			CustomDamageEvent customDamageEvent = new CustomDamageEvent(e.getCause(), e.getFinalDamage(), knockbackTotal, livingEntity, livingEntityDamager);
+			CustomDamageEvent customDamageEvent = new CustomDamageEvent(e.getCause(), e.getFinalDamage(), knockbackTotal, livingEntity, entityDamager);
 			customDamageEvent.call();
 			
 			if(!customDamageEvent.isCancelled()) 

@@ -2,21 +2,21 @@ package games.bevs.core.module.levels.event;
 
 import org.bukkit.event.Cancellable;
 
-import games.bevs.core.module.client.Client;
-import games.bevs.core.module.client.events.ClientEventBase;
+import games.bevs.core.commons.player.PlayerData;
+import games.bevs.core.module.player.events.PlayerDataEventBase;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ClientRecieveExpEvent extends ClientEventBase implements Cancellable
+public class ClientRecieveExpEvent extends PlayerDataEventBase implements Cancellable
 {
 	private long nextExp;
 	private long amount;
 	private String reason;
 	private boolean cancelled = false;
 	
-	public ClientRecieveExpEvent(Client client, long nextExp, long amount, String reason)
+	public ClientRecieveExpEvent(PlayerData client, long nextExp, long amount, String reason)
 	{
 		super(client);
 		this.nextExp = nextExp;

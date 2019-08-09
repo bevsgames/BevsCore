@@ -1,55 +1,54 @@
 package games.bevs.core.module.abilties;
 
-import org.bukkit.plugin.java.JavaPlugin;
-
+import games.bevs.core.BevsPlugin;
+import games.bevs.core.commons.utils.ClassGetterUtils;
 import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
-import games.bevs.core.module.abilties.abilities.BoxerAbility;
-import games.bevs.core.module.abilties.abilities.DummyAbility;
-import games.bevs.core.module.abilties.abilities.GrandpaAbility;
-import games.bevs.core.module.abilties.abilities.KangarooAbility;
-import games.bevs.core.module.abilties.abilities.WormAbility;
 import games.bevs.core.module.abilties.dummy.DummyAbilityParent;
+import games.bevs.core.module.abilties.types.Ability;
 import games.bevs.core.module.commandv2.CommandModule;
+import games.bevs.core.module.cooldown.CooldownModule;
+import lombok.Getter;
 
-/**
- * Events
- * <ul>
- * 	<li>BlockBreakEvent</li>
- * 	<li>BlockPlaceEvent</li>
- * 	<li>PlayerInteractionEvent</li>
- * 	<li>CustomDamageEvent</li>
- * 	<li>CustomDeathEvent</li>
- *  <li>InventoryClickEvent</li>
- *  <li>PlayerInteractEntityEvent</li>
- *  <li>EntityTargetEvent</li>
- * </ul>
- *
- */
 @ModInfo(name = "Ability")
-public class AbilityModule extends Module
-{
-	
-	public AbilityModule(JavaPlugin plugin, CommandModule commandModule, boolean debug)
-	{
+public class AbilityModule extends Module {
+	private @Getter CooldownModule cooldownModule;
+
+	public AbilityModule(BevsPlugin plugin, CommandModule commandModule, CooldownModule cooldownModule, boolean debug) {
 		super(plugin, commandModule, debug);
+		this.cooldownModule = cooldownModule;
 	}
-	
-	public AbilityModule(JavaPlugin plugin, CommandModule commandModule)
-	{
+
+	public AbilityModule(BevsPlugin plugin, CommandModule commandModule, CooldownModule cooldownModule) {
 		super(plugin, commandModule);
+		this.cooldownModule = cooldownModule;
 	}
-	
-	public void onEnable()
-	{
-		
-		if(!this.isDebug()) return;
-		DummyAbilityParent dummy = new DummyAbilityParent(this.getPlugin(), this.getClientModule(), this);
-		dummy.addAbility(new BoxerAbility());
-		dummy.addAbility(new DummyAbility());
-		dummy.addAbility(new GrandpaAbility());
-		dummy.addAbility(new KangarooAbility());
-		dummy.addAbility(new WormAbility());
+
+	@Override
+	public void onEnable() {
+
+		if (!this.isDebug())
+			return;
+		DummyAbilityParent dummy = new DummyAbilityParent(this.getPlugin(), this.getClientModule(),
+				this.getCooldownModule(), this);
+//		dummy.addAbility(new BoxerAbility());
+//		dummy.addAbility(new DummyAbility());
+//		dummy.addAbility(new GandpaAbility());
+//		dummy.addAbility(new KangarooAbility());
+//		dummy.addAbility(new ThorAbility());
+
+		// Will register all classes in {@link games.bevs.core.module.abilties.abilities
+		// }
+		for (Class<?> abilityClazz : ClassGetterUtils.getClassesForPackage(this.getPlugin(),
+				"games.bevs.core.module.abilties.abilities")) {
+			try {
+				Ability ability = (Ability) abilityClazz.newInstance();
+				dummy.addAbility(ability);
+			} catch (InstantiationException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 
 }

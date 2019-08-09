@@ -19,6 +19,8 @@ import lombok.Setter;
 
 /**
  *  If you hit a player with a stick, hey go flying
+ *  
+ *  @owner BevsGames
  */
 @NoArgsConstructor
 @AllArgsConstructor

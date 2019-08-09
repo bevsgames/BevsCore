@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 
 /**
  * Take a max amount of damage from a daamage type.
+ * 
+ * @owner BevsGames
  */
 @NoArgsConstructor
 @AllArgsConstructor

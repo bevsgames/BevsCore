@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -14,7 +15,8 @@ import games.bevs.core.module.abilties.AbilityModule;
 import games.bevs.core.module.abilties.dummy.commands.AbilityDummyCommand;
 import games.bevs.core.module.abilties.interfaces.IAbilityParent;
 import games.bevs.core.module.abilties.types.Ability;
-import games.bevs.core.module.client.ClientModule;
+import games.bevs.core.module.cooldown.CooldownModule;
+import games.bevs.core.module.player.PlayerDataModule;
 import lombok.Getter;
 import lombok.NonNull;
 
@@ -36,12 +38,14 @@ public class DummyAbilityParent implements IAbilityParent
 	
 	private @Getter @NonNull JavaPlugin plugin;
 	private @Getter @NonNull AbilityModule abilityModule;
+	private @NonNull CooldownModule cooldownModule;
 	
-	public DummyAbilityParent(JavaPlugin plugin, ClientModule clientModule, AbilityModule abilityModule)
+	public DummyAbilityParent(JavaPlugin plugin, PlayerDataModule clientModule, CooldownModule cooldownModule, AbilityModule abilityModule)
 	{
 		this.plugin = plugin;
+		this.cooldownModule = cooldownModule;
 		
-		abilityModule.registerCommand(new AbilityDummyCommand(clientModule, this));
+		abilityModule.registerCommand(new AbilityDummyCommand(this));
 	}
 	
 	public Ability getAbility(String name)
@@ -85,8 +89,13 @@ public class DummyAbilityParent implements IAbilityParent
 	}
 
 	@Override
-	public boolean hasAbility(String ability, Player player) {
-		return enabledAbilitiesNames.contains(ability);
+	public boolean hasAbility(String abilityName, Player player) {
+		return enabledAbilitiesNames.contains(abilityName);
 	}
 
+	@Override
+	public CooldownModule getCooldownModule()
+	{
+		return this.cooldownModule;
+	}
 }

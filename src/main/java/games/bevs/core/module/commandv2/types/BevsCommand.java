@@ -10,25 +10,31 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
+import games.bevs.core.commons.Rank;
+import games.bevs.core.commons.player.PlayerData;
 import games.bevs.core.commons.utils.StringUtils;
-import games.bevs.core.module.client.Client;
-import games.bevs.core.module.client.ClientModule;
-import games.bevs.core.module.client.Rank;
+import games.bevs.core.module.commandv2.CommandModule;
 import lombok.Getter;
+import lombok.Setter;
 
-public class BevsCommand extends Command implements TabCompleter 
-{
+public class BevsCommand extends Command implements TabCompleter {
 	public static final String COMMAND_NO_PERMISSION = "You do not have permission for this command!";
-	private @Getter ClientModule clientModule;
+	private @Getter @Setter CommandModule commandModule;
 	private @Getter Rank requiredRank;
+	private @Getter @Setter String displayName;
 
-	public BevsCommand(String name, String description, String usageMessage, List<String> aliases) {
+	public BevsCommand(String name, String description, String usageMessage, List<String> aliases, Rank requiredRank) {
 		super(name, description, usageMessage, aliases);
+		this.setDisplayName(StringUtils.capitalize(this.getName()));
+		this.requiredRank = requiredRank;
+		this.setPermission("bevs.games." + this.requiredRank.name());
 	}
 
-	public BevsCommand(String name, Rank requiredRank, ClientModule clientModule) {
+	public BevsCommand(String name, Rank requiredRank) {
 		super(name);
+		this.setDisplayName(StringUtils.capitalize(this.getName()));
 		this.requiredRank = requiredRank;
+		this.setPermission("bevs.games." + this.requiredRank.name());
 	}
 
 	protected List<String> getOnlinePlayers(CommandSender sender) {
@@ -44,38 +50,40 @@ public class BevsCommand extends Command implements TabCompleter
 
 	private Rank getRank(CommandSender sender) {
 		if (sender instanceof Player) {
-			Client client = clientModule.getPlayer((Player) sender); 
-			if (client != null ) 
-				
-				return client.getRank();
-			else
-				return Rank.NORMAL;
+			if (this.getCommandModule() != null) {
+				if (this.getCommandModule().getPlayerDataModule() != null) {
+					PlayerData client = this.getCommandModule().getPlayerDataModule().getPlayer((Player) sender);
+					if (client != null)
+						return client.getRank();
+				}
+			}
+			return Rank.NORMAL;
 		}
 
-		
 		return Rank.STAFF;
 	}
-	
-	protected String error(String message)
-	{
-		return StringUtils.error(this.getName(), message);
+
+	protected String error(String message) {
+		return StringUtils.error(this.getDisplayName(), message);
 	}
-	
-	protected String success(String message)
-	{
-		return StringUtils.success(this.getName(), message);
+
+	protected String success(String message) {
+		return StringUtils.success(this.getDisplayName(), message);
+	}
+
+	protected String info(String message) {
+		return StringUtils.info(this.getDisplayName(), message);
 	}
 
 	@Override
-	public boolean execute(CommandSender sender, String commandName, String[] args) 
-	{
+	public boolean execute(CommandSender sender, String commandName, String[] args) {
 		Rank rank = this.getRank(sender);
-		if(!(rank.hasPermissionsOf(rank) || sender.hasPermission(this.getPermission())))
-		{
+		// Player doesn't have permission or rank
+		if (!(sender.hasPermission(this.getPermission()) || (rank.hasPermissionsOf(rank)))) {
 			sender.sendMessage(error(COMMAND_NO_PERMISSION));
 			return false;
 		}
-		
+
 		return this.onExecute(sender, commandName, args);
 	}
 

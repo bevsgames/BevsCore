@@ -25,7 +25,7 @@ public class PlayerMeta extends MCPlayer
 	@Deprecated
 	public PlayerMeta(UUID uniquieId)
 	{
-		super(uniquieId);
+		super(uniquieId, false);
 		
 		this.meta = new HashMap<>();
 	}

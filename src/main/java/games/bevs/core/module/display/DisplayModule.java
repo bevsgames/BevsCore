@@ -1,7 +1,6 @@
 package games.bevs.core.module.display;
 
-import org.bukkit.plugin.java.JavaPlugin;
-
+import games.bevs.core.BevsPlugin;
 import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
 
@@ -12,7 +11,7 @@ import games.bevs.core.module.Module;
 public class DisplayModule extends Module
 {
 
-	public DisplayModule(JavaPlugin plugin)
+	public DisplayModule(BevsPlugin plugin)
 	{
 		super(plugin);
 	}

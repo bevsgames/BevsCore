@@ -3,25 +3,26 @@ package games.bevs.core.module;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import games.bevs.core.BevsPlugin;
 import games.bevs.core.commons.CC;
 import games.bevs.core.commons.server.Config;
 import games.bevs.core.commons.server.Console;
 import games.bevs.core.commons.utils.PluginUtils;
-import games.bevs.core.module.client.ClientModule;
 import games.bevs.core.module.commandv2.CommandModule;
 import games.bevs.core.module.commandv2.types.BevsCommand;
+import games.bevs.core.module.player.PlayerDataModule;
 import lombok.Getter;
 import lombok.Setter;
 
 public class Module implements Listener
 {
-	private @Getter JavaPlugin plugin;
+	private @Getter BevsPlugin plugin;
 	private @Setter Config config;
 	private @Getter @Setter boolean debug;
 	private @Getter @Setter CommandModule commandModule;
-	private @Getter @Setter ClientModule clientModule;
+	private @Getter @Setter PlayerDataModule clientModule;
 	
-	public Module(JavaPlugin plugin, CommandModule commandModule, boolean debug)
+	public Module(BevsPlugin plugin, CommandModule commandModule, boolean debug)
 	{
 		this.plugin = plugin;
 		this.commandModule = commandModule;
@@ -32,11 +33,9 @@ public class Module implements Listener
 			this.config = new Config(this.getName(), "config", plugin);
 			this.config.save();
 		}
-		
-		this.enable();
 	}
 	
-	public Module(JavaPlugin plugin, CommandModule commandModule, ClientModule clientModule)
+	public Module(BevsPlugin plugin, CommandModule commandModule, PlayerDataModule clientModule)
 	{
 		this.plugin = plugin;
 		this.commandModule = commandModule;
@@ -47,20 +46,16 @@ public class Module implements Listener
 			this.config = new Config(this.getName(), "config", plugin);
 			this.config.save();
 		}
-		
-		this.enable();
 	}
 	
-	public Module(JavaPlugin plugin, CommandModule commandModule)
+	public Module(BevsPlugin plugin, CommandModule commandModule)
 	{
 		this(plugin, commandModule, null);
 	}
 	
-	public Module(JavaPlugin plugin)
+	public Module(BevsPlugin plugin)
 	{
 		this.plugin = plugin;
-		
-		this.enable();
 	}
 	
 	public void log(String message)
@@ -86,8 +81,13 @@ public class Module implements Listener
 	
 	public  void registerCommand(BevsCommand simpleCommand)
 	{
-		if(this.commandModule == null) return;
+		if(this.commandModule == null) 
+		{
+			this.log(CC.red + "failed to registered command '" + simpleCommand.getName() + "'");
+			return;
+		}
 		this.commandModule.registerBevsCommand(simpleCommand);
+		this.log("registered command '" + simpleCommand.getName() + "'");
 	}
 	
 	private ModInfo getModInfo()

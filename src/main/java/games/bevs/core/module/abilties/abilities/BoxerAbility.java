@@ -14,6 +14,8 @@ import lombok.Setter;
 
 /**
  * This ability will deal more damage with your fist
+ * 
+ * @owner BevsGames
  */
 @NoArgsConstructor
 @AllArgsConstructor

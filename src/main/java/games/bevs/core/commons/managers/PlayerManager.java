@@ -19,8 +19,12 @@ public abstract class PlayerManager<P> extends Manager<UUID, P> implements Liste
 	{
 		super();
 		
+		
 		if(autoManage)
+		{
 			PluginUtils.registerListener(this, plugin);
+		}
+		
 	}
 	
 	public abstract P onPlayerCreation(UUID uniquieId, String username, InetAddress ipAddress);

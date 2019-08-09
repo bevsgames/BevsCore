@@ -4,22 +4,26 @@ import java.lang.reflect.Field;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
-import org.bukkit.plugin.java.JavaPlugin;
 
+import games.bevs.core.BevsPlugin;
 import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
-import games.bevs.core.module.client.ClientModule;
 import games.bevs.core.module.commandv2.types.BevsCommand;
+import games.bevs.core.module.player.PlayerDataModule;
 import lombok.Getter;
-import lombok.Setter;
 
+/**
+ * 
+ * NOTE: YOU MUST set PlayerDataModule,
+ * TODO: FIX THIS SO ITS COULD JUST USE PERMISSIONS TOO
+ */
 @ModInfo(name="Commands")
 public class CommandModule extends Module
 {
 	private @Getter CommandMap commandMap;
-	private @Getter @Setter ClientModule clientModule;
-
-	public CommandModule(JavaPlugin plugin) 
+	private @Getter PlayerDataModule playerDataModule;
+	
+	public CommandModule(BevsPlugin plugin) 
 	{
 		super(plugin);
 	}
@@ -37,16 +41,25 @@ public class CommandModule extends Module
 		}
 	}
 	
+	
+	@Override
 	public void registerCommand(BevsCommand command)
 	{
 		this.registerBevsCommand(command);
+	}
+	
+	public void setPlayerDataModule(PlayerDataModule playerDataModule)
+	{
+		this.playerDataModule = playerDataModule;
 	}
 	
 	/**
 	 * Call to register a command
 	 * @param command
 	 */
-	public void registerBevsCommand(BevsCommand command) {
+	public void registerBevsCommand(BevsCommand command) 
+	{
+		command.setCommandModule(this);
 		commandMap.register(command.getName(), command);
 	}
 }

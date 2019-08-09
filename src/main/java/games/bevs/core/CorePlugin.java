@@ -1,32 +1,45 @@
 package games.bevs.core;
 
-import org.bukkit.event.Listener;
-import org.bukkit.plugin.java.JavaPlugin;
-
 import games.bevs.core.module.abilties.AbilityModule;
-import games.bevs.core.module.client.ClientModule;
 import games.bevs.core.module.combat.CombatModule;
 import games.bevs.core.module.commandv2.CommandModule;
+import games.bevs.core.module.cooldown.CooldownModule;
+import games.bevs.core.module.essentials.EssentialsModule;
+import games.bevs.core.module.player.PlayerDataModule;
+import games.bevs.core.module.sponge.SpongeModule;
+import games.bevs.core.module.sponge.SpongeSettings;
+import games.bevs.core.module.sponge.types.LauncherType;
 
-public class CorePlugin extends JavaPlugin implements Listener {
-
+public class CorePlugin extends BevsPlugin {
 	private static CorePlugin inst;
 
 	@Override
 	public void onEnable() {
+		super.onEnable();
+
 		inst = this;
-		CommandModule commandModule = new CommandModule(this);
-		ClientModule clientModule = new ClientModule(this, commandModule);
+
+		CommandModule commandModule = this.addModule(new CommandModule(this));
+		PlayerDataModule clientModule = this.addModule(new PlayerDataModule(this, commandModule));
 		commandModule.setClientModule(clientModule); // this allows us to check ranks
 
 		new CombatModule(this, commandModule, clientModule);
-		new AbilityModule(this, commandModule, true);
 
+		this.addModule(new CombatModule(this, commandModule, clientModule));
+		CooldownModule cooldown = this.addModule(new CooldownModule(this, commandModule));
+		this.addModule(new AbilityModule(this, commandModule, cooldown, true));
+
+		this.addModule(new EssentialsModule(this, commandModule, clientModule));
+
+		SpongeSettings spongeSettings = new SpongeSettings();
+		spongeSettings.setLauncherType(LauncherType.CLASSIC);
+
+		this.addModule(new SpongeModule(this, spongeSettings));
 	}
 
 	@Override
 	public void onDisable() {
-		inst = null;
+		super.onDisable();
 	}
 
 	public static CorePlugin getInstance() {
