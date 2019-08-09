@@ -15,4 +15,9 @@ public class PluginUtils
 	{
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, run, deplay, sprint);
 	}
+	
+	public static void later(JavaPlugin plugin, Runnable run, long deplay)
+	{
+		Bukkit.getScheduler().runTaskLater(plugin, run, deplay);
+	}
 }
