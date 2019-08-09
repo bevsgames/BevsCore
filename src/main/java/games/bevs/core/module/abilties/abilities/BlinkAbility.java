@@ -7,11 +7,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import games.bevs.core.commons.ActionType;
 import games.bevs.core.commons.Duration.TimeUnit;
@@ -51,7 +51,6 @@ public class BlinkAbility extends CooldownAbility
 		this.itemUses = new HashMap<Player, Integer>();
 	}
 
-
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
@@ -72,23 +71,26 @@ public class BlinkAbility extends CooldownAbility
 		if(this.hasCooldownAndNotify(player, BLINK_COOLDOWN))
 			return;
 		
-		if (!itemUses.containsKey(player))
-			itemUses.put(player, 1);
-
-		if (itemUses.containsKey(player)) {
-			Location destination = player.getTargetBlock(((HashSet<Byte>) null), multipleBlocksBy).getLocation();
-			destination.setYaw(player.getLocation().getYaw());
-			destination.setPitch(player.getLocation().getPitch());
-			if (destination.getBlock().getType() == Material.AIR) {
-				destination.getBlock().setType(Material.LEAVES);
-				PluginUtils.later(this.getPlugin(), () -> destination.getBlock().setType(Material.AIR),  20 * 7);
-				player.teleport(destination.add(0, 1, 0));
-				destination.getWorld().playSound(destination, Sound.FIREWORK_LAUNCH, 1f, 2f);
-			}
-			itemUses.put(player, itemUses.get(player) + 1);
+		int numUses = itemUses.getOrDefault(player, 0) + 1;
+	
+		Location destination = player.getTargetBlock(((HashSet<Byte>) null), multipleBlocksBy).getLocation();
+		destination.setYaw(player.getLocation().getYaw());
+		destination.setPitch(player.getLocation().getPitch());
+		
+		if (destination.getBlock().getType() == Material.AIR) 
+		{
+			destination.getBlock().setType(Material.LEAVES);
+			PluginUtils.later(this.getPlugin(), () -> destination.getBlock().setType(Material.AIR),  20 * 7);
+			player.teleport(destination.add(0, 1, 0));
+			destination.getWorld().playSound(destination, Sound.FIREWORK_LAUNCH, 1f, 2f);
+			//Can't blink into the ground
+			return;
 		}
-
-		if (itemUses.containsKey(player) && itemUses.get(player) > maxUses + 1) {
+		
+		itemUses.put(player, numUses);
+		
+		//We have blinked 5 times, so we take away the item
+		if (numUses > maxUses) {
 			itemUses.remove(player);
 			this.setCooldown(player, BLINK_COOLDOWN);
 			return;
