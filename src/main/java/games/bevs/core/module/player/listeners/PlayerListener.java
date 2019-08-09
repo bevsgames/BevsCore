@@ -1,13 +1,11 @@
 package games.bevs.core.module.player.listeners;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import games.bevs.core.CorePlugin;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

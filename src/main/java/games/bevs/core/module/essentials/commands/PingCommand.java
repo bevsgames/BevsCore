@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import games.bevs.core.commons.Rank;
 import games.bevs.core.commons.utils.PingUtils;
 import games.bevs.core.module.commandv2.types.BevsCommand;
-import games.bevs.core.module.player.PlayerDataModule;
 
 /**
  * the players current ping

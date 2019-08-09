@@ -1,7 +1,6 @@
 package games.bevs.core.module;
 
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import games.bevs.core.BevsPlugin;
 import games.bevs.core.commons.CC;

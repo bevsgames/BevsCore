@@ -3,11 +3,9 @@ package games.bevs.core.module.abilties.abilities;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -39,13 +37,12 @@ public class BlinkAbility extends CooldownAbility
 	private @Getter @Setter int multipleBlocksBy = 7;
 
 	// Class variables
-	public static final String BLINK_COOLDOWN = "ability.blink";
 	private @Getter ItemStack blinkItem;
 	private HashMap<Player, Integer> itemUses;
 
 	@Override
 	public void onLoad() {
-		this.initCooldown(BLINK_COOLDOWN, 45, TimeUnit.SECOND);
+		this.initDefaultCooldown(45, TimeUnit.SECOND);
 
 		this.blinkItem = new ItemStackBuilder(itemMaterial).displayName(itemName).build();
 		
@@ -69,7 +66,7 @@ public class BlinkAbility extends CooldownAbility
 		if (!actionType.containsAction(e.getAction()))
 			return;
 
-		if(this.hasCooldownAndNotify(player, BLINK_COOLDOWN))
+		if(this.hasDefaultCooldownAndNotify(player))
 			return;
 		
 		int numUses = itemUses.getOrDefault(player, 0) + 1;
@@ -93,7 +90,7 @@ public class BlinkAbility extends CooldownAbility
 		//We have blinked 5 times, so we take away the item
 		if (numUses > maxUses) {
 			itemUses.remove(player);
-			this.setCooldown(player, BLINK_COOLDOWN);
+			this.setDefaultCooldown(player);
 			return;
 		}
 

@@ -2,7 +2,6 @@ package games.bevs.core.module.abilties.types;
 
 import java.util.HashMap;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import games.bevs.core.commons.Duration;

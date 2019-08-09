@@ -2,7 +2,6 @@ package games.bevs.core.module.kit.types;
 
 import java.util.UUID;
 
-import games.bevs.core.commons.player.MCPlayer;
 import games.bevs.core.commons.player.SimpleMCPlayer;
 import lombok.Getter;
 import lombok.Setter;

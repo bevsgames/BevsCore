@@ -3,8 +3,6 @@ package games.bevs.core.module.abilties.abilities;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -19,6 +17,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 
 import games.bevs.core.commons.ActionType;
+import games.bevs.core.commons.CC;
 import games.bevs.core.commons.Duration.TimeUnit;
 import games.bevs.core.commons.itemstack.ItemStackBuilder;
 import games.bevs.core.module.abilties.AbilityInfo;
@@ -40,7 +39,7 @@ import lombok.Setter;
 public class ThorAbility extends CooldownAbility
 {
 	//Ability Settings
-	private @Getter @Setter String itemName = ChatColor.GOLD+ "Thor's Hammer";
+	private @Getter @Setter String itemName = CC.gold + "Thor's Hammer";
 	private @Getter @Setter Material itemMaterial = Material.WOOD_AXE;
 
 	private @Getter @Setter boolean allActions = false;

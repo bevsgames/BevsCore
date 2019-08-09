@@ -9,6 +9,7 @@ import games.bevs.core.module.player.events.PlayerDataLoadedEvent;
 
 public class BanListener implements Listener
 {
+	@SuppressWarnings("unused")
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onLogin(PlayerDataLoadedEvent e)
 	{

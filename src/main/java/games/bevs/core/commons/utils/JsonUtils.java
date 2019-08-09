@@ -1,6 +1,5 @@
 package games.bevs.core.commons.utils;
 
-import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import com.google.gson.Gson;

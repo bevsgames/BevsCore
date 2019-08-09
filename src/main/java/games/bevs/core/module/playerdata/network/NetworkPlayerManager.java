@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.json.simple.JSONObject;
 
 import com.google.gson.JsonObject;
 
@@ -27,6 +26,7 @@ public class NetworkPlayerManager
 	private @Getter PlayerDataModule playerDataModule;
 	
 	private static JedisPublisher<JsonObject> messagesPublisher;
+	@SuppressWarnings("unused")
 	private static JedisSubscriber<JsonObject> messagesSubscriber;
 	
 	public NetworkPlayerManager(PlayerDataModule playerDataModule, JedisSettings settings)

@@ -9,6 +9,7 @@ import games.bevs.core.commons.database.redis.subscribe.JedisSubscriptionHandler
 
 public class Main {
 	private static JedisPublisher<JsonObject> messagesPublisher;
+	@SuppressWarnings("unused")
 	private static JedisSubscriber<JsonObject> messagesSubscriber;
 
 	public static void main(String[] args) {

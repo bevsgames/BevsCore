@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 
 public class SpigotConfigChanger 
 {
+	@SuppressWarnings("deprecation")
 	public static void killOfflineUUIDs() 
 	{
 		Bukkit.spigot().getConfig().set("settings.bungeecord", true);

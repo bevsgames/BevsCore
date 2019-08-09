@@ -30,6 +30,7 @@ public class TabListModule extends Module
 		this.registerSelf();
 	}
 
+	@SuppressWarnings("unused")
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e)
 	{

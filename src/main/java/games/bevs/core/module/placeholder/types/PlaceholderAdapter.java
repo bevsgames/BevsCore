@@ -4,7 +4,6 @@ import org.bukkit.entity.Player;
 
 import games.bevs.core.module.placeholder.interfaces.IPlaceholder;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 @AllArgsConstructor
 public class PlaceholderAdapter implements IPlaceholder
