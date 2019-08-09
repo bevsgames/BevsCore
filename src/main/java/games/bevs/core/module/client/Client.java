@@ -3,6 +3,7 @@ package games.bevs.core.module.client;
 import java.util.HashSet;
 import java.util.UUID;
 
+import games.bevs.core.commons.Rank;
 import games.bevs.core.commons.player.MCPlayer;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +29,4 @@ public class Client extends MCPlayer {
 		super(uniquieId, username);
 	}
 
-	public Client(UUID uniquieId) {
-		super(uniquieId);
-	}
 }
