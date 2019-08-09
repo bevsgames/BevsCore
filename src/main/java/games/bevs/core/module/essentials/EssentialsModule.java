@@ -1,7 +1,5 @@
 package games.bevs.core.module.essentials;
 
-import java.lang.reflect.InvocationTargetException;
-
 import games.bevs.core.BevsPlugin;
 import games.bevs.core.commons.utils.ClassGetterUtils;
 import games.bevs.core.module.ModInfo;

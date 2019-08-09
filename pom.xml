@@ -61,6 +61,13 @@
 			<version>4.5.9</version>
 		</dependency>
 
+		<!-- Quick Database and message broker -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
