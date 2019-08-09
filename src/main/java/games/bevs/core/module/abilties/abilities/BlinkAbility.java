@@ -1,7 +1,9 @@
 package games.bevs.core.module.abilties.abilities;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -48,6 +50,12 @@ public class BlinkAbility extends CooldownAbility
 		
 		this.itemUses = new HashMap<Player, Integer>();
 	}
+	
+	@Override
+	public List<ItemStack> getItems()
+	{
+		return Arrays.asList(this.blinkItem);
+	} 
 
 	@SuppressWarnings("deprecation")
 	@EventHandler
