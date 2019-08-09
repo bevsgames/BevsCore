@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import games.bevs.core.commons.ActionType;
+import games.bevs.core.commons.CC;
 import games.bevs.core.commons.Duration.TimeUnit;
 import games.bevs.core.commons.itemstack.ItemStackBuilder;
 import games.bevs.core.commons.utils.PluginUtils;
@@ -31,7 +32,7 @@ import lombok.Setter;
 public class BlinkAbility extends CooldownAbility 
 {
 	// Ability Settings
-	private @Getter @Setter String itemName = ChatColor.WHITE + "Blink";
+	private @Getter @Setter String itemName = CC.white + "Blink";
 	private @Getter @Setter Material itemMaterial = Material.NETHER_STAR;
 	private @Getter @Setter ActionType actionType = ActionType.AIR;
 	private @Getter @Setter int maxUses = 5;
