@@ -101,5 +101,4 @@ public class BlinkAbility extends CooldownAbility {
 		}
 
 	}
-
 }

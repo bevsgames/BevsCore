@@ -29,7 +29,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @AbilityInfo(name = "SpellMaster", author = "teddyyy", description = { "Click your item to cast a spell",
 		"to those in a radius of 20 blocks" })
-public class SpellMaster extends CooldownAbility {
+public class SpellMasterAbility extends CooldownAbility {
 
 	private @Getter @Setter String itemName = CC.red + "Spell Master";
 	private @Getter @Setter Material itemMaterial = Material.LEASH;
