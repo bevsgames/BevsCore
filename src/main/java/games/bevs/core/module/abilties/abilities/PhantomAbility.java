@@ -42,7 +42,8 @@ public class PhantomAbility extends CooldownAbility {
 	private @Getter @Setter String itemName = CC.white + "Phantom";
 	private @Getter @Setter Material itemMaterial = Material.FEATHER;
 	private @Getter @Setter ActionType actionType = ActionType.AIR;
-
+	private @Getter @Setter double MESSAGE_RADIUS = 35;
+	
 	// Class variables
 	public static final String PHANTOM_COOLDOWN = "ability.phantom";
 	private static final HashMap<UUID, ItemStack[]> BACKUP_ARMOUR = new HashMap<UUID, ItemStack[]>();// relog for uuids
@@ -122,7 +123,7 @@ public class PhantomAbility extends CooldownAbility {
 		player.updateInventory();
 		player.getWorld().playSound(player.getLocation(), Sound.WITHER_DEATH, 1, 1);
 		player.getWorld().getPlayers().forEach(target -> {
-			if (target.getLocation().distance(player.getLocation()) <= 35) {
+			if (target.getLocation().distanceSquared(player.getLocation()) <= (MESSAGE_RADIUS * MESSAGE_RADIUS)) {
 				target.sendMessage(CC.bWhite + "A phantom approaches...");
 				target.sendMessage(CC.bWhite + "Note: they are not fly hacking, it's part of the kit.");
 			}
