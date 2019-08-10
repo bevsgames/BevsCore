@@ -34,18 +34,37 @@ public class Burrower extends CooldownAbility {
 	private @Getter @Setter int maxY = 30;
 
 	// Class variables
-	public static final String BURROWER_COOLDOWN = "ability.burrower";
 	private @Getter ItemStack burrowerItem;
 
 	@Override
 	public void onLoad() {
 		this.burrowerItem = new ItemStackBuilder(Material.SLIME_BALL).amount(5).displayName(itemName).build();
-		this.initCooldown(BURROWER_COOLDOWN, 15, TimeUnit.SECOND);
+		
+		this.initDefaultCooldown(15, TimeUnit.SECOND);
 	}
 
 	@Override
 	public List<ItemStack> getItems() {
 		return Arrays.asList(burrowerItem);
+	}
+	
+	private void buildHut(Location preLoc)
+	{
+		for (int x = -2; x < 2; x++) {
+			for (int y = -1; y < 3; y++) {
+				for (int z = -2; z < 2; z++) {
+					Location loc = preLoc.clone().add(x, y, z);
+					loc.getBlock().setType(Material.BRICK);
+					if ((x == 0 && z == -1 || x == -1 && z == 0 || x == 0 && z == 0 || x == -1 && z == -1)
+							&& (y == 0 || y == 1))
+						if (!(x == -1 && z == -1 && y == 0))
+							loc.getBlock().setType(Material.AIR);
+						else
+							loc.getBlock().setType(Material.TORCH);
+
+				}
+			}
+		}
 	}
 
 	@EventHandler
@@ -64,35 +83,26 @@ public class Burrower extends CooldownAbility {
 		if (e.getAction() == Action.PHYSICAL)
 			return;
 
-		if (this.hasCooldownAndNotify(player, BURROWER_COOLDOWN))
+		if (this.hasDefaultCooldownAndNotify(player))
 			return;
 
 		Location preLoc = player.getLocation();
 		preLoc.setY(player.getLocation().getY() - underneathBlocksBy);
-		if (preLoc.getY() <= maxY) {
+		
+		if (preLoc.getY() <= maxY) 
+		{
 			player.sendMessage(CC.red + "Your personal room can not be made under the Y of  " + maxY);
 			return;
 		}
-		for (int x = -2; x < 2; x++) {
-			for (int y = -1; y < 3; y++) {
-				for (int z = -2; z < 2; z++) {
-					Location loc = preLoc.clone().add(x, y, z);
-					loc.getBlock().setType(Material.BRICK);
-					if ((x == 0 && z == -1 || x == -1 && z == 0 || x == 0 && z == 0 || x == -1 && z == -1)
-							&& (y == 0 || y == 1))
-						if (!(x == -1 && z == -1 && y == 0))
-							loc.getBlock().setType(Material.AIR);
-						else
-							loc.getBlock().setType(Material.TORCH);
 
-				}
-			}
-		}
+		buildHut(preLoc);
+		
 		preLoc.setYaw(176.89682f);
 		preLoc.setPitch(2.0f);
 		player.teleport(preLoc);
 
-		setCooldown(player, BURROWER_COOLDOWN);
+		setDefaultCooldown(player);
+		
 		if (player.getItemInHand().getAmount() > 1)// You have 5 slime balls you using one will remove it
 			player.getItemInHand().setAmount(player.getItemInHand().getAmount() - 1);
 		else
