@@ -152,12 +152,14 @@ public class PhantomAbility extends CooldownAbility {
 					timer.remove(player);
 					runnableID.remove(player);
 				}
+				if(timer.containsKey(player))//Just happened to throw an error.
 				timer.put(player, timer.get(player) - 1);
 
 			}
 
 		}, 0L, 20L);
 		runnableID.put(player, task);
+		setCooldown(player, PHANTOM_COOLDOWN);
 
 	}
 
@@ -180,7 +182,7 @@ public class PhantomAbility extends CooldownAbility {
 	}
 
 	@EventHandler
-	public void PlayerLeave(PlayerJoinEvent e) {
+	public void PlayerJoinxD(PlayerJoinEvent e) {
 		Player player = e.getPlayer();
 		if (BACKUP_ARMOUR.containsKey(player.getUniqueId())) {
 			player.getInventory().setArmorContents(BACKUP_ARMOUR.get(player.getUniqueId()));
