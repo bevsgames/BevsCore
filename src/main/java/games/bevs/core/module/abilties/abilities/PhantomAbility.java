@@ -181,7 +181,7 @@ public class PhantomAbility extends CooldownAbility {
 
 		if (hasCooldownAndNotify(player, PHANTOM_COOLDOWN))
 			return;
-		
+
 		this.startPhantom(player);
 	}
 
