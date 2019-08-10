@@ -3,10 +3,12 @@ package games.bevs.core.commons.itemstack;
 import java.util.Arrays;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import lombok.AllArgsConstructor;
 
@@ -30,6 +32,39 @@ public class ItemStackBuilder {
 		this.itemStack.setAmount(amount);
 		return this;
 	}
+	
+	public ItemStackBuilder durability(int amount) 
+    {
+        this.build().setDurability((short)amount);
+        return this;
+    }
+
+    public ItemStackBuilder durabilityLeft(int amount)
+    {
+        this.build().setDurability((short)(this.build().getType().getMaxDurability() - amount));
+        return this;
+    }
+    
+    /**
+     * On use on LEATHER_ARMOR
+     * @param color
+     * @return
+     */
+    public ItemStackBuilder setLeatherColour(Color color)
+    {
+        try 
+        {
+            LeatherArmorMeta itemMeta = (LeatherArmorMeta)this.build().getItemMeta();
+            itemMeta.setColor(color);
+            this.build().setItemMeta((ItemMeta)itemMeta);
+            return this;
+        }
+        catch (ClassCastException ex)
+        {
+           ex.printStackTrace();
+        }
+        return this;
+    }
 
 	public ItemStackBuilder lore(String... lore) {
 		ItemMeta itemMeta = build().getItemMeta();

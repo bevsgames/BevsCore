@@ -5,7 +5,7 @@ import lombok.Getter;
 public enum UnitType
 {
 	TICK(49L),
-	SLOW(200l),
+	MINI_SEC(200l),
 	SECOND(1000L),
 	MINUTE(60_000L),
 	HOUR(3_600_000L),

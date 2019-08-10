@@ -29,6 +29,7 @@ public class CooldownAbility extends Ability
 	{
 		Pair<Integer, TimeUnit> pair = new Pair<>(amount, timeUnit);
 		this.managedCooldowns.put(name.toLowerCase(), pair);
+		
 	}
 	
 	//========================{ Cooldown Default }========================\\
@@ -81,6 +82,21 @@ public class CooldownAbility extends Ability
 	public boolean hasCooldown(Player player, String name)
 	{
 		return this.getCooldownModule().hasCooldown(player.getUniqueId(), name.toLowerCase());
+	}
+	
+	public Duration getCooldown(Player player, String name)
+	{
+		CooldownPlayer playerCooldown = this.getCooldownModule().getPlayerCooldownManager().getPlayer(player);
+		if(playerCooldown == null)
+		{
+			System.out.println("ERROR : COOLDOWNPLAYER NOT FOUND");
+			return null;
+		}
+		
+		Duration timeLeft = playerCooldown.getCooldown(name).getRemainingTime();
+		timeLeft.add(1, TimeUnit.SECOND);//This is so they  don't see that it say's 0 for a second
+		
+		return timeLeft;
 	}
 	
 	public boolean hasCooldownAndNotify(Player player, String name)
