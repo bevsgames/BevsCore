@@ -10,6 +10,8 @@ import games.bevs.core.module.cooldown.CooldownModule;
 
 public interface IAbilityParent
 {
+	public String getName();
+	
 	public void addAbility(Ability ability);
 	public void removeAbility(Ability ability);
 	

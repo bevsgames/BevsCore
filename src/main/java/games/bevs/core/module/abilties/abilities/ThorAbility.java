@@ -3,6 +3,7 @@ package games.bevs.core.module.abilties.abilities;
 import java.util.Arrays;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -48,13 +49,12 @@ public class ThorAbility extends CooldownAbility
 	
 	//Class variables
 	private static final String THOR_METADATA = "THOR";
-	private static final String THOR_COOLDOWN = "ability.thor";
 	private @Getter ItemStack thorHammerItem;
 	
 	@Override
 	public void onLoad()
 	{
-		this.initCooldown(THOR_COOLDOWN, 10, TimeUnit.SECOND);
+		this.initDefaultCooldown(10, TimeUnit.SECOND);
 		
 		this.thorHammerItem = new ItemStackBuilder(itemMaterial).displayName(itemName).build();
 	}
@@ -87,7 +87,7 @@ public class ThorAbility extends CooldownAbility
 		else if(action == Action.PHYSICAL) 
 			return;
 		
-		if(this.hasCooldownAndNotify(player, THOR_COOLDOWN))
+		if(this.hasDefaultCooldownAndNotify(player))
 			return;
 		
 		World world = e.getPlayer().getWorld();
@@ -101,7 +101,7 @@ public class ThorAbility extends CooldownAbility
 		LightningStrike lighting = world.strikeLightning(highestBlock.getLocation());
 		lighting.setMetadata(THOR_METADATA, new FixedMetadataValue(this.getPlugin(), player.getName()));
 		
-		this.setCooldown(player, THOR_COOLDOWN);//when it was in default it didn't display cooldown's seconds
+		this.setDefaultCooldown(player);
 		e.setCancelled(true);
 	}
 	

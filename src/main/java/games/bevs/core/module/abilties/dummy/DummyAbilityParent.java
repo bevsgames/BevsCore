@@ -97,4 +97,9 @@ public class DummyAbilityParent implements IAbilityParent
 	{
 		return this.cooldownModule;
 	}
+
+	@Override
+	public String getName() {
+		return "Dummy";
+	}
 }

@@ -2,6 +2,7 @@ package games.bevs.core.module.abilties.types;
 
 import java.util.HashMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import games.bevs.core.commons.Duration;
@@ -34,22 +35,22 @@ public class CooldownAbility extends Ability
 	
 	public String getDefaultCooldownName()
 	{
-		return ("ability." + this.getName());
+		return ("ability." + this.getName() + "." + this.getParent().getName()).toLowerCase();
 	}
 	
 	public void initDefaultCooldown( int amount, TimeUnit timeUnit)
 	{
-		initCooldown(getDefaultCooldownName(), amount, timeUnit);
+		this.initCooldown(this.getDefaultCooldownName(), amount, timeUnit);
 	}
 	
 	public void setDefaultCooldown(Player player)
 	{
-		setCooldown(player, this.getDefaultCooldownName());
+		this.setCooldown(player, this.getDefaultCooldownName());
 	}
 	
 	public boolean hasDefaultCooldown(Player player)
 	{
-		return hasCooldown(player, this.getDefaultCooldownName());
+		return this.hasCooldown(player, this.getDefaultCooldownName());
 	}
 	
 	public boolean hasDefaultCooldownAndNotify(Player player)
@@ -84,6 +85,7 @@ public class CooldownAbility extends Ability
 	
 	public boolean hasCooldownAndNotify(Player player, String name)
 	{
+		
 		if(this.hasCooldown(player, name))
 		{
 			CooldownPlayer playerCooldown = this.getCooldownModule().getPlayerCooldownManager().getPlayer(player);
