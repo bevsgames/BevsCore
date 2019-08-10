@@ -31,7 +31,9 @@ public class EssentialsModule extends Module
 				"games.bevs.core.module.essentials.commands").forEach(clazz -> {
 			try {
 				
-				BevsCommand command = (BevsCommand) clazz.newInstance();
+				Object obj = clazz.newInstance();
+				if(!(obj instanceof BevsCommand)) return;
+				BevsCommand command = (BevsCommand) obj;
 				this.registerCommand(command);
 				
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException

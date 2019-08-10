@@ -65,18 +65,6 @@ public class CombatModule extends Module
 		this.registerSelf();
 	}
 	
-	@EventHandler
-	public void onTick(UpdateEvent e)
-	{
-		if(e.getType() != UnitType.SECOND) return;
-		Bukkit.getOnlinePlayers().forEach(player ->
-		{
-			Location loc = player.getLocation();
-			Bukkit.broadcastMessage("X: " + -MathHelper.sin(loc.getYaw()) * 5 + " Z: " + MathHelper.cos(loc.getYaw()) *  5);
-		});
-		
-	}
-	
 	private int getKnockbackEnchantmentLevel(LivingEntity attacker)
 	{
 		if(attacker instanceof Player)
@@ -196,7 +184,6 @@ public class CombatModule extends Module
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onDamage(EntityDamageEvent e)
 	{
-		
 		if(e.getEntity() instanceof LivingEntity)
 		{
 			LivingEntity livingEntity = (LivingEntity) e.getEntity();

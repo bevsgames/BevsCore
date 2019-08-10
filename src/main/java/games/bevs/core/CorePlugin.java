@@ -9,6 +9,7 @@ import games.bevs.core.module.player.PlayerDataModule;
 import games.bevs.core.module.sponge.SpongeModule;
 import games.bevs.core.module.sponge.SpongeSettings;
 import games.bevs.core.module.sponge.types.LauncherType;
+import games.bevs.core.module.ticker.TickerModule;
 
 public class CorePlugin extends BevsPlugin {
 	private static CorePlugin inst;
@@ -35,6 +36,7 @@ public class CorePlugin extends BevsPlugin {
 		spongeSettings.setLauncherType(LauncherType.CLASSIC);
 
 		this.addModule(new SpongeModule(this, spongeSettings));
+		this.addModule(new TickerModule(this));
 	}
 
 	@Override

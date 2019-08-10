@@ -1,19 +1,25 @@
 package games.bevs.core.module.abilties.abilities;
 
+import java.util.Arrays;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Effect;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import games.bevs.core.commons.utils.BlockUtils;
 import games.bevs.core.module.abilties.AbilityInfo;
 import games.bevs.core.module.abilties.types.Ability;
+import games.bevs.core.module.combat.event.CustomDamageEvent;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -24,6 +30,7 @@ import lombok.NoArgsConstructor;
 public class WormAbility extends Ability {
 
 	public Material blockMaterial = Material.DIRT;
+	public int maxSoftlandingDamage = 1;
 
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
@@ -49,14 +56,29 @@ public class WormAbility extends Ability {
 	}
 
 	@EventHandler
-	public void onFall(EntityDamageEvent e) {
-		if (e.getEntity() instanceof Player && hasAbility((Player) e.getEntity())) {
-			if (e.getCause() == DamageCause.FALL) {
-				if (e.getEntity().getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == blockMaterial) {
-					e.setDamage(1.0);
-				}
+	public void onFall(CustomDamageEvent e) {
+		if(!e.isVictimIsPlayer()) 
+			return;
+		
+		if(e.getInitCause() != DamageCause.FALL)
+			return;
+		
+		Player player = e.getVictimPlayer();
+		
+		if(!this.hasAbility(player))
+			return;
+		
+		Location loc = player.getLocation();
+		loc.subtract(0, 0.2, 0);
+		
+		Material[] landedOnBlocks = new Material[] { loc.getBlock().getType(), BlockUtils.GetAdjacentX(loc).getType(), BlockUtils.GetAdjacentZ(loc).getType() };
+		for(Material landingMat : landedOnBlocks)
+			if(landingMat == blockMaterial)
+			{
+				if(maxSoftlandingDamage < e.getInitDamage())
+					e.setInitDamage(maxSoftlandingDamage);
+				return;
 			}
-		}
 	}
 
 }

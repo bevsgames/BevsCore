@@ -17,41 +17,43 @@ import games.bevs.core.module.commandv2.types.BevsCommand;
  * 		/kill 
  * 			kill yourself
  */
-public class KillCommand extends BevsCommand
-{
-	private static final int DEATH_DAMAGE = 1000;
-	
-	public KillCommand()
-	{
-		super("kill", Rank.MOD);
-	}
-	
-	
-	
-	@Override
-	public boolean onExecute(CommandSender sender, String commandName, String[] args) 
-	{
-		if(!(sender instanceof Player)) return false;
-		
-		Player player = (Player) sender;
-		Player targetPlayer = player;
-		
-		if(args.length >= 1)
-		{
-			String targetName = args[0];
-			targetPlayer = Bukkit.getPlayer(targetName);
-			if(targetPlayer == null)
-			{
-				sender.sendMessage(this.error(targetName + " is not online!"));
-				return false;
-			}
-		}
-		
-		targetPlayer.damage(DEATH_DAMAGE);
-		if(player != targetPlayer)
-			targetPlayer.sendMessage(this.success("You have been killed by a command."));
-		sender.sendMessage(this.success(targetPlayer.getName() + " has been killed by your hand."));
-		return true;
-	}
-	
-}
+//Doesn't call EntityDamageEvent, will need to look into
+//public class KillCommand extends BevsCommand
+//{
+//	private static final int DEATH_DAMAGE = 2;
+//	
+//	public KillCommand()
+//	{
+//		super("kill", Rank.MOD);
+//	}
+//	
+//	
+//	
+//	@Override
+//	public boolean onExecute(CommandSender sender, String commandName, String[] args) 
+//	{
+//		if(!(sender instanceof Player)) return false;
+//		
+//		Player player = (Player) sender;
+//		Player targetPlayer = player;
+//		
+//		if(args.length >= 1)
+//		{
+//			String targetName = args[0];
+//			targetPlayer = Bukkit.getPlayer(targetName);
+//			if(targetPlayer == null)
+//			{
+//				sender.sendMessage(this.error(targetName + " is not online!"));
+//				return false;
+//			}
+//		}
+//		
+//		for(int i = 0; i < targetPlayer.getHealth(); i++)
+//			targetPlayer.damage(DEATH_DAMAGE);
+//		if(player != targetPlayer)
+//			targetPlayer.sendMessage(this.success("You have been killed by a command."));
+//		sender.sendMessage(this.success(targetPlayer.getName() + " has been killed by your hand."));
+//		return true;
+//	}
+//	
+//}
