@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import com.google.gson.JsonObject;
 
 import games.bevs.core.BevsPlugin;
+import games.bevs.core.commons.CC;
 import games.bevs.core.commons.database.redis.JedisPublisher;
 import games.bevs.core.commons.database.redis.JedisSettings;
 import games.bevs.core.commons.database.redis.JedisSubscriber;
@@ -43,6 +44,8 @@ public class PlayerDataModule extends Module
 	private int gold = 0;
 	private JedisPublisher<JsonObject> messagesPublisher;
 	private JedisSubscriber<JsonObject> messagesSubscriber;
+	
+	private boolean loaded = false;
 
 	public PlayerDataModule(BevsPlugin plugin, CommandModule commandModule)
 	{
@@ -67,11 +70,13 @@ public class PlayerDataModule extends Module
 			    	if(object.get("name").getAsString().equalsIgnoreCase("pong"))
 			    	{
 			    		System.out.println("WE WERE PONGED!!!!");
+			    		PlayerDataModule.this.gold = object.get("gold").getAsInt();
+			    		PlayerDataModule.this.loaded = true;
 			    		return;
 			    	}
 			    	
 			        System.out.println(object.get("name"));
-			        writeTest("pong", gold, Bukkit.getPort() + "");
+			        writeTest("pong", ++gold, Bukkit.getPort() + "");
 			    }
 			});
 		
@@ -109,12 +114,26 @@ public class PlayerDataModule extends Module
 	{
 		this.writeTest(e.getName(), gold, Bukkit.getPort() + "");
 		//stop player login in until we got their stats
+		
+		//TODO: check if they took longer than 5 seconds, if so log the error
+		while(!this.loaded)
+		{
+			try {
+				this.log("Waiting for data...");
+				Thread.sleep(25L);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+		}
+	
+		this.loaded = false;
 	}
 	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e)
 	{
 		System.out.println("tooo late, the player joined");
+		e.getPlayer().sendMessage(CC.bGold + this.gold + " gold");
 	}
 	
 	//Server B: AsyncPlayerPreLoginEvent, Pings old server

@@ -8,7 +8,9 @@ import games.bevs.core.commons.player.PlayerData;
 import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
 import games.bevs.core.module.commandv2.CommandModule;
+import games.bevs.core.module.playerdata.network.NetworkPlayerManager;
 
+//wrong classd buddy
 @ModInfo(name = "PlayerData")
 public class PlayerDataModule extends Module
 {
@@ -18,6 +20,11 @@ public class PlayerDataModule extends Module
 	{
 		super(plugin, commandModule);
 		
+	}
+	
+	@Override
+	public void onEnable()
+	{
 	}
 	
 	public PlayerData registerPlayerData(PlayerData playerData)
