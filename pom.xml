@@ -47,6 +47,7 @@
 			<version>7545c371c6</version>
 			<scope>provided</scope>
 		</dependency>
+		
 
 		<!-- Quick Database and message broker -->
 		<dependency>

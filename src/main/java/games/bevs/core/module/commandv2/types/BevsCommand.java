@@ -52,7 +52,7 @@ public class BevsCommand extends Command implements TabCompleter {
 		if (sender instanceof Player) {
 			if (this.getCommandModule() != null) {
 				if (this.getCommandModule().getPlayerDataModule() != null) {
-					PlayerData client = this.getCommandModule().getPlayerDataModule().getPlayer((Player) sender);
+					PlayerData client = this.getCommandModule().getPlayerDataModule().getPlayerData((Player) sender);
 					if (client != null)
 						return client.getRank();
 				}

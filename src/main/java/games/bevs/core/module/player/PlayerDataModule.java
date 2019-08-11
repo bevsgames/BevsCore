@@ -1,142 +1,84 @@
 package games.bevs.core.module.player;
 
+import java.util.HashMap;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-
-import com.google.gson.JsonObject;
 
 import games.bevs.core.BevsPlugin;
-import games.bevs.core.commons.CC;
-import games.bevs.core.commons.database.redis.JedisPublisher;
-import games.bevs.core.commons.database.redis.JedisSettings;
-import games.bevs.core.commons.database.redis.JedisSubscriber;
-import games.bevs.core.commons.database.redis.subscribe.JedisSubscriptionHandler;
 import games.bevs.core.commons.player.PlayerData;
 import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
 import games.bevs.core.module.commandv2.CommandModule;
+import games.bevs.core.module.player.network.PlayerDataListener;
 
 /**
- * Player will joins, data is downloaded
- * and saved to redis
+ * We want to first check if the player is on the network?
+ * - We could preload them on to the network when they join
+ * - 
  * 
- * To do, this player disconnecting and connecting to another server via bungee
- *
- * We could cache the players rank on bungee and send that with the players
- *
- *
- * If we are on the bungee, we'll have to pull and cache from a redis
- * to avoid race conditions of getting data. but on a stand alone server
- * We can just deal with the database directly
+ * PlayerData Transfer Protocol
+ * * A Player changes servers on bungee
+ * * The new server makes a request for playerData of the old server
+ * * old server replies with payload
+ * 
+ * <b>REQUEST JSON</b>
+ * <code>
+ * {
+ *	  'Server': 'newServersId',
+ *	  'type': 'REQUEST',
+ *	  'data': {
+ *				'uniqueId': '',//the uuid of the player
+ *				'username': ''
+ *			  } 
+ * }
+ * </code>
+ * <br/>
+ * <b>RESPONSE JSON</b>
+ * <code>
+ * {
+ *	  'Server': 'newServersId',
+ *	  'type': 'RESPONSE',
+ *	  'data': {
+ *				 //DATA GENERATED FROM PLAYERDATA
+ *			  } 
+ * }
+ * </code>
  */
-//RedisRequestPlayerData [uuid]
-//RedisResponsePlayerData [interalId, uniqueId, rank, displayRank, gold, level, experience, expToLevel]
-	//Remove data from old server
-//New server listens for RedisResponsePlayerData
 @ModInfo(name = "PlayerData")
 public class PlayerDataModule extends Module
 {
-	private int gold = 0;
-	private JedisPublisher<JsonObject> messagesPublisher;
-	private JedisSubscriber<JsonObject> messagesSubscriber;
+	private HashMap<UUID, PlayerData> players = new HashMap<>();
 	
-	private boolean loaded = false;
-
 	public PlayerDataModule(BevsPlugin plugin, CommandModule commandModule)
 	{
 		super(plugin, commandModule);
+		
 	}
 	
 	@Override
 	public void onEnable()
 	{
-		JedisSettings settings = new JedisSettings("78.31.71.65", 6379, "McpvpIsLife4378@13123!F");
-		
-		messagesPublisher = new JedisPublisher<JsonObject>(settings, "global-messages");
-		
-		messagesSubscriber = new JedisSubscriber<JsonObject>(settings, "global-messages", JedisSubscriber.JSON_GENERATOR,
-			new JedisSubscriptionHandler<JsonObject>()
-			{
-			    @Override
-			    public void handleMessage(JsonObject object) {
-			    	//ignore our messages
-			    	if(object.get("id").getAsString().equalsIgnoreCase(""+Bukkit.getPort()))
-			    		return;
-			    	if(object.get("name").getAsString().equalsIgnoreCase("pong"))
-			    	{
-			    		System.out.println("WE WERE PONGED!!!!");
-			    		PlayerDataModule.this.gold = object.get("gold").getAsInt();
-			    		PlayerDataModule.this.loaded = true;
-			    		return;
-			    	}
-			    	
-			        System.out.println(object.get("name"));
-			        writeTest("pong", ++gold, Bukkit.getPort() + "");
-			    }
-			});
-		
-		
-		this.registerSelf();
+		this.registerListener(new PlayerDataListener(this));
 	}
 	
-	@Override
-	public void onDisble()
+	public PlayerData registerPlayerData(PlayerData playerData)
 	{
-		messagesSubscriber.close();
+		return this.players.put(playerData.getUniqueId(), playerData);
 	}
 	
-	public PlayerData getPlayer(UUID uniqueId)
+	public PlayerData getPlayerData(Player player)
 	{
-		return null;
+		return this.getPlayerData(player.getUniqueId());
 	}
 	
-	public PlayerData getPlayer(Player player)
+	public PlayerData getPlayerData(UUID uniqueId)
 	{
-		return this.getPlayer(player.getUniqueId());
+		return this.players.get(uniqueId);
 	}
 	
-
-	public void writeTest(String name, int gold, String id) {
-		JsonObject object = new JsonObject();
-		object.addProperty("name", name);
-		object.addProperty("gold", gold);
-		object.addProperty("id", id);
-		messagesPublisher.write(object);
-	}
-	
-	@EventHandler
-	public void onPreLogin(AsyncPlayerPreLoginEvent e)
+	public void unregisterPlayerData(UUID uniqueId)
 	{
-		this.writeTest(e.getName(), gold, Bukkit.getPort() + "");
-		//stop player login in until we got their stats
-		
-		//TODO: check if they took longer than 5 seconds, if so log the error
-		while(!this.loaded)
-		{
-			try {
-				this.log("Waiting for data...");
-				Thread.sleep(25L);
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}
-		}
-	
-		this.loaded = false;
+		this.players.remove(uniqueId);
 	}
-	
-	@EventHandler
-	public void onJoin(PlayerJoinEvent e)
-	{
-		System.out.println("tooo late, the player joined");
-		e.getPlayer().sendMessage(CC.bGold + this.gold + " gold");
-	}
-	
-	//Server B: AsyncPlayerPreLoginEvent, Pings old server
-	//Server A: Recieves ping, sends players stats with pong
-	//Server B: Accepts Pong and prints stats
 }
