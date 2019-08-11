@@ -12,13 +12,9 @@ import games.bevs.core.module.sponge.types.LauncherType;
 import games.bevs.core.module.ticker.TickerModule;
 
 public class CorePlugin extends BevsPlugin {
-	private static CorePlugin inst;
-
 	@Override
 	public void onEnable() {
 		super.onEnable();
-
-		inst = this;
 
 		CommandModule commandModule = this.addModule(new CommandModule(this));
 		PlayerDataModule clientModule = this.addModule(new PlayerDataModule(this, commandModule));
@@ -42,9 +38,5 @@ public class CorePlugin extends BevsPlugin {
 	@Override
 	public void onDisable() {
 		super.onDisable();
-	}
-
-	public static CorePlugin getInstance() {
-		return inst;
 	}
 }
