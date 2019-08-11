@@ -81,7 +81,8 @@ public class PhantomAbility extends CooldownAbility {
 													.durabilityLeft(1);
 			armorContent.add(armorItemBuilder.build());
 		}
-		return (ItemStack[]) armorContent.toArray();
+
+		return armorContent.toArray(new ItemStack[0]);
 	}
 	
 	@Override
