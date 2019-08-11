@@ -24,7 +24,7 @@ public class PunishModule extends Module
 		long now = System.currentTimeMillis();
 		Duration expires = new Duration(now);
 		expires.add(duration);
-		PunishLog log = new PunishLog(-1, client.getInternalId(), punishType, reason, now, expires.getMillis(), true, punisher == null ? -1 : punisher.getInternalId());
+		PunishLog log = null;//new PunishLog(-1, client.getInternalId(), punishType, reason, now, expires.getMillis(), true, punisher == null ? -1 : punisher.getInternalId());
 		return log;
 	}
 	

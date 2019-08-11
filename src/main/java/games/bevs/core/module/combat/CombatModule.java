@@ -30,8 +30,6 @@ import games.bevs.core.module.Module;
 import games.bevs.core.module.combat.event.CustomDamageEvent;
 import games.bevs.core.module.commandv2.CommandModule;
 import games.bevs.core.module.player.PlayerDataModule;
-import games.bevs.core.module.ticker.UnitType;
-import games.bevs.core.module.ticker.UpdateEvent;
 import net.minecraft.server.v1_8_R3.MathHelper;
 import net.minecraft.server.v1_8_R3.PacketPlayOutAnimation;
 

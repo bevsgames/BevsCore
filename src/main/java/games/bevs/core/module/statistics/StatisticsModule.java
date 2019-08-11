@@ -14,7 +14,15 @@ import games.bevs.core.module.commandv2.CommandModule;
 @ModInfo(name = "Statistics")
 public class StatisticsModule extends Module
 {
-
+	//Stats should save when you get out
+	//OR when you win
+	//We should save stats at the end of very game, and only add stats
+	
+	//When a player connects to another server
+		//Asks the last server the player was on for new data
+		//gets new data
+		//Saves data
+	
 	public StatisticsModule(BevsPlugin plugin, CommandModule commandModule)
 	{
 		super(plugin, commandModule);

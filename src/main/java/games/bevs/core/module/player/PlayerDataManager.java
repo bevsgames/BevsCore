@@ -33,5 +33,4 @@ public class PlayerDataManager extends PlayerManager<PlayerData>
 	{
 		return true;
 	}
-
 }
