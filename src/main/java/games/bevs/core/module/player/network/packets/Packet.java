@@ -12,22 +12,24 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public class Packet 
 {
+	public static final String UNKNOWN_SEND_TO = "global";
+	
 	private @NonNull String server;
 	private @NonNull String serverTo;
 	private @NonNull String type;
 	
-	public String onBuildData()
+	public JsonObject onBuildData()
 	{
-		return "{}";
+		return new JsonObject();
 	}
 	
-	public String build()
+	public JsonObject build()
 	{
 		JsonObject jsonPacket = new JsonObject();
 		jsonPacket.addProperty("server", this.getServer());
 		jsonPacket.addProperty("serverTo", this.serverTo);
 		jsonPacket.addProperty("type", this.getType());
-		jsonPacket.addProperty("data", this.onBuildData());
-		return jsonPacket.toString();
+		jsonPacket.add("data", this.onBuildData());
+		return jsonPacket;
 	}
 }

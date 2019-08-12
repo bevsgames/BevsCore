@@ -1,24 +1,27 @@
 package games.bevs.core.module.player.network.packets;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
 import games.bevs.core.commons.player.PlayerData;
 import games.bevs.core.commons.utils.JsonUtils;
 import lombok.Getter;
 
-public class PlayerDataResponse extends Packet
-{
-	private static final String PACKET_TYPE = "RESPONSE";
-	
-	public @Getter PlayerData playerData;
+public class PlayerDataResponse extends Packet {
+	public static final String PACKET_TYPE = "RESPONSE";
 
-	public PlayerDataResponse(String server, String serverTo, PlayerData playerData) 
-	{
+	private @Getter PlayerData playerData;
+
+	public PlayerDataResponse(String server, String serverTo, PlayerData playerData) {
 		super(server, serverTo, PACKET_TYPE);
 		this.playerData = playerData;
 	}
 
 	@Override
-	public String onBuildData()
+	public JsonObject onBuildData() 
 	{
-		return JsonUtils.toJson(this.getPlayerData());
+		String json = JsonUtils.toJson(this.getPlayerData());
+		JsonElement jsonElement = JsonUtils.toJsonFromString(json);
+		return jsonElement.getAsJsonObject();
 	}
 }

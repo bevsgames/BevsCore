@@ -2,21 +2,24 @@ package games.bevs.core.module.player.network;
 
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import games.bevs.core.BevsPlugin;
 import games.bevs.core.commons.database.redis.JedisPublisher;
 import games.bevs.core.commons.database.redis.JedisSettings;
 import games.bevs.core.commons.database.redis.JedisSubscriber;
 import games.bevs.core.commons.database.redis.subscribe.JedisSubscriptionHandler;
 import games.bevs.core.commons.player.PlayerData;
+import games.bevs.core.commons.server.ServerData;
 import games.bevs.core.commons.utils.JsonUtils;
 import games.bevs.core.module.player.PlayerDataModule;
-import lombok.AllArgsConstructor;
+import games.bevs.core.module.player.network.packets.PlayerDataRequest;
+import games.bevs.core.module.player.network.packets.PlayerDataResponse;
 
 /**
 * PlayerData Transfer Protocol
@@ -69,9 +72,19 @@ public class PlayerDataListener implements Listener
 		UUID uniqueId = e.getUniqueId();
 		String username = e.getName();
 		
+		String message = username + " is waitng for their PlayerData to load...";
 		
+		while(this.playerDataModule.getPlayerData(uniqueId) == null)
+		{
+			try {
+				this.playerDataModule.log(message);
+				Thread.sleep(25L);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+		}
 		
-		//
+		this.playerDataModule.log(username + "'s PlayerData has been loaded");
 	}
 	
 	public void createNetworkMsgHandler()
@@ -84,21 +97,42 @@ public class PlayerDataListener implements Listener
 			new JedisSubscriptionHandler<JsonObject>()
 			{
 			    @Override
-			    public void handleMessage(JsonObject object) {
+			    public void handleMessage(JsonObject packet) {
 			    	//ignore our messages
-			    	if(object.get("id").getAsString().equalsIgnoreCase(""+Bukkit.getPort()))
-			    		return;
-			    	if(object.get("name").getAsString().equalsIgnoreCase("pong"))
+			    	
+			    	String packetType = packet.get("type").getAsString();
+			    	String serverSender = packet.get("server").getAsString();
+			    	String serverSendTo = packet.get("serverTo").getAsString();
+			    	JsonObject data = packet.get("data").getAsJsonObject();
+			    	
+			    	//log
+			    	PlayerDataListener.this.playerDataModule.log("Packet (" + packetType + ") recieved from " + serverSender + " with data " + data);
+			    	
+			    	BevsPlugin plugin = PlayerDataListener.this.playerDataModule.getPlugin();
+			    	ServerData serverData = plugin.getServerData();
+			    	
+			    	switch(packetType)
 			    	{
-			    		//player data as json
-			    		String payloadPlayerData = object.getAsString();
-			    		PlayerData playerData = JsonUtils.fromJson(payloadPlayerData, PlayerData.class);
-			    		playerData.setLoaded(true);
-			    		return;
+			    		// A request was made, so we'll send out our data
+			    		// In the future this will be issued by the bungee, so we know the serverTo, thus we can know before if we have a mis
+			    		case PlayerDataRequest.PACKET_TYPE:
+			    			String username = data.get("username").getAsString();
+			    			String uniqueIdStr = data.get("uniqueId").getAsString();
+			    			
+			    			UUID uniqueId = UUID.fromString(uniqueIdStr);
+			    			
+			    			PlayerData playerData = PlayerDataListener.this.playerDataModule.getPlayerData(uniqueId);
+			    			if(playerData == null) return;
+			    			
+			    			PlayerDataResponse response = new PlayerDataResponse(serverData.getId(), serverSender, playerData);
+			    			messagesPublisher.write(response.build());
+			    		break;
+			    		
+			    		case PlayerDataResponse.PACKET_TYPE:
+			    			PlayerData importedPlayerData = JsonUtils.fromJson(data.getAsString(), PlayerData.class);
+			    			PlayerDataListener.this.playerDataModule.registerPlayerData(importedPlayerData);
+				    	break;
 			    	}
-			    	
-			    	
-			    	
 			    	
 			    }
 			});

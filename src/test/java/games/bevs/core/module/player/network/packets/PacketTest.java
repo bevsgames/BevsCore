@@ -21,7 +21,8 @@ public class PacketTest
 		UUID uuid = UUID.fromString(id);
 		
 		PlayerDataRequest request = new PlayerDataRequest("default", uuid, username);
-		Assert.assertEquals(request.build(), "{\"server\":\"default\",\"type\":\"REQUEST\",\"data\":\"{\\\"uniqueId\\\":\\\"5d793eed-51b7-4765-9b38-4fdaa00034d7\\\",\\\"username\\\":\\\"Sprock\\\"}\"}");
+		System.out.println(request.build());
+		Assert.assertEquals(request.build().toString(), "{\"server\":\"default\",\"serverTo\":\"global\",\"type\":\"REQUEST\",\"data\":{\"uniqueId\":\"5d793eed-51b7-4765-9b38-4fdaa00034d7\",\"username\":\"Sprock\"}}");
 	}
 	
 	@Test 
@@ -37,8 +38,8 @@ public class PacketTest
 		playerData.setExperience(20000);
 		playerData.setExpToLevel(2000000);
 		
-		PlayerDataResponse request = new PlayerDataResponse("default", playerData);
+		PlayerDataResponse response = new PlayerDataResponse("default", "serverThatAsked", playerData);
 		
-		Assert.assertEquals(request.build(), "{\"server\":\"default\",\"type\":\"RESPONSE\",\"data\":\"{\\\"internalId\\\":0,\\\"uniqueId\\\":\\\"5d793eed-51b7-4765-9b38-4fdaa00034d7\\\",\\\"rank\\\":\\\"FAMOUS\\\",\\\"jointimestamp\\\":0,\\\"gold\\\":504,\\\"level\\\":120,\\\"experience\\\":20000,\\\"expToLevel\\\":2000000,\\\"loaded\\\":false}\"}");
+		Assert.assertEquals(response.build().toString(), "{\"server\":\"default\",\"serverTo\":\"serverThatAsked\",\"type\":\"RESPONSE\",\"data\":{\"internalId\":0,\"uniqueId\":\"5d793eed-51b7-4765-9b38-4fdaa00034d7\",\"rank\":\"FAMOUS\",\"jointimestamp\":0,\"gold\":504,\"level\":120,\"experience\":20000,\"expToLevel\":2000000,\"loaded\":false}}");
 	}
 }

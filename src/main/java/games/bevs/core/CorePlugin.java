@@ -9,7 +9,6 @@ import games.bevs.core.module.commandv2.CommandModule;
 import games.bevs.core.module.cooldown.CooldownModule;
 import games.bevs.core.module.essentials.EssentialsModule;
 import games.bevs.core.module.player.PlayerDataModule;
-import games.bevs.core.module.playerdata.network.NetworkPlayerManager;
 import games.bevs.core.module.sponge.SpongeModule;
 import games.bevs.core.module.sponge.SpongeSettings;
 import games.bevs.core.module.sponge.types.LauncherType;
