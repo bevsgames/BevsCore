@@ -21,8 +21,8 @@ public class PlayerData
 	private long internalId;
 	private @NonNull UUID uniqueId;
 	private String username;
-	private Rank rank;
-	private Rank displayRank;
+	private Rank rank = Rank.NORMAL;
+	private Rank displayRank = Rank.NORMAL;
 	private long jointimestamp;
 	
 	private long gold;
@@ -69,15 +69,19 @@ public class PlayerData
 		String rankName = resultSet.getString("current_rank_name");
 		long rankExpires = resultSet.getLong("current_rank_expires");
 		
+		System.out.println(System.currentTimeMillis() + " < " + rankExpires);
+		
 		Rank rank = Rank.NORMAL;
 		if(System.currentTimeMillis() < rankExpires)
 		{
 			try
 			{
 				rank = Rank.valueOf(rankName.toUpperCase());
+				System.out.println(rank);
 			} 
 			catch(Exception e)
 			{
+				System.out.println("Failed to get rank " + rankName);
 				//We don't have that rank programmed?
 			}
 		}
@@ -96,6 +100,7 @@ public class PlayerData
 			
 			this.rank = this.loadRank(resultSet);
 			this.displayRank = this.rank;
+			
 			
 			this.gold = resultSet.getLong("gold");
 			
