@@ -10,8 +10,6 @@ import lombok.Setter;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
@@ -56,6 +54,9 @@ public class FishermanAbility extends Ability {
         if (!inHand.isSimilar(FishingRod)) {
             return;
         }
+        if(!this.hasAbility(event.getPlayer())) {
+            return;
+        }
         if (event.getState() != PlayerFishEvent.State.CAUGHT_ENTITY) {
             return;
         }
@@ -74,22 +75,6 @@ public class FishermanAbility extends Ability {
     	if(!(this.hasAbility(event.getPlayer())))
     		return;
 		if (event.getItem().isSimilar(FishingRod)) {
-			event.setCancelled(true);
-		}
-	}
-
-	@EventHandler
-	public void onDeath(PlayerDeathEvent event) {
-		if(!(this.hasAbility(event.getEntity())))
-			return;
-		event.getDrops().removeIf(itemStack -> itemStack.isSimilar(FishingRod));
-	}
-
-	@EventHandler
-	public void onItemDrop(PlayerDropItemEvent event) {
-		if(!(this.hasAbility(event.getPlayer())))
-			return;
-		if (event.getItemDrop().getItemStack().isSimilar(FishingRod)) {
 			event.setCancelled(true);
 		}
 	}
