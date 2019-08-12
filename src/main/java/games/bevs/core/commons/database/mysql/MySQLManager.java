@@ -40,12 +40,13 @@ public class MySQLManager
 	}
 	
 	public void catchNonAsyncThread() {
-		if (plugin.getServer().isPrimaryThread()) 
-		{
-			for(int i = 0; i < 20; i++)
-				Bukkit.broadcastMessage(StringUtils.error("MySQLManager", "Thread was executed on main thread!!"));
-			throw new IllegalStateException("Illegal call on main thread");
-		}
+		if(this.plugin != null)
+			if (plugin.getServer().isPrimaryThread()) 
+			{
+				for(int i = 0; i < 20; i++)
+					Bukkit.broadcastMessage(StringUtils.error("MySQLManager", "Thread was executed on main thread!!"));
+				throw new IllegalStateException("Illegal call on main thread");
+			}
 	}
 	
 	public void closeComponents(PreparedStatement ps) 
@@ -91,5 +92,10 @@ public class MySQLManager
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public void close()
+	{
+		this.dataSource.close();
 	}
 }

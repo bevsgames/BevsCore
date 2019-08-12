@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.zaxxer.hikari.HikariConfig;
@@ -15,6 +16,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import games.bevs.core.commons.utils.DataUtils;
 
+@Ignore
 public class DatabaseTest
 {
 	private boolean secondProfile = false;

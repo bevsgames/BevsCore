@@ -30,10 +30,11 @@ public class PacketTest
 	@Test 
 	public void onPlayerDataResponse()
 	{
+		String username = "Sprock";
 		String id = "5d793eed-51b7-4765-9b38-4fdaa00034d7";
 		UUID uuid = UUID.fromString(id);
 		
-		PlayerData playerData = new PlayerData(uuid);
+		PlayerData playerData = new PlayerData(username, uuid);
 		playerData.setRank(Rank.FAMOUS);
 		playerData.setGold(504);
 		playerData.setLevel(120);

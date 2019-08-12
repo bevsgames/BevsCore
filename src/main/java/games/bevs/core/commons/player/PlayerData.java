@@ -20,6 +20,7 @@ public class PlayerData
 {
 	private long internalId;
 	private @NonNull UUID uniqueId;
+	private String username;
 	private Rank rank;
 	private Rank displayRank;
 	private long jointimestamp;
@@ -37,8 +38,9 @@ public class PlayerData
 	
 	private boolean loaded = false;
 	
-	public PlayerData(UUID uniqueId)
+	public PlayerData(String username, UUID uniqueId)
 	{
+		this.username = username;
 		this.uniqueId = uniqueId;
 		this.statistics = new HashMap<>();
 	}
@@ -86,7 +88,8 @@ public class PlayerData
 	{
 		try 
 		{
-			this.internalId = resultSet.getLong("interal_id");
+			resultSet.next();
+			this.internalId = resultSet.getLong("internal_id");
 			String uniqueId = resultSet.getString("unique_id");
 			this.uniqueId = DataUtils.stringToUniqueId(uniqueId);
 			this.jointimestamp = resultSet.getTimestamp("join_timestamp").getTime();

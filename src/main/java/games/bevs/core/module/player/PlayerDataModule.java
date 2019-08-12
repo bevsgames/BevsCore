@@ -65,10 +65,12 @@ public class PlayerDataModule extends Module
 	{
 		if(this.getPlugin().getServerData().isOnNetwork())
 		{
+			this.log("Starting in NETWORK MODE!");
 			this.registerListener(new NetworkPlayerDataListener(this));
 		}
 		else
 		{
+			this.log("Starting in STANDALONE MODE!");
 			this.registerListener(new StandalonePlayerDataListener(this, this.mySQLManager));
 		}
 		

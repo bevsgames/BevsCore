@@ -9,6 +9,8 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import games.bevs.core.commons.database.DatabaseSettings;
 import games.bevs.core.commons.database.mysql.MySQLManager;
 import games.bevs.core.commons.database.operations.LoadPlayerData;
+import games.bevs.core.commons.database.tables.PlayerDataTable;
+import games.bevs.core.commons.database.tables.StatisticsTable;
 import games.bevs.core.commons.player.PlayerData;
 import games.bevs.core.module.player.PlayerDataModule;
 
@@ -25,11 +27,14 @@ public class StandalonePlayerDataListener implements Listener
 		this.playerDataModule = playerDataModule;
 		this.mySQLManager = mySQLManager;
 		this.databaseSetting = new DatabaseSettings(null, mySQLManager);
+		
+		//Create tables if they don't exist
+		new PlayerDataTable(this.databaseSetting);
+		new StatisticsTable(this.databaseSetting);
 	}
 	
 	public void queryPlayerData(PlayerData playerData)
 	{
-		
 //		mySQLManager.getConnection().prepareStatement(sql);
 	}
 	
@@ -40,7 +45,7 @@ public class StandalonePlayerDataListener implements Listener
 		String username = e.getName();
 		
 		//load from database
-		PlayerData playerData = new PlayerData(uniqueId);
+		PlayerData playerData = new PlayerData(username, uniqueId);
 		this.playerDataModule.log(username + " is waitng for their PlayerData to load...");
 		new LoadPlayerData(this.databaseSetting, playerData);
 		

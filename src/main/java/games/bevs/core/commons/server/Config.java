@@ -39,7 +39,10 @@ public class Config {
 		
 		this.config = YamlConfiguration.loadConfiguration(this.configFile);
 		if(isNew)
+		{
 			onCreate(this.config);
+			this.save();
+		}
 	}
 
 	public void save() 
