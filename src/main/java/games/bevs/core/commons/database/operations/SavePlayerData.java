@@ -21,6 +21,12 @@ public class SavePlayerData extends DatabseOperation
 			Connection connection = settings.getMysqlManager().getConnection();
 			String uniqueIdStr = DataUtils.uniqueIdToString(playerData.getUniqueId());
 			
+			
+			//Save stats
+			//Save gold
+			//Save levels
+			
+			
 			//Batch save stats
 //			playerData.getStatistics().forEach((name, value) ->
 //			{
