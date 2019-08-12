@@ -2,9 +2,11 @@ package games.bevs.core.commons.player;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.UUID;
 
-import games.bevs.core.commons.Rank;
+import games.bevs.core.commons.player.rank.Rank;
+import games.bevs.core.commons.player.statistics.StatLog;
 import games.bevs.core.commons.utils.DataUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,11 +31,15 @@ public class PlayerData
 	private long experience;
 	private long expToLevel;
 	
+	private long mutedExpires = -1;
+	private ArrayList<StatLog> statistics;
+	
 	private boolean loaded = false;
 	
 	public PlayerData(UUID uniqueId)
 	{
 		this.uniqueId = uniqueId;
+		this.statistics = new ArrayList<>();
 	}
 	
 	
@@ -57,6 +63,10 @@ public class PlayerData
 			this.level = resultSet.getLong("current_level");
 			this.experience = resultSet.getLong("current_exp");
 			this.expToLevel = resultSet.getLong("exp_to_level");
+			
+			this.mutedExpires = resultSet.getLong("muted_expire");
+			
+			this.loaded = true;
 		} 
 		catch (SQLException e) 
 		{

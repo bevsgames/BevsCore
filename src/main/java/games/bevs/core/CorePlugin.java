@@ -1,7 +1,8 @@
 package games.bevs.core;
 
-import games.bevs.core.commons.database.redis.JedisSettings;
+import games.bevs.core.commons.database.mysql.MySQLManager;
 import games.bevs.core.commons.managers.PlayerManager;
+import games.bevs.core.commons.redis.JedisSettings;
 import games.bevs.core.commons.utils.PluginUtils;
 import games.bevs.core.module.abilties.AbilityModule;
 import games.bevs.core.module.combat.CombatModule;
@@ -19,8 +20,10 @@ public class CorePlugin extends BevsPlugin {
 	public void onEnable() {
 		super.onEnable();
 
+		MySQLManager mySQLManager = new MySQLManager(this, "localhost", "8889", "BevsGames", "core_user", "*c4GS-X2!wwrJnA");
+		
 		CommandModule commandModule = this.addModule(new CommandModule(this));
-		PlayerDataModule playerModule = this.addModule(new PlayerDataModule(this, commandModule));
+		PlayerDataModule playerModule = this.addModule(new PlayerDataModule(this, commandModule, mySQLManager));
 		commandModule.setClientModule(playerModule); // this allows us to check ranks
 
 		new CombatModule(this, commandModule, playerModule);

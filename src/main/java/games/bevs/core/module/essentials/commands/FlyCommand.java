@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import games.bevs.core.commons.Rank;
+import games.bevs.core.commons.player.rank.Rank;
 import games.bevs.core.commons.utils.StringUtils;
 import games.bevs.core.module.commandv2.types.BevsCommand;
 

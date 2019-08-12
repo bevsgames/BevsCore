@@ -1,6 +1,6 @@
-package games.bevs.core.commons.database.redis.subscribe.impli;
+package games.bevs.core.commons.redis.subscribe.impli;
 
-import games.bevs.core.commons.database.redis.subscribe.JedisSubscriptionGenerator;
+import games.bevs.core.commons.redis.subscribe.JedisSubscriptionGenerator;
 
 public class StringJedisSubscriptionGenerator implements JedisSubscriptionGenerator<String> {
 

@@ -5,10 +5,10 @@ import java.util.UUID;
 import org.junit.Assert;
 import org.junit.Test;
 
-import games.bevs.core.commons.Rank;
 import games.bevs.core.commons.network.packets.PlayerDataRequest;
 import games.bevs.core.commons.network.packets.PlayerDataResponse;
 import games.bevs.core.commons.player.PlayerData;
+import games.bevs.core.commons.player.rank.Rank;
 
 /**
  * Any changes to the playerData class, this test will need to be upddated.

@@ -1,4 +1,4 @@
-package games.bevs.core.commons.database.operation;
+package games.bevs.core.commons.database;
 
 import lombok.Getter;
 

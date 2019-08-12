@@ -1,5 +1,6 @@
-package games.bevs.core.commons;
+package games.bevs.core.commons.player.rank;
 
+import games.bevs.core.commons.CC;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

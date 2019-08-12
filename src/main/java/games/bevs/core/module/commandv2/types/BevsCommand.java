@@ -10,8 +10,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import games.bevs.core.commons.Rank;
 import games.bevs.core.commons.player.PlayerData;
+import games.bevs.core.commons.player.rank.Rank;
 import games.bevs.core.commons.utils.StringUtils;
 import games.bevs.core.module.commandv2.CommandModule;
 import lombok.Getter;

@@ -1,5 +1,6 @@
 package games.bevs.core;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -39,7 +40,8 @@ public class BevsPlugin extends JavaPlugin
 		String serverName = config.getString(SERVER_NAME_PATH);
 		String serverGroup = config.getString(SERVER_GROUP_PATH);
 		String serverDomain = config.getString(SERVER_GROUP_PATH);
-		this.serverData = new ServerData(serverId, serverName, serverGroup, serverDomain);
+		boolean isOnNetwork =  !Bukkit.getOnlineMode();
+		this.serverData = new ServerData(serverId, serverName, serverGroup, serverDomain, isOnNetwork);
 		
 		//Shut server down if we forgot to update server.yml
 		if(!config.getBoolean(SERVER_VIEWED_PATH))
@@ -51,6 +53,7 @@ public class BevsPlugin extends JavaPlugin
 				System.out.println("PLEASE UPDATE ALL SETTINGS IN settings.yml!");
 				System.out.println("SET settings.yml's " + SERVER_VIEWED_PATH + " to true to launch normally");
 			}
+			Bukkit.shutdown();
 		}
 	}
 	

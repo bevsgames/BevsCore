@@ -1,4 +1,4 @@
-package games.bevs.core.commons.database.redis;
+package games.bevs.core.commons.redis;
 
 import lombok.Getter;
 import redis.clients.jedis.JedisPool;

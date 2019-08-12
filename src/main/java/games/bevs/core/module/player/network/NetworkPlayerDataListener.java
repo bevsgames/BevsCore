@@ -10,13 +10,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import games.bevs.core.BevsPlugin;
-import games.bevs.core.commons.database.redis.JedisPublisher;
-import games.bevs.core.commons.database.redis.JedisSettings;
-import games.bevs.core.commons.database.redis.JedisSubscriber;
-import games.bevs.core.commons.database.redis.subscribe.JedisSubscriptionHandler;
 import games.bevs.core.commons.network.packets.PlayerDataRequest;
 import games.bevs.core.commons.network.packets.PlayerDataResponse;
 import games.bevs.core.commons.player.PlayerData;
+import games.bevs.core.commons.redis.JedisPublisher;
+import games.bevs.core.commons.redis.JedisSettings;
+import games.bevs.core.commons.redis.JedisSubscriber;
+import games.bevs.core.commons.redis.subscribe.JedisSubscriptionHandler;
 import games.bevs.core.commons.server.ServerData;
 import games.bevs.core.commons.utils.JsonUtils;
 import games.bevs.core.module.player.PlayerDataModule;
@@ -52,14 +52,14 @@ import games.bevs.core.module.player.PlayerDataModule;
 * }
 * </code>
 */
-public class PlayerDataListener implements Listener
+public class NetworkPlayerDataListener implements Listener
 {
 	private PlayerDataModule playerDataModule;
 	
 	private JedisPublisher<JsonObject> messagesPublisher;
 	private JedisSubscriber<JsonObject> messagesSubscriber;
 	
-	public PlayerDataListener(PlayerDataModule playerDataModule)
+	public NetworkPlayerDataListener(PlayerDataModule playerDataModule)
 	{
 		this.playerDataModule = playerDataModule;
 		
@@ -106,9 +106,9 @@ public class PlayerDataListener implements Listener
 			    	JsonObject data = packet.get("data").getAsJsonObject();
 			    	
 			    	//log
-			    	PlayerDataListener.this.playerDataModule.log("Packet (" + packetType + ") recieved from " + serverSender + " with data " + data);
+			    	NetworkPlayerDataListener.this.playerDataModule.log("Packet (" + packetType + ") recieved from " + serverSender + " with data " + data);
 			    	
-			    	BevsPlugin plugin = PlayerDataListener.this.playerDataModule.getPlugin();
+			    	BevsPlugin plugin = NetworkPlayerDataListener.this.playerDataModule.getPlugin();
 			    	ServerData serverData = plugin.getServerData();
 			    	
 			    	switch(packetType)
@@ -121,7 +121,7 @@ public class PlayerDataListener implements Listener
 			    			
 			    			UUID uniqueId = UUID.fromString(uniqueIdStr);
 			    			
-			    			PlayerData playerData = PlayerDataListener.this.playerDataModule.getPlayerData(uniqueId);
+			    			PlayerData playerData = NetworkPlayerDataListener.this.playerDataModule.getPlayerData(uniqueId);
 			    			if(playerData == null) return;
 			    			
 			    			PlayerDataResponse response = new PlayerDataResponse(serverData.getId(), serverSender, playerData);
@@ -130,7 +130,7 @@ public class PlayerDataListener implements Listener
 			    		
 			    		case PlayerDataResponse.PACKET_TYPE:
 			    			PlayerData importedPlayerData = JsonUtils.fromJson(data.getAsString(), PlayerData.class);
-			    			PlayerDataListener.this.playerDataModule.registerPlayerData(importedPlayerData);
+			    			NetworkPlayerDataListener.this.playerDataModule.registerPlayerData(importedPlayerData);
 				    	break;
 			    	}
 			    	

@@ -11,4 +11,6 @@ public class ServerData
 	private String name;
 	private String group;
 	private String domain;
+	
+	private boolean onNetwork;
 }

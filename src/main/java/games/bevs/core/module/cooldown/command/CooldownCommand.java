@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 import games.bevs.core.commons.Duration;
 import games.bevs.core.commons.Duration.TimeUnit;
-import games.bevs.core.commons.Rank;
+import games.bevs.core.commons.player.rank.Rank;
 import games.bevs.core.module.commandv2.types.BevsCommand;
 import games.bevs.core.module.cooldown.CooldownModule;
 import games.bevs.core.module.cooldown.types.CooldownPlayer;

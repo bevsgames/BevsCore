@@ -6,11 +6,13 @@ import java.util.UUID;
 import org.bukkit.entity.Player;
 
 import games.bevs.core.BevsPlugin;
+import games.bevs.core.commons.database.mysql.MySQLManager;
 import games.bevs.core.commons.player.PlayerData;
 import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
 import games.bevs.core.module.commandv2.CommandModule;
-import games.bevs.core.module.player.network.PlayerDataListener;
+import games.bevs.core.module.player.network.NetworkPlayerDataListener;
+import games.bevs.core.module.player.standalone.StandalonePlayerDataListener;
 
 /**
  * We want to first check if the player is on the network?
@@ -48,18 +50,28 @@ import games.bevs.core.module.player.network.PlayerDataListener;
 @ModInfo(name = "PlayerData")
 public class PlayerDataModule extends Module
 {
+	private MySQLManager mySQLManager;
+	
 	private HashMap<UUID, PlayerData> players = new HashMap<>();
 	
-	public PlayerDataModule(BevsPlugin plugin, CommandModule commandModule)
+	public PlayerDataModule(BevsPlugin plugin, CommandModule commandModule, MySQLManager mySQLManager)
 	{
 		super(plugin, commandModule);
-		
+		this.mySQLManager = mySQLManager;
 	}
 	
 	@Override
 	public void onEnable()
 	{
-		this.registerListener(new PlayerDataListener(this));
+		if(this.getPlugin().getServerData().isOnNetwork())
+		{
+			this.registerListener(new NetworkPlayerDataListener(this));
+		}
+		else
+		{
+			this.registerListener(new StandalonePlayerDataListener(this, this.mySQLManager));
+		}
+		
 	}
 	
 	public PlayerData registerPlayerData(PlayerData playerData)
