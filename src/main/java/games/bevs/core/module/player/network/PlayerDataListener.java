@@ -14,12 +14,12 @@ import games.bevs.core.commons.database.redis.JedisPublisher;
 import games.bevs.core.commons.database.redis.JedisSettings;
 import games.bevs.core.commons.database.redis.JedisSubscriber;
 import games.bevs.core.commons.database.redis.subscribe.JedisSubscriptionHandler;
+import games.bevs.core.commons.network.packets.PlayerDataRequest;
+import games.bevs.core.commons.network.packets.PlayerDataResponse;
 import games.bevs.core.commons.player.PlayerData;
 import games.bevs.core.commons.server.ServerData;
 import games.bevs.core.commons.utils.JsonUtils;
 import games.bevs.core.module.player.PlayerDataModule;
-import games.bevs.core.module.player.network.packets.PlayerDataRequest;
-import games.bevs.core.module.player.network.packets.PlayerDataResponse;
 
 /**
 * PlayerData Transfer Protocol

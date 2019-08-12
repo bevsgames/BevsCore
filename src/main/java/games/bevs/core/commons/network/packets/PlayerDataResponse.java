@@ -1,4 +1,4 @@
-package games.bevs.core.module.player.network.packets;
+package games.bevs.core.commons.network.packets;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
