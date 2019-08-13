@@ -1,6 +1,6 @@
 package games.bevs.core;
 
-import games.bevs.core.commons.database.DatabaseSettings;
+import games.bevs.core.commons.database.api.DatabaseSettings;
 import games.bevs.core.commons.database.mongo.MongoDatabase;
 import games.bevs.core.commons.database.mysql.MySQLDatabase;
 import games.bevs.core.module.abilties.AbilityModule;

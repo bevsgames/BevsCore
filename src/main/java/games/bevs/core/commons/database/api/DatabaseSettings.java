@@ -1,4 +1,4 @@
-package games.bevs.core.commons.database;
+package games.bevs.core.commons.database.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.bukkit.entity.Player;
 
 import games.bevs.core.BevsPlugin;
-import games.bevs.core.commons.database.Database;
+import games.bevs.core.commons.database.api.Database;
 import games.bevs.core.commons.player.PlayerData;
 import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;

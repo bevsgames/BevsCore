@@ -11,8 +11,9 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 import games.bevs.core.BevsPlugin;
-import games.bevs.core.commons.database.Database;
-import games.bevs.core.commons.database.DatabaseSettings;
+import games.bevs.core.commons.database.api.Database;
+import games.bevs.core.commons.database.api.DatabaseSettings;
+import games.bevs.core.commons.database.api.minidbs.PlayerDataMiniDB;
 import games.bevs.core.commons.utils.StringUtils;
 
 public class MySQLDatabase extends Database
@@ -97,6 +98,8 @@ public class MySQLDatabase extends Database
 		}
 	}
 	
+
+	@Override
 	public void close()
 	{
 		this.dataSource.close();

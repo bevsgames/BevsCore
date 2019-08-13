@@ -1,17 +1,29 @@
-package games.bevs.core.commons.database.mongo;
+package games.bevs.core.commons.database;
 
 import java.util.UUID;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 import games.bevs.core.commons.database.api.DatabaseSettings;
 import games.bevs.core.commons.database.api.minidbs.PlayerDataMiniDB;
-import games.bevs.core.commons.database.api.minidbs.PunishMiniDB;
+import games.bevs.core.commons.database.mongo.MongoDatabase;
 import games.bevs.core.commons.player.PlayerData;
 import games.bevs.core.commons.player.rank.Rank;
 
+/**
+ * This test uploads a playerData info
+ * then pulls it down and sets the rank to famous
+ * with a few stats 
+ * then it uploads it again
+ *
+ */
+@Ignore("Takes too long to run due to databases")
 public class MainTest {
 
-	public static void main(String[] args)
-	{//IPlayerDataMiniDB
+	@Test
+	public void onPlayerData()
+	{
 		
 		MongoDatabase mongo = new MongoDatabase(new DatabaseSettings("localhost", "27017", "bevsGames", null, null));
 		
@@ -22,7 +34,6 @@ public class MainTest {
 		
 		PlayerData playerDataUpload = new PlayerData(username, uniqueId);
 		playerDataDB.savePlayerData(playerDataUpload);
-		// ===============
 		
 		PlayerData playerDataDownload = playerDataDB.loadPlayerData(uniqueId);
 		playerDataDownload.setRank(Rank.FAMOUS);

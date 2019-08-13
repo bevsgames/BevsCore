@@ -3,7 +3,6 @@ package games.bevs.core.commons.database.mongo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.entity.Player;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
@@ -11,18 +10,18 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 
-import games.bevs.core.commons.database.Database;
-import games.bevs.core.commons.database.DatabaseSettings;
+import games.bevs.core.commons.database.api.Database;
+import games.bevs.core.commons.database.api.DatabaseSettings;
+import games.bevs.core.commons.database.api.minidbs.PlayerDataMiniDB;
+import games.bevs.core.commons.database.mongo.minidbs.MongoPlayerDataMiniDB;
 import games.bevs.core.commons.player.PlayerData;
-import games.bevs.core.commons.player.dao.PlayerDataDao;
+import lombok.Getter;
 
 public class MongoDatabase extends Database {
 	private MongoClient mongo;
 	private Morphia morphia;
-	private Datastore datastore;
+	private @Getter Datastore datastore;
 	
-	private PlayerDataDao playerdataDao;
-
 	public MongoDatabase(DatabaseSettings settings) 
 	{
 		super(settings);
@@ -40,28 +39,13 @@ public class MongoDatabase extends Database {
 		datastore = morphia.createDatastore(mongo, "bevsGames");
 		datastore.ensureIndexes();
 		
-
-		playerdataDao = new PlayerDataDao(PlayerData.class, datastore);
+		this.registerMiniDatabase(PlayerDataMiniDB.class, new MongoPlayerDataMiniDB(this));
 	}
 
-	public PlayerData getUserByPlayer(Player player)
+	
+	@Override
+	public void close()
 	{
-		PlayerData playerData = playerdataDao.findOne("uuid", player.getUniqueId().toString());
-		if (playerData == null) 
-		{
-			playerData = new PlayerData(player.getName(), player.getUniqueId());
-			this.playerdataDao.save(playerData);
-		}
-		return playerData;
-	}
-
-	public void saveUser(PlayerData user) 
-	{
-		playerdataDao.save(user);
-	}
-
-	public List<PlayerData> getAllUsers() 
-	{
-		return playerdataDao.find().asList();
+		this.mongo.close();
 	}
 }
