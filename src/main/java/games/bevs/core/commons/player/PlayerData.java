@@ -8,6 +8,7 @@ import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.IndexOptions;
 import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.Property;
+import org.mongodb.morphia.annotations.Transient;
 
 import games.bevs.core.commons.player.rank.Rank;
 import lombok.AllArgsConstructor;
@@ -50,6 +51,7 @@ public class PlayerData
 	@Property("statistics")
 	private HashMap<String, Long> statistics = new HashMap<>();
 	
+	@Transient
 	private boolean loaded = false;
 	
 	public PlayerData(String username, UUID uniqueId)

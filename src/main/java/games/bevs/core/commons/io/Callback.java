@@ -1,8 +1,7 @@
 package games.bevs.core.commons.io;
 
-public abstract class Callback<T>
+@FunctionalInterface
+public interface Callback<T>
 {
-	public Callback() {}
-  
 	public abstract void done(T paramT);
 }

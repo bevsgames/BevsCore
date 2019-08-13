@@ -15,7 +15,6 @@ import games.bevs.core.commons.player.rank.Rank;
  * This test uploads a playerData info
  * then pulls it down and sets the rank to famous
  * with a few stats 
- * then it uploads it again
  *
  */
 @Ignore("Takes too long to run due to databases")

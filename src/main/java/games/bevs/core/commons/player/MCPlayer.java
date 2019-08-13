@@ -6,7 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
-import games.bevs.core.commons.utils.MCNameUtils;
+import games.bevs.core.commons.utils.MCAPIUtils;
 import lombok.Getter;
 import lombok.NonNull;
 
@@ -34,7 +34,7 @@ public class MCPlayer extends SimpleMCPlayer
 	{
 		try 
 		{
-			String username = MCNameUtils.getUsername(this.getUniquieId());
+			String username = MCAPIUtils.getUsername(this.getUniquieId());
 			
 			if(username == null)
 			{

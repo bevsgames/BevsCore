@@ -1,8 +1,11 @@
 package games.bevs.core.commons;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import games.bevs.core.commons.utils.MathUtils;
+import games.bevs.core.commons.utils.NumberUtils;
 import games.bevs.core.commons.utils.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,6 +25,25 @@ public class Duration
 	public Duration(long milli)
 	{
 		this.timeInMills = milli;
+	}
+	
+	public Duration(String time)
+	{
+		long total = 0;
+		for(TimeUnit unit : TimeUnit.values())
+		{
+			Pattern pattern = Pattern.compile("(\\d)+" + unit.getSymbol());
+			Matcher matcher = pattern.matcher(time);
+			while (matcher.find()) 
+			{
+				String amountUnitStr = matcher.group().replaceAll(unit.getSymbol(), "");
+//				if(!NumberUtils.isNumber(amountUnitStr)) continue;
+				long amountUnit = Integer.parseInt(amountUnitStr);
+	            total += (unit.getMilli() * amountUnit);
+			}
+		}
+		
+		this.timeInMills = total;
 	}
 	
 	public long getMillis()
@@ -52,6 +74,12 @@ public class Duration
 	public Duration getRemainingTime()
 	{
 		Duration remainingTime = new Duration(this.timeInMills - System.currentTimeMillis());
+		return remainingTime;
+	}
+	
+	public Duration withNow()
+	{
+		Duration remainingTime = new Duration(this.timeInMills + System.currentTimeMillis());
 		return remainingTime;
 	}
 	
@@ -88,16 +116,18 @@ public class Duration
 	@AllArgsConstructor
 	public enum TimeUnit
 	{
-		SECOND(1000l, "second", "seconds"),
-		MINUTE(1000l * 60, "minute", "minutes"),
-		HOUR(1000l * 60 * 60, "hour", "hours"),
-		DAY(1000l * 60 * 60 * 24, "day", "days"),
-		WEEK(1000l * 60 * 60 * 24 * 7, "week", "weeks"),
-		MONTH(1000l * 60 * 60 * 24 * 30, "month", "months"),
-		YEAR(1000l * 60 * 60 * 24 * 365, "year", "years");
+		SECOND(1000l, "second", "seconds", "s"),
+		MINUTE(1000l * 60, "minute", "minutes", "m"),
+		HOUR(1000l * 60 * 60, "hour", "hours", "h"),
+		DAY(1000l * 60 * 60 * 24, "day", "days", "d"),
+		WEEK(1000l * 60 * 60 * 24 * 7, "week", "weeks", "w"),
+		MONTH(1000l * 60 * 60 * 24 * 30, "month", "months", "M"),
+		YEAR(1000l * 60 * 60 * 24 * 365, "year", "years", "y"),
+		NEVER(Long.MAX_VALUE - 1l, "never", "never", "never");
 		
 		private @Getter long milli;
 		private @Getter String nameOfOne;
 		private @Getter String nameOfMany;
+		private @Getter String symbol;
 	}
 }

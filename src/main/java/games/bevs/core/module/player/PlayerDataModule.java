@@ -7,10 +7,13 @@ import org.bukkit.entity.Player;
 
 import games.bevs.core.BevsPlugin;
 import games.bevs.core.commons.database.api.Database;
+import games.bevs.core.commons.database.api.minidbs.PlayerDataMiniDB;
 import games.bevs.core.commons.player.PlayerData;
 import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
 import games.bevs.core.module.commandv2.CommandModule;
+import games.bevs.core.module.player.commands.RankCommand;
+import games.bevs.core.module.player.listeners.PlayerListener;
 import lombok.Getter;
 
 /**
@@ -62,6 +65,10 @@ public class PlayerDataModule extends Module
 	@Override
 	public void onEnable()
 	{
+		this.registerListener(new PlayerListener(this));
+		
+		this.registerCommand(new RankCommand(this));
+		
 //		if(this.getPlugin().getServerData().isOnNetwork())
 //		{
 //			this.log("Starting in NETWORK MODE!");
@@ -73,6 +80,11 @@ public class PlayerDataModule extends Module
 //			this.registerListener(new StandalonePlayerDataListener(this, this.mySQLManager));
 //		}
 //		
+	}
+	
+	public PlayerDataMiniDB getPlayerDataMiniDB()
+	{
+		return this.getDatabase().getMiniDatabase(PlayerDataMiniDB.class);
 	}
 	
 	public PlayerData registerPlayerData(PlayerData playerData)
