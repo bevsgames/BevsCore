@@ -83,12 +83,14 @@ public class PlayerListener implements Listener
 		//no profile to save
 		if(this.getPlayerDataModule().getPlayerData(uniqueId) != null)
 			return;
+		 this.getPlayerDataModule().unregisterPlayerData(uniqueId);
 		
 		new Thread(() ->
 		{
 			long start = System.currentTimeMillis();
 			this.getPlayerDataModule().getPlayerDataMiniDB().savePlayerData(playerData);
 			long finish = System.currentTimeMillis() - start;
+			
 			
 			this.getPlayerDataModule().log("Successfully saved " + username + "'s profile in " + finish + "ms!");
 		}).start();

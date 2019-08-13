@@ -120,15 +120,16 @@ public class RankCommand extends BevsCommand
 			if(force || !playerData.getRank().hasPermissionsOf(rank))
 			{
 				new RankChangeEvent(playerData, playerData.getRank(), rank).call();
+				Duration expire = duraction.withNow();
 				
 				playerData.setRank(rank);
-				playerData.setRankExpires(duraction.withNow().getMillis());
+				playerData.setRankExpires(expire.getMillis());
 				
 				if(this.playerDataModule.getPlugin().getServerData().isOnNetwork())
 				{
 					//broadcast rank change if on network
 				}
-				sender.sendMessage(this.success(username + "'s rank is now " + rank.getDisplayName()));
+				sender.sendMessage(this.success(username + "'s rank is now " + rank.getDisplayName() + " for " + duraction.getFormatedTime() ));
 			}
 			
 		});
