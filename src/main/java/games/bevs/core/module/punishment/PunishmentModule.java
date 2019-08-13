@@ -23,6 +23,7 @@ import games.bevs.core.module.player.PlayerDataModule;
 import games.bevs.core.module.punishment.commands.BanCommand;
 import games.bevs.core.module.punishment.commands.KickCommand;
 import games.bevs.core.module.punishment.commands.MuteCommand;
+import games.bevs.core.module.punishment.commands.UnbanCommand;
 
 @ModInfo(name = "Punishment")
 public class PunishmentModule extends Module
@@ -36,6 +37,7 @@ public class PunishmentModule extends Module
 	@Override
 	public void onEnable()
 	{
+		this.registerCommand(new UnbanCommand(this, this.getPlayerDataModule()));
 		this.registerCommand(new BanCommand(this, this.getPlayerDataModule()));
 		this.registerCommand(new MuteCommand(this, this.getPlayerDataModule()));
 		this.registerCommand(new KickCommand(this.getPlayerDataModule()));
@@ -47,9 +49,21 @@ public class PunishmentModule extends Module
 		{
 			playerData.setBanExpires(dur.withNow().getMillis());
 			Player bannedPlayer = Bukkit.getPlayer(playerData.getUniqueId());
-			if(bannedPlayer != null)
-				bannedPlayer.kickPlayer(CC.bdRed + "Banned");
+			Bukkit.getScheduler().runTask(this.getPlugin(), () ->
+			{
+				if(bannedPlayer != null)
+					bannedPlayer.kickPlayer(CC.bdRed + "Banned");
+			});
 			sender.sendMessage(StringUtils.success("Ban", "Banned " + username + " for " + dur.getFormatedTime()));
+		});
+	}
+	
+	public void unban(CommandSender sender, String username)
+	{
+		runPlayerData(sender, username, (playerData) ->
+		{
+			playerData.setBanExpires(-1);
+			sender.sendMessage(StringUtils.success("Ban", "Unbanned " + username));
 		});
 	}
 	

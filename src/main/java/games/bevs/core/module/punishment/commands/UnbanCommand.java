@@ -16,21 +16,21 @@ import games.bevs.core.module.punishment.PunishmentModule;
  * NOTE:
  * All commands work even if the player is offline
  */
-public class BanCommand extends BevsCommand
+public class UnbanCommand extends BevsCommand
 {
 	private PlayerDataModule playerDataModule;
 	private PunishmentModule punishmentModule;
 
-	public BanCommand(PunishmentModule punishmentModule, PlayerDataModule playerDataModule) 
+	public UnbanCommand(PunishmentModule punishmentModule, PlayerDataModule playerDataModule) 
 	{
-		super("ban", Rank.MOD);
+		super("unban", Rank.MOD);
 		this.playerDataModule = playerDataModule;
 		this.punishmentModule = punishmentModule;
 	}
 	
 	private void help(CommandSender sender)
 	{
-		sender.sendMessage("/ban <Username>");
+		sender.sendMessage("/unban <Username>");
 	}
 	
 	@Override
@@ -42,7 +42,7 @@ public class BanCommand extends BevsCommand
 		}
 		
 		String username = args[0];
-		this.punishmentModule.ban(sender, username, new Duration(0, TimeUnit.DAY));
+		this.punishmentModule.unban(sender, username);
 		return true;
 	}
 }
