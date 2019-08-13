@@ -2,6 +2,7 @@ package games.bevs.core.module.player.listeners;
 
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,6 +12,9 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import games.bevs.core.commons.CC;
 import games.bevs.core.commons.player.PlayerData;
+import games.bevs.core.commons.player.rank.Rank;
+import games.bevs.core.commons.player.rank.events.RankChangeEvent;
+import games.bevs.core.commons.utils.StringUtils;
 import games.bevs.core.module.player.PlayerDataModule;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,6 +40,12 @@ public class PlayerListener implements Listener
 		//Just incase they have changed their username
 		playerData.setUsername(username);
 		playerData.setLoaded(true);
+		
+		//Rank expired
+		if(playerData.getRankExpires() - System.currentTimeMillis() < 0)
+		{
+			playerData.setRank(Rank.NORMAL);
+		}
 		
 		this.getPlayerDataModule().registerPlayerData(playerData);
 		long finish = System.currentTimeMillis() - start;
@@ -82,5 +92,16 @@ public class PlayerListener implements Listener
 			
 			this.getPlayerDataModule().log("Successfully saved " + username + "'s profile in " + finish + "ms!");
 		}).start();
+	}
+	
+	@EventHandler
+	public void onRankChange(RankChangeEvent e)
+	{
+		Player player = Bukkit.getPlayer(e.getPlayerData().getUniqueId());
+		if(player == null) return;
+		Rank rank = e.getNewRank();
+		player.sendMessage(StringUtils.info("Rank", "You now have " + rank.getColouredDisplayName() + CC.gray + " rank!"));
+		player.setPlayerListName(rank.getTagColor() + player.getName());
+		
 	}
 }

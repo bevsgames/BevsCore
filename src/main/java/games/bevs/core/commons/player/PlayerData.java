@@ -69,7 +69,10 @@ public class PlayerData
 	{
 		this.rank = rank;
 		this.displayRank = rank;
+		
+		
 	}
+	
 	
 	public long getStatistic(String name)
 	{

@@ -14,6 +14,7 @@ import games.bevs.core.commons.Duration.TimeUnit;
 import games.bevs.core.commons.io.Callback;
 import games.bevs.core.commons.player.PlayerData;
 import games.bevs.core.commons.player.rank.Rank;
+import games.bevs.core.commons.player.rank.events.RankChangeEvent;
 import games.bevs.core.commons.utils.MCAPIUtils;
 import games.bevs.core.module.commandv2.types.BevsCommand;
 import games.bevs.core.module.player.PlayerDataModule;
@@ -118,6 +119,8 @@ public class RankCommand extends BevsCommand
 		{
 			if(force || !playerData.getRank().hasPermissionsOf(rank))
 			{
+				new RankChangeEvent(playerData, playerData.getRank(), rank).call();
+				
 				playerData.setRank(rank);
 				playerData.setRankExpires(duraction.withNow().getMillis());
 				
@@ -160,6 +163,40 @@ public class RankCommand extends BevsCommand
 		
 		String label = args[0];
 		String username = args[1];
+		
+		if(label.equalsIgnoreCase("force"))
+		{
+			if(args.length < 3 )
+			{
+				this.help(sender);
+				return false;
+			}
+			
+			String rankStr = args[2];
+			Rank rank = Rank.NORMAL;
+			try
+			{
+				rank = Rank.valueOf(rankStr);
+			} 
+			catch(IllegalArgumentException e)
+			{
+				this.help(sender);
+				sender.sendMessage("invalid rank");
+				return false;
+			}
+			
+			String durStr = "30d";//30 days
+			if(args.length > 3)
+			{
+				StringBuilder strBuilder = new StringBuilder();
+				for(int i = 3; i < args.length; i++)
+					strBuilder.append(args[i]);
+				durStr = strBuilder.toString();
+			}
+			Duration duration = new Duration(durStr);
+			
+			this.setRank(sender, true, username, rank, duration);
+		}
 		
 		if(label.equalsIgnoreCase("set"))
 		{
