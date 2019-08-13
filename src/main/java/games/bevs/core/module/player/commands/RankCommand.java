@@ -197,9 +197,7 @@ public class RankCommand extends BevsCommand
 			Duration duration = new Duration(durStr);
 			
 			this.setRank(sender, true, username, rank, duration);
-		}
-		
-		if(label.equalsIgnoreCase("set"))
+		} else if(label.equalsIgnoreCase("set"))
 		{
 			if(args.length < 3 )
 			{
@@ -231,18 +229,19 @@ public class RankCommand extends BevsCommand
 			Duration duration = new Duration(durStr);
 			
 			this.setRank(sender, false, username, rank, duration);
-		}
-		
-
-		if(label.equalsIgnoreCase("get"))
+		} 
+		else if(label.equalsIgnoreCase("get"))
 		{
 			this.getRank(sender, username);
-		}
-		
-
-		if(label.equalsIgnoreCase("reset"))
+		} 
+		else if(label.equalsIgnoreCase("reset"))
 		{
 			this.resetRank(sender, username);
+		} 
+		else
+		{
+			this.help(sender);
+			return false;
 		}
 		
 		return true;
