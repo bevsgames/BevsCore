@@ -165,6 +165,7 @@ public class RankCommand extends BevsCommand
 		String label = args[0];
 		String username = args[1];
 		
+		//TODO, Clean up later, compress it down
 		if(label.equalsIgnoreCase("force"))
 		{
 			if(args.length < 3 )

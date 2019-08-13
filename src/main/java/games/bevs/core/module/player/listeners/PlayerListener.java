@@ -64,6 +64,7 @@ public class PlayerListener implements Listener
 		if(playerData != null)
 		{
 			player.setPlayerListName(playerData.getRank().getTagColor() + player.getName());
+			playerData.addStatistic("general_server_joins", 1);
 			return;
 		}
 		
