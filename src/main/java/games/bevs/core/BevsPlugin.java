@@ -16,6 +16,7 @@ public class BevsPlugin extends JavaPlugin
 	private static final String SERVER_GROUP_PATH = "server.group";
 	private static final String SERVER_DOMAIN_PATH = "server.domain";
 	private static final String SERVER_VIEWED_PATH = "server.viewed";
+	private static final String DISABLED_DATABASE_PATH = "developer.disableDatabase";
 	
 	private @Getter ServerData serverData;
 	
@@ -33,15 +34,18 @@ public class BevsPlugin extends JavaPlugin
 						configFile.set(SERVER_GROUP_PATH, "test-group");
 						configFile.set(SERVER_DOMAIN_PATH, "test.bevs.games");
 						configFile.set(SERVER_VIEWED_PATH, false);
+						configFile.set(DISABLED_DATABASE_PATH, false);
 					}
 				};
+		serverConfig.save();
 		FileConfiguration config = serverConfig.getConfig();
 		String serverId = config.getString(SERVER_ID_PATH);
 		String serverName = config.getString(SERVER_NAME_PATH);
 		String serverGroup = config.getString(SERVER_GROUP_PATH);
 		String serverDomain = config.getString(SERVER_GROUP_PATH);
+		boolean disabledDatabase = config.getBoolean(DISABLED_DATABASE_PATH);
 		boolean isOnNetwork =  !Bukkit.getOnlineMode();
-		this.serverData = new ServerData(serverId, serverName, serverGroup, serverDomain, isOnNetwork);
+		this.serverData = new ServerData(serverId, serverName, serverGroup, serverDomain, disabledDatabase, isOnNetwork);
 		
 		//Shut server down if we forgot to update server.yml
 		if(!config.getBoolean(SERVER_VIEWED_PATH))

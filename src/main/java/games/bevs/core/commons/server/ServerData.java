@@ -12,5 +12,6 @@ public class ServerData
 	private String group;
 	private String domain;
 	
+	private boolean disabledDatabase;
 	private boolean onNetwork;
 }

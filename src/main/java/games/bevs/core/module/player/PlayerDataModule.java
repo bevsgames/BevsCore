@@ -3,6 +3,7 @@ package games.bevs.core.module.player;
 import java.util.HashMap;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import games.bevs.core.BevsPlugin;
@@ -68,6 +69,11 @@ public class PlayerDataModule extends Module
 		this.registerListener(new PlayerListener(this));
 		
 		this.registerCommand(new RankCommand(this));
+		
+		Bukkit.getOnlinePlayers().forEach(player -> {
+			PlayerData playerData = this.getPlayerDataMiniDB().loadPlayerData(player);
+			this.registerPlayerData(playerData);
+		});
 		
 //		if(this.getPlugin().getServerData().isOnNetwork())
 //		{

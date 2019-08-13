@@ -22,13 +22,7 @@ public class MongoPlayerDataMiniDB implements PlayerDataMiniDB
 	@Override
 	public PlayerData loadPlayerData(Player player)
 	{
-		PlayerData playerData = playerdataDao.findOne("uuid", player.getUniqueId().toString());
-		if (playerData == null) 
-		{
-			playerData = new PlayerData(player.getName(), player.getUniqueId());
-			this.playerdataDao.save(playerData);
-		}
-		return playerData;
+		return this.loadPlayerData(player.getUniqueId());
 	}
 	
 	@Override
