@@ -5,6 +5,12 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.IndexOptions;
+import org.mongodb.morphia.annotations.Indexed;
+import org.mongodb.morphia.annotations.Property;
+
 import games.bevs.core.commons.player.rank.Rank;
 import games.bevs.core.commons.utils.DataUtils;
 import lombok.AllArgsConstructor;
@@ -16,24 +22,31 @@ import lombok.NonNull;
  */
 @Data
 @AllArgsConstructor
+@Entity(value = "PlayerDatas", noClassnameStored = true)
 public class PlayerData
 {
+	@Id
 	private long internalId;
+	
+	@Indexed(options = @IndexOptions(unique = true))
 	private @NonNull UUID uniqueId;
+	
+	@Indexed
 	private String username;
 	private Rank rank = Rank.NORMAL;
 	private Rank displayRank = Rank.NORMAL;
-	private long jointimestamp;
+	private long jointimestamp = System.currentTimeMillis();
 	
-	private long gold;
+	private long gold = 0;
 	
-	private long level;
-	private long experience;
-	private long expToLevel;
+	private long level = 0;
+	private long experience = 0;
+	private long expToLevel = 0;
 	
 	private long mutedExpires = -1;
 	private long banExpires = -1;
 	
+	@Property("statistics")
 	private HashMap<String, Long> statistics;
 	
 	private boolean loaded = false;

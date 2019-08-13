@@ -11,19 +11,22 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 import games.bevs.core.BevsPlugin;
+import games.bevs.core.commons.database.Database;
+import games.bevs.core.commons.database.DatabaseSettings;
 import games.bevs.core.commons.utils.StringUtils;
 
-public class MySQLManager 
+public class MySQLDatabase extends Database
 {
 	private BevsPlugin plugin;
 	private HikariDataSource dataSource;
 	
-	public MySQLManager(BevsPlugin plugin, String url, String port, String database, String username, String password)
+	public MySQLDatabase(BevsPlugin plugin, DatabaseSettings settings)
 	{
+		super(settings);		
 		HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:mysql://" + url + ":" + port + "/" + database);
-        config.setUsername(username);
-        config.setPassword(password);  
+        config.setJdbcUrl("jdbc:mysql://" + settings.getUrl() + ":" + settings.getPort() + "/" + settings.getDatabase());
+        config.setUsername(settings.getUsername());
+        config.setPassword(settings.getPassword());  
         config.setDriverClassName("com.mysql.jdbc.Driver");
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");

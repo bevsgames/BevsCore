@@ -6,13 +6,12 @@ import java.util.UUID;
 import org.bukkit.entity.Player;
 
 import games.bevs.core.BevsPlugin;
-import games.bevs.core.commons.database.mysql.MySQLManager;
+import games.bevs.core.commons.database.Database;
 import games.bevs.core.commons.player.PlayerData;
 import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
 import games.bevs.core.module.commandv2.CommandModule;
-import games.bevs.core.module.player.network.NetworkPlayerDataListener;
-import games.bevs.core.module.player.standalone.StandalonePlayerDataListener;
+import lombok.Getter;
 
 /**
  * We want to first check if the player is on the network?
@@ -50,30 +49,30 @@ import games.bevs.core.module.player.standalone.StandalonePlayerDataListener;
 @ModInfo(name = "PlayerData")
 public class PlayerDataModule extends Module
 {
-	private MySQLManager mySQLManager;
+	private @Getter Database database;
 	
 	private HashMap<UUID, PlayerData> players = new HashMap<>();
 	
-	public PlayerDataModule(BevsPlugin plugin, CommandModule commandModule, MySQLManager mySQLManager)
+	public PlayerDataModule(BevsPlugin plugin, CommandModule commandModule, Database database)
 	{
 		super(plugin, commandModule);
-		this.mySQLManager = mySQLManager;
+		this.database = database;
 	}
 	
 	@Override
 	public void onEnable()
 	{
-		if(this.getPlugin().getServerData().isOnNetwork())
-		{
-			this.log("Starting in NETWORK MODE!");
-			this.registerListener(new NetworkPlayerDataListener(this));
-		}
-		else
-		{
-			this.log("Starting in STANDALONE MODE!");
-			this.registerListener(new StandalonePlayerDataListener(this, this.mySQLManager));
-		}
-		
+//		if(this.getPlugin().getServerData().isOnNetwork())
+//		{
+//			this.log("Starting in NETWORK MODE!");
+//			this.registerListener(new NetworkPlayerDataListener(this));
+//		}
+//		else
+//		{
+//			this.log("Starting in STANDALONE MODE!");
+//			this.registerListener(new StandalonePlayerDataListener(this, this.mySQLManager));
+//		}
+//		
 	}
 	
 	public PlayerData registerPlayerData(PlayerData playerData)
