@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result;
 
 import games.bevs.core.commons.CC;
 import games.bevs.core.commons.player.PlayerData;
@@ -40,6 +41,12 @@ public class PlayerListener implements Listener
 		//Just incase they have changed their username
 		playerData.setUsername(username);
 		playerData.setLoaded(true);
+		
+		//Check ban
+		if(playerData.getBanExpires() - System.currentTimeMillis() < 0)
+		{
+			e.disallow(Result.KICK_BANNED, CC.bAqua + "Banned");
+		}
 		
 		//Rank expired
 		if(playerData.getRankExpires() - System.currentTimeMillis() < 0)

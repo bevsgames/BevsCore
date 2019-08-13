@@ -71,7 +71,7 @@ public class WormAbility extends Ability {
 		Location loc = player.getLocation();
 		loc.subtract(0, 0.2, 0);
 		
-		Material[] landedOnBlocks = new Material[] { loc.getBlock().getType(), BlockUtils.GetAdjacentX(loc).getType(), BlockUtils.GetAdjacentZ(loc).getType() };
+		Material[] landedOnBlocks = new Material[] { loc.getBlock().getType(), BlockUtils.getAdjacentX(loc).getType(), BlockUtils.getAdjacentZ(loc).getType() };
 		for(Material landingMat : landedOnBlocks)
 			if(landingMat == blockMaterial)
 			{
