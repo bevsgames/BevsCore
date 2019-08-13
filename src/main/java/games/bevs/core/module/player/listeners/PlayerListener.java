@@ -49,8 +49,13 @@ public class PlayerListener implements Listener
 		String username = player.getName();
 		UUID uniqueId = player.getUniqueId();
 		
-		if(this.getPlayerDataModule().getPlayerData(uniqueId) != null)
+		PlayerData playerData = this.getPlayerDataModule().getPlayerData(uniqueId);
+		
+		if(playerData != null)
+		{
+			player.setPlayerListName(playerData.getRank().getTagColor() + player.getName());
 			return;
+		}
 		
 		player.kickPlayer(CC.bdRed + "PlayerData couldn't load in time, you joined too fast!");
 		this.getPlayerDataModule().log("Failed to load " + username + "'s profile!");
@@ -65,12 +70,12 @@ public class PlayerListener implements Listener
 		
 		PlayerData playerData = this.getPlayerDataModule().getPlayerData(player);
 		
+		//no profile to save
+		if(this.getPlayerDataModule().getPlayerData(uniqueId) != null)
+			return;
+		
 		new Thread(() ->
 		{
-			//no profile to save
-			if(this.getPlayerDataModule().getPlayerData(uniqueId) != null)
-				return;
-			
 			long start = System.currentTimeMillis();
 			this.getPlayerDataModule().getPlayerDataMiniDB().savePlayerData(playerData);
 			long finish = System.currentTimeMillis() - start;

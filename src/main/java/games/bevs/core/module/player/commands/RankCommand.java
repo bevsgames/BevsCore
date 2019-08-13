@@ -49,7 +49,7 @@ public class RankCommand extends BevsCommand
 			TimeUnit unit = units[i];
 			durationsHelp.append(( i == 0 ? "" :  ", ") + unit.getNameOfOne() + " = " + unit.getSymbol());
 		}
-		sender.sendMessage("Durations " + Duration.TimeUnit.values());
+		sender.sendMessage("Durations " + durationsHelp.toString());
 		sender.sendMessage("Ranks " + Arrays.toString(Rank.values()));
 		sender.sendMessage("/rank set <Username> <Rank> <Duration:x>");
 		sender.sendMessage("/rank force <Username> <Rank> <Duration:x>");
