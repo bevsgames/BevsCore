@@ -19,7 +19,7 @@ public class Module implements Listener
 	private @Setter Config config;
 	private @Getter @Setter boolean debug;
 	private @Getter @Setter CommandModule commandModule;
-	private @Getter @Setter PlayerDataModule clientModule;
+	private @Getter @Setter PlayerDataModule playerDataModule;
 	
 	public Module(BevsPlugin plugin, CommandModule commandModule, boolean debug)
 	{
@@ -34,11 +34,11 @@ public class Module implements Listener
 		}
 	}
 	
-	public Module(BevsPlugin plugin, CommandModule commandModule, PlayerDataModule clientModule)
+	public Module(BevsPlugin plugin, CommandModule commandModule, PlayerDataModule playerDataModule)
 	{
 		this.plugin = plugin;
 		this.commandModule = commandModule;
-		this.clientModule = clientModule;
+		this.playerDataModule = playerDataModule;
 		
 		if(this.getModInfo().hasConfig())
 		{

@@ -39,7 +39,7 @@ public class CorePlugin extends BevsPlugin
 		//load command and player Modules
 		CommandModule commandModule = this.addModule(new CommandModule(this));
 		PlayerDataModule playerModule = this.addModule(new PlayerDataModule(this, commandModule, database));
-		commandModule.setClientModule(playerModule); // this allows us to check ranks
+		commandModule.setPlayerDataModule(playerModule); // this allows us to check ranks
 
 		this.addModule(new CombatModule(this, commandModule, playerModule));
 

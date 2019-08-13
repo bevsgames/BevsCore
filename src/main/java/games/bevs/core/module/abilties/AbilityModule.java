@@ -29,7 +29,7 @@ public class AbilityModule extends Module {
 
 		if (!this.isDebug())
 			return;
-		DummyAbilityParent dummy = new DummyAbilityParent(this.getPlugin(), this.getClientModule(),
+		DummyAbilityParent dummy = new DummyAbilityParent(this.getPlugin(), this.getPlayerDataModule(),
 				this.getCooldownModule(), this);
 //		dummy.addAbility(new BoxerAbility());
 //		dummy.addAbility(new DummyAbility());
