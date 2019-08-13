@@ -22,7 +22,7 @@ public class CorePlugin extends BevsPlugin
 
 		//Load databases
 		MySQLDatabase mySQLDatabase = new MySQLDatabase(this, new DatabaseSettings("localhost", "8889", "BevsGames", "core_user", "*c4GS-X2!wwrJnA"));
-		MongoDatabase mongoDatabse = new MongoDatabase(new DatabaseSettings("localhost", "8889", "BevsGames", "core_user", "*c4GS-X2!wwrJnA"));
+		MongoDatabase mongoDatabse =  new MongoDatabase(new DatabaseSettings("localhost", "27017", "bevsGames", null, null));
 		
 		//load command and player Modules
 		CommandModule commandModule = this.addModule(new CommandModule(this));
