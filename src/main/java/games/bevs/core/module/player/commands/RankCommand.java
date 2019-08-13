@@ -173,7 +173,7 @@ public class RankCommand extends BevsCommand
 				return false;
 			}
 			
-			String rankStr = args[2];
+			String rankStr = args[2].toUpperCase();
 			Rank rank = Rank.NORMAL;
 			try
 			{
@@ -205,7 +205,7 @@ public class RankCommand extends BevsCommand
 				return false;
 			}
 			
-			String rankStr = args[2];
+			String rankStr = args[2].toUpperCase();
 			Rank rank = Rank.NORMAL;
 			try
 			{
