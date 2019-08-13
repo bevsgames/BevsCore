@@ -157,8 +157,12 @@ public class RankCommand extends BevsCommand
 			}
 			
 			String rankStr = args[2];
-			Rank rank = Rank.valueOf(rankStr);
-			if(rank == null)
+			Rank rank = Rank.NORMAL;
+			try
+			{
+				rank = Rank.valueOf(rankStr);
+			} 
+			catch(IllegalArgumentException e)
 			{
 				this.help(sender);
 				sender.sendMessage("invalid rank");
