@@ -1,8 +1,11 @@
 package games.bevs.core.commons.utils;
 
+import java.util.Random;
+
 public class MathUtils {
 	public static final float PI = (float) Math.PI;
 	private static final float[] SIN_TABLE_FAST = new float[4096];
+	private static Random ran = new Random();
 
 	public static double round(double value, int dp) {
 		double offset = Math.pow(10, dp);
@@ -21,6 +24,10 @@ public class MathUtils {
 		return SIN_TABLE_FAST[(int) ((par0 + ((float) Math.PI / 2F)) * 651.8986F) & 4095];
 	}
 
+	public static Random getRandom()
+	{
+		return ran;
+	}
 	static {
 		int i;
 

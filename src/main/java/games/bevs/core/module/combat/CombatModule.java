@@ -238,7 +238,8 @@ public class CombatModule extends Module
 				}
 				
 				livingEntity.setHealth(newHealth);
-				livingEntity.setVelocity(customDamageEvent.getKnockback());
+				if(!customDamageEvent.isCancelKnockback())
+					livingEntity.setVelocity(customDamageEvent.getKnockback());
 			}
 			
 			e.setCancelled(true);

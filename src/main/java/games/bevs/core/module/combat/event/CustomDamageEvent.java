@@ -36,6 +36,7 @@ public class CustomDamageEvent extends EventBase implements Cancellable
 	
 	private @Setter double initDamage = 0.0d;
 	private @Setter Vector initKnockback;
+	private @Setter boolean cancelKnockback = false;
 	
 	private @Setter @Getter double maxDamage = 10000d;
 	
