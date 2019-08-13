@@ -43,9 +43,11 @@ public class PlayerListener implements Listener
 		playerData.setLoaded(true);
 		
 		//Check ban
-		if(playerData.getBanExpires() - System.currentTimeMillis() < 0)
+		if(playerData.getBanExpires() - System.currentTimeMillis() > 0)
 		{
 			e.disallow(Result.KICK_BANNED, CC.bAqua + "Banned");
+			//so we don't register player
+			return;
 		}
 		
 		//Rank expired
