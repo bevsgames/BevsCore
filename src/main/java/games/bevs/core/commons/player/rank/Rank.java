@@ -26,9 +26,9 @@ public enum Rank
 		return this.compareTo(rank) <= 0;
 	}
 	
-	public String getDisplayName()
+	public String getColouredDisplayName()
 	{
-		return this.getTagColor() + this.getDisplayName() + CC.reset;
+		return this.getTagColor() + this.displayName + CC.reset;
 	}
 	
 	public static Rank toRank(String rankStr)

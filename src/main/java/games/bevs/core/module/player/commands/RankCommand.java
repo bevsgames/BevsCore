@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.json.simple.parser.ParseException;
 
@@ -38,6 +40,7 @@ public class RankCommand extends BevsCommand
 	public RankCommand(PlayerDataModule playerDataModule) 
 	{
 		super("rank", Rank.STAFF);
+		this.playerDataModule = playerDataModule;
 	}
 	
 	private void help(CommandSender sender)
@@ -73,10 +76,20 @@ public class RankCommand extends BevsCommand
 		new Thread(() -> {
 			
 			UUID uuid = null;
-			try {
-				uuid = MCAPIUtils.getUUID(username);
-			} catch (IOException | ParseException e) {
-				e.printStackTrace();
+			
+			//Method 1
+			OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(username);
+			if(offlinePlayer != null)
+				uuid = offlinePlayer.getUniqueId();
+			
+			//Method 2
+			if(uuid == null)
+			{
+				try {
+					uuid = MCAPIUtils.getUUID(username);
+				} catch (IOException | ParseException e) {
+					e.printStackTrace();
+				}
 			}
 			
 			if(uuid == null)
