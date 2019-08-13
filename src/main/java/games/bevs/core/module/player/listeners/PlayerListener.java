@@ -81,7 +81,7 @@ public class PlayerListener implements Listener
 		PlayerData playerData = this.getPlayerDataModule().getPlayerData(player);
 		
 		//no profile to save
-		if(this.getPlayerDataModule().getPlayerData(uniqueId) != null)
+		if(this.getPlayerDataModule().getPlayerData(uniqueId) == null)
 			return;
 		 this.getPlayerDataModule().unregisterPlayerData(uniqueId);
 		
