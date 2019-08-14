@@ -10,6 +10,7 @@ import games.bevs.core.module.commandv2.CommandModule;
 import games.bevs.core.module.cooldown.CooldownModule;
 import games.bevs.core.module.display.DisplayModule;
 import games.bevs.core.module.essentials.EssentialsModule;
+import games.bevs.core.module.npc.NPCModule;
 import games.bevs.core.module.player.PlayerDataModule;
 import games.bevs.core.module.punishment.PunishmentModule;
 import games.bevs.core.module.sponge.SpongeModule;
@@ -58,7 +59,7 @@ public class CorePlugin extends BevsPlugin
 		this.addModule(new TickerModule(this));
 		
 		this.addModule(new DisplayModule(this));
-		
+		this.addModule(new NPCModule(this, commandModule));
 	}
 
 	@Override

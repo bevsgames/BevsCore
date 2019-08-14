@@ -24,6 +24,12 @@ public class DisplayModule extends Module
 	{
 		super(plugin);
 	}
+	
+	@Override
+	public void onEnable()
+	{
+		this.registerSelf();
+	}
 
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e)

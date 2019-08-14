@@ -29,17 +29,23 @@ public class PacketUtils
 			getNMSPlayer(reciever).playerConnection.sendPacket(packet);
 	}
 	
+	public static void sendPacket(Player reciever, Object... packets)
+	{
+		for(Object packet : packets)
+			getNMSPlayer(reciever).playerConnection.sendPacket((Packet<?>) packet);
+	}
+	
 	public static void playSound(Player player, String sound, double x, double y, double z, float volume, float pitch)
 	{
 		sendPacket(player, new PacketPlayOutNamedSoundEffect(sound, x, y, z, volume, pitch));
 	}
 	
-	public static String  getLivingEntitySound(LivingEntity livingEntity)
+	public static String getLivingEntitySound(LivingEntity livingEntity)
 	{
 		return getLivingEntitySound(((CraftLivingEntity) livingEntity).getHandle());
 	}
 	
-	public static String  getLivingEntitySound(EntityLiving entityLiving)
+	public static String getLivingEntitySound(EntityLiving entityLiving)
 	{
 		try {
 			return (String) hurtSoundStr.invoke(entityLiving);
