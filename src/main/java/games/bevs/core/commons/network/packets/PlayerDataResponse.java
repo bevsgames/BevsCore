@@ -3,6 +3,7 @@ package games.bevs.core.commons.network.packets;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import games.bevs.core.commons.network.types.Packet;
 import games.bevs.core.commons.player.PlayerData;
 import games.bevs.core.commons.utils.JsonUtils;
 import lombok.Getter;
@@ -24,4 +25,5 @@ public class PlayerDataResponse extends Packet {
 		JsonElement jsonElement = JsonUtils.toJsonFromString(json);
 		return jsonElement.getAsJsonObject();
 	}
+	
 }

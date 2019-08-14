@@ -4,6 +4,10 @@ import games.bevs.core.commons.database.api.Database;
 import games.bevs.core.commons.database.api.DatabaseSettings;
 import games.bevs.core.commons.database.mongo.MongoDatabase;
 import games.bevs.core.commons.database.none.NoneDatabase;
+import games.bevs.core.commons.network.PacketConnectionManager;
+import games.bevs.core.commons.network.packets.PlayerDataRequest;
+import games.bevs.core.commons.network.packets.PlayerDataResponse;
+import games.bevs.core.commons.redis.JedisSettings;
 import games.bevs.core.module.abilties.AbilityModule;
 import games.bevs.core.module.combat.CombatModule;
 import games.bevs.core.module.commandv2.CommandModule;
@@ -32,11 +36,10 @@ public class CorePlugin extends BevsPlugin
 		else
 		{
 //			MySQLDatabase mySQLDatabase = new MySQLDatabase(this, new DatabaseSettings("localhost", "8889", "BevsGames", "core_user", "*c4GS-X2!wwrJnA"));
-			database =  new MongoDatabase(new DatabaseSettings("localhost", "27017", "bevsGames", null, null));
+			database = new MongoDatabase(new DatabaseSettings("localhost", "27017", "bevsGames", null, null));
 		}
 		
 		//Load databases
-		
 		
 		//load command and player Modules
 		CommandModule commandModule = this.addModule(new CommandModule(this));

@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import com.google.gson.JsonObject;
 
+import games.bevs.core.commons.network.types.Packet;
 import lombok.Getter;
 
 public class PlayerDataRequest extends Packet

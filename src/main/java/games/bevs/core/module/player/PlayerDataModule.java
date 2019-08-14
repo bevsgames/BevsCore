@@ -9,7 +9,12 @@ import org.bukkit.entity.Player;
 import games.bevs.core.BevsPlugin;
 import games.bevs.core.commons.database.api.Database;
 import games.bevs.core.commons.database.api.minidbs.PlayerDataMiniDB;
+import games.bevs.core.commons.network.PacketConnectionManager;
+import games.bevs.core.commons.network.packets.PlayerDataRequest;
+import games.bevs.core.commons.network.packets.PlayerDataResponse;
 import games.bevs.core.commons.player.PlayerData;
+import games.bevs.core.commons.redis.JedisSettings;
+import games.bevs.core.commons.utils.JsonUtils;
 import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
 import games.bevs.core.module.commandv2.CommandModule;
@@ -66,26 +71,26 @@ public class PlayerDataModule extends Module
 	@Override
 	public void onEnable()
 	{
-		this.registerListener(new PlayerListener(this));
-		
-		this.registerCommand(new RankCommand(this));
 		
 		Bukkit.getOnlinePlayers().forEach(player -> {
 			PlayerData playerData = this.getPlayerDataMiniDB().loadPlayerData(player);
 			this.registerPlayerData(playerData);
 		});
 		
-//		if(this.getPlugin().getServerData().isOnNetwork())
-//		{
-//			this.log("Starting in NETWORK MODE!");
-//			this.registerListener(new NetworkPlayerDataListener(this));
-//		}
-//		else
-//		{
-//			this.log("Starting in STANDALONE MODE!");
-//			this.registerListener(new StandalonePlayerDataListener(this, this.mySQLManager));
-//		}
-//		
+		boolean isOnNetwork = this.getPlugin().getServerData().isOnNetwork();
+		this.log("Boosting in " + (isOnNetwork ? "Network" : "StandAlone"));
+		if(this.getPlugin().getServerData().isOnNetwork())
+		{
+			//Network Mode
+			this.registerListener(new NetworkPlayerListener(this));
+		}
+		else
+		{
+			//Standalone Mode
+			this.registerListener(new PlayerListener(this));
+		}
+		
+		this.registerCommand(new RankCommand(this));
 	}
 	
 	public PlayerDataMiniDB getPlayerDataMiniDB()

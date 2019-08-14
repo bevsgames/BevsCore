@@ -1,4 +1,4 @@
-package games.bevs.core.commons.network.packets;
+package games.bevs.core.commons.network.types;
 
 import com.google.gson.JsonObject;
 
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class Packet 
+public class Packet
 {
 	public static final String UNKNOWN_SEND_TO = "global";
 	
