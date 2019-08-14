@@ -8,6 +8,7 @@ import games.bevs.core.module.abilties.AbilityModule;
 import games.bevs.core.module.combat.CombatModule;
 import games.bevs.core.module.commandv2.CommandModule;
 import games.bevs.core.module.cooldown.CooldownModule;
+import games.bevs.core.module.display.DisplayModule;
 import games.bevs.core.module.essentials.EssentialsModule;
 import games.bevs.core.module.player.PlayerDataModule;
 import games.bevs.core.module.punishment.PunishmentModule;
@@ -55,6 +56,8 @@ public class CorePlugin extends BevsPlugin
 
 		this.addModule(new SpongeModule(this, spongeSettings));
 		this.addModule(new TickerModule(this));
+		
+		this.addModule(new DisplayModule(this));
 		
 	}
 
