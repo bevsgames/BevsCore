@@ -24,6 +24,7 @@ import games.bevs.core.module.punishment.commands.BanCommand;
 import games.bevs.core.module.punishment.commands.KickCommand;
 import games.bevs.core.module.punishment.commands.MuteCommand;
 import games.bevs.core.module.punishment.commands.UnbanCommand;
+import games.bevs.core.module.punishment.listeners.ChatListener;
 
 @ModInfo(name = "Punishment")
 public class PunishmentModule extends Module
@@ -41,6 +42,8 @@ public class PunishmentModule extends Module
 		this.registerCommand(new BanCommand(this, this.getPlayerDataModule()));
 		this.registerCommand(new MuteCommand(this, this.getPlayerDataModule()));
 		this.registerCommand(new KickCommand(this.getPlayerDataModule()));
+		
+		this.registerListener(new ChatListener(this.getPlayerDataModule()));
 	}
 	
 	public void ban(CommandSender sender, String username, Duration dur)

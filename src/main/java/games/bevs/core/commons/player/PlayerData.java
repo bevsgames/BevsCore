@@ -84,4 +84,9 @@ public class PlayerData
 		long currentValue = this.getStatistic(name);
 		this.getStatistics().put(name, currentValue + amount);
 	}
+	
+	public boolean isMuted()
+	{
+		return System.currentTimeMillis() - this.getMutedExpires() > 0;
+	}
 }
