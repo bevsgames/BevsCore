@@ -7,9 +7,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result;
+
+import com.google.gson.JsonObject;
 
 import games.bevs.core.commons.CC;
 import games.bevs.core.commons.network.PacketConnectionManager;
@@ -22,12 +24,23 @@ import games.bevs.core.commons.redis.JedisSettings;
 import games.bevs.core.commons.utils.JsonUtils;
 import games.bevs.core.commons.utils.StringUtils;
 import games.bevs.core.module.player.PlayerDataModule;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * This class handles when players are 
+ * connecting on the network to other 
+ * servers so we can maintain stats
+ * correctly
+ * 
+ * WIP: have to hook it up to bungee for the first login
+ *
+ */
 public class NetworkPlayerListener implements Listener
 {
+	private static long TIMEOUT_PLAYERDATA_RESPONSE = 3000l;
+	
 	private @Getter PlayerDataModule playerDataModule;
+	private PacketConnectionManager packetConnectManage;
 	
 	public NetworkPlayerListener(PlayerDataModule playerDataModule)
 	{
@@ -35,15 +48,28 @@ public class NetworkPlayerListener implements Listener
 		
 		String serverId = this.playerDataModule.getPlugin().getServerData().getId();
 		JedisSettings settings = new JedisSettings("78.31.71.65", 6379, "McpvpIsLife4378@13123!F");
-		PacketConnectionManager packetConnectManage = new PacketConnectionManager(this.playerDataModule.getPlugin(), serverId, "PlayerData", settings);
+		packetConnectManage = new PacketConnectionManager(this.playerDataModule.getPlugin(), serverId, "PlayerData", settings);
 		
-		packetConnectManage.registerPacketHandler(PlayerDataRequest.class, (jsonObject) -> {
+		//Generates a PlayerDataResponse for a new server
+		packetConnectManage.registerPacketHandler(PlayerDataRequest.class, (jsonObject) -> 
+		{
+			JsonObject data = jsonObject.get("data").getAsJsonObject();
+			String unqieIdStr = data.get("uniqueId").getAsString();
+			String username = data.get("username").getAsString();
 			
+			UUID uniqueId = UUID.fromString(unqieIdStr);
+			//Server we'll send it to
+			String serverTo = jsonObject.get("serverFrom").getAsString();
+			
+			PlayerData playerData = this.playerDataModule.getPlayerData(uniqueId);
+			PlayerDataResponse playerDataResponse = new PlayerDataResponse(serverId, serverTo, playerData);
+			packetConnectManage.sendPacket(playerDataResponse);
 		});
 		
 		packetConnectManage.registerPacketHandler(PlayerDataResponse.class, (jsonObject) -> {
 			String playerDataJson = jsonObject.get("data").getAsString();
 			PlayerData playerData = JsonUtils.fromJson(playerDataJson, PlayerData.class);
+			
 			playerData.setLoaded(true);
 			this.playerDataModule.registerPlayerData(playerData);
 		});
@@ -60,14 +86,35 @@ public class NetworkPlayerListener implements Listener
 			return;
 		
 		long start = System.currentTimeMillis();
-		//Issue redis
-		//TODO
+
 		
-		PlayerData playerData = this.getPlayerDataModule().getPlayerDataMiniDB().loadPlayerData(uniqueId);
+		String serverId = this.getPlayerDataModule().getPlugin().getServerData().getId();
+		PlayerDataRequest playerDataRequest = new PlayerDataRequest(serverId, uniqueId, username);
+		this.packetConnectManage.sendPacket(playerDataRequest);
 		
-		//Just incase they have changed their username
-		playerData.setUsername(username);
-		playerData.setLoaded(true);
+		//Run Database connection for fallback here (Async)
+		
+		//Wait for PlayerData Response from last server
+		while(this.getPlayerDataModule().getPlayerData(uniqueId) == null)
+		{
+			this.getPlayerDataModule().log(username + " is waiting for PlayerData...");
+			if(System.currentTimeMillis() - start >= TIMEOUT_PLAYERDATA_RESPONSE)
+			{
+				this.getPlayerDataModule().log(username + "'s PlayerData took too long, went to fallback");
+				//get fallback from database
+				break;
+			}
+			try 
+			{
+				Thread.sleep(50l);
+			} 
+			catch (InterruptedException e1)
+			{
+				e1.printStackTrace();
+			}
+		}
+		
+		PlayerData playerData = this.getPlayerDataModule().getPlayerData(uniqueId);
 		
 		//Check ban
 		if(playerData.getBanExpires() - System.currentTimeMillis() > 0)

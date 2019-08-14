@@ -9,7 +9,7 @@ import lombok.Getter;
 
 public class PlayerDataRequest extends Packet
 {
-	public static final String PACKET_TYPE = "REQUEST";
+	public static final String PACKET_TYPE = "PlayerDataRequest";
 	
 	private @Getter UUID uniqueId;
 	private @Getter String username;

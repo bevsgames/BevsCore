@@ -3,8 +3,6 @@ package games.bevs.core.commons.network;
 import com.google.gson.JsonObject;
 
 import games.bevs.core.BevsPlugin;
-import games.bevs.core.commons.network.packets.PlayerDataRequest;
-import games.bevs.core.commons.network.packets.PlayerDataResponse;
 import games.bevs.core.commons.network.types.Packet;
 import games.bevs.core.commons.network.types.PacketHandler;
 import games.bevs.core.commons.redis.JedisPublisher;
@@ -43,6 +41,12 @@ public class PacketConnectionManager
 	
 	public void sendPacket(Packet packet)
 	{
+		JsonObject jsonData = new JsonObject();
+		
+		jsonData.addProperty("serverFrom", packet.getServer());
+		jsonData.addProperty("serverTo", packet.getServerTo());
+		jsonData.add("data", packet.onBuildData());
+		
 		messagesPublisher.write(packet.build());
 	}
 }

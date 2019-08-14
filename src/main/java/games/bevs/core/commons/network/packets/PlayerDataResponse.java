@@ -9,7 +9,7 @@ import games.bevs.core.commons.utils.JsonUtils;
 import lombok.Getter;
 
 public class PlayerDataResponse extends Packet {
-	public static final String PACKET_TYPE = "RESPONSE";
+	public static final String PACKET_TYPE = "PlayerDataResponse";
 
 	private @Getter PlayerData playerData;
 

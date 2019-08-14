@@ -9,17 +9,13 @@ import org.bukkit.entity.Player;
 import games.bevs.core.BevsPlugin;
 import games.bevs.core.commons.database.api.Database;
 import games.bevs.core.commons.database.api.minidbs.PlayerDataMiniDB;
-import games.bevs.core.commons.network.PacketConnectionManager;
-import games.bevs.core.commons.network.packets.PlayerDataRequest;
-import games.bevs.core.commons.network.packets.PlayerDataResponse;
 import games.bevs.core.commons.player.PlayerData;
-import games.bevs.core.commons.redis.JedisSettings;
-import games.bevs.core.commons.utils.JsonUtils;
 import games.bevs.core.module.ModInfo;
 import games.bevs.core.module.Module;
 import games.bevs.core.module.commandv2.CommandModule;
 import games.bevs.core.module.player.commands.RankCommand;
 import games.bevs.core.module.player.listeners.PlayerListener;
+import games.bevs.core.module.player.network.NetworkPlayerListener;
 import lombok.Getter;
 
 /**
