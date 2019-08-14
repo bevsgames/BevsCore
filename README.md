@@ -204,7 +204,7 @@ public class GrandpaAbility extends Ability
 *games.bevs.core.module.commandv2.CommandModule*
 
 This module handles all the commands.
-you just simple extend BevsCommand and you're good.```
+you just simple extend BevsCommand and you're good.
 
 **Depencies**
 * BevsPlugin
