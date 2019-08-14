@@ -124,6 +124,65 @@ a health boost. this was inspired by mcpvp.
 	private @Getter @Setter LinkedList<Drinkable> drinkEffects = new LinkedList<>();
 ```
 
+#### AbilityModule
+*games.bevs.core.module.abilties.AbilityModule.java*
+
+This module is a collection of all the kit abilities so we can reuse them
+across the network in a number of different places.
+
+**Depencies**
+* BevsPlugin
+* CommandModule
+* CooldownModule
+
+**Add Ability Notes**
+* Abilties should all be put into games.bevs.core.module.abilties.abilities
+* Abilites should be as option as possible, so we can support a number of configations.
+* All Damages must go through CustomDamageEvent
+
+**Ability Example**
+```
+@NoArgsConstructor
+@AllArgsConstructor
+@AbilityInfo(name="Grandpa", author = "Sprock", description = { "Hitting player with a selected item", "sends anyone flying" })
+public class GrandpaAbility extends Ability
+{
+	//Ability Settings
+	public @Getter @Setter String itemName = "Grandpa's Cane";
+	public @Getter @Setter Material itemMaterial = Material.STICK;
+	public @Getter @Setter double knockbackMultipler = 3.0d;
+	
+	//Class variables
+	private @Getter ItemStack knockbackItem;
+	
+	@Override
+	public void onLoad()
+	{
+		this.knockbackItem = new ItemStackBuilder(itemMaterial).displayName(itemName).build();
+	}
+	
+	@Override
+	public List<ItemStack> getItems()
+	{
+		return Arrays.asList(knockbackItem);
+	}
+	
+	@EventHandler
+	public void onPunch(CustomDamageEvent e)
+	{
+		if(e.isAttackerIsPlayer() && (this.hasAbility(e.getAttackerPlayer())))
+		{
+			Player player = e.getAttackerPlayer();
+			ItemStack itemInHand = player.getItemInHand();
+			if(itemInHand != null && itemInHand.getAmount() != 0 && itemInHand.isSimilar(this.getKnockbackItem()))
+			{
+				e.addKnockback(getKnockbackMultipler(), player.getName());
+			}
+		}
+	}
+}
+```
+
 
 ## Set up
 * Clone the project
