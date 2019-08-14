@@ -42,7 +42,7 @@ public class BanCommand extends BevsCommand
 		}
 		
 		String username = args[0];
-		this.punishmentModule.ban(sender, username, new Duration(0, TimeUnit.DAY));
+		this.punishmentModule.ban(sender, username, new Duration(30, TimeUnit.DAY));
 		return true;
 	}
 }

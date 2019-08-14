@@ -63,7 +63,7 @@ public class PunishmentModule extends Module
 		runPlayerData(sender, username, (playerData) ->
 		{
 			playerData.setBanExpires(-1);
-			sender.sendMessage(StringUtils.success("Ban", "Unbanned " + username));
+			sender.sendMessage(StringUtils.success("UnBan", "Unbanned " + username));
 		});
 	}
 	
