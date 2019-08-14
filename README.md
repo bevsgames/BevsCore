@@ -39,6 +39,13 @@ public class <Name>Module extends Module
 }
 ```
 ### What are the Modules?
+
+* [PlayerDataModule](https://github.com/bevsgames/BevsCore#playerdatamodule)
+* [SpongeModule](https://github.com/bevsgames/BevsCore#spongemodule)
+* [SoupModule](https://github.com/bevsgames/BevsCore#soupmodule)
+* [AbilityModule](https://github.com/bevsgames/BevsCore#abilitymodule)
+* [CommandModule](https://github.com/bevsgames/BevsCore#commandmodule)
+
 #### PlayerDataModule
 *games.bevs.core.module.player.PlayerDataModule*
 
@@ -193,6 +200,31 @@ public class GrandpaAbility extends Ability
 }
 ```
 
+#### CommandModule
+*games.bevs.core.module.commandv2.CommandModule*
+
+This module handles all the commands.
+you just simple extend BevsCommand and you're good.```
+
+**Depencies**
+* BevsPlugin
+* PlayerDataModule
+
+**Example**
+```
+public class ExampleCommand extends BevsCommand
+{
+		public BanCommand() 
+		{
+				super("example", Rank.MOD);
+		}
+		@Override
+		public boolean onExecute(CommandSender sender, String commandName, String[] args) 
+		{
+				sender.sendMessage(CC.red + "Herp Derp!");
+		}
+}
+```
 
 ## Set up
 * Clone the project
