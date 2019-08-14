@@ -139,6 +139,16 @@ across the network in a number of different places.
 * Abilties should all be put into games.bevs.core.module.abilties.abilities
 * Abilites should be as option as possible, so we can support a number of configations.
 * All Damages must go through CustomDamageEvent
+* If you want to test abilities make sure isDebug() is true within the AbilityModule module
+  * This will give you the commands
+	```
+		/Ability Enable <Ability>
+			Enables ability and gives you the items for it
+		/Ability Disable <Ability>
+			Disables the ability
+		/Ability list
+			Lists enabled abilites
+	```
 
 **Ability Example**
 ```

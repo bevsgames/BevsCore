@@ -31,14 +31,8 @@ public class AbilityModule extends Module {
 			return;
 		DummyAbilityParent dummy = new DummyAbilityParent(this.getPlugin(), this.getPlayerDataModule(),
 				this.getCooldownModule(), this);
-//		dummy.addAbility(new BoxerAbility());
-//		dummy.addAbility(new DummyAbility());
-//		dummy.addAbility(new GandpaAbility());
-//		dummy.addAbility(new KangarooAbility());
-//		dummy.addAbility(new ThorAbility());
 
 		// Will register all classes in {@link games.bevs.core.module.abilties.abilities
-		// }
 		for (Class<?> abilityClazz : ClassGetterUtils.getClassesForPackage(this.getPlugin(),
 				"games.bevs.core.module.abilties.abilities")) {
 			try {
