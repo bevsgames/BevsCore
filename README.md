@@ -43,6 +43,7 @@ public class <Name>Module extends Module
 *games.bevs.core.module.player.PlayerDataModule*
 
 This module loads and saves player infomation from the network to the server.
+PlayerData can be found in *games.bevs.core.commons.player.PlayerData*
 
 **Depencies**
 * BevsPlugin
@@ -56,6 +57,9 @@ This module loads and saves player infomation from the network to the server.
 This module will fire UpdateEvent every tick, which allows you
 to filter by ```TICK, SECOND, MINUTE, HOUR, DAY, WEEK, MONTH, YEAR```
 
+**Depencies**
+* BevsPlugin
+
 **Example**
 ```
 @EventHandler
@@ -65,9 +69,6 @@ public void onSecond(UpdateEvent e)
 		Bukkit.broadcastMessage("I am called every minute");
 }
 ```
-
-**Depencies**
-* BevsPlugin
 
 #### SpongeModule
 *games.bevs.core.module.sponge.SpongeModule*
@@ -79,6 +80,17 @@ We have two modes, BEVS and CLASSIC which are different trigger methods
 * BEVS will launch players if they walk on a presure plate with sponges under it
 * CLASSIC will launch a player if they walk on a sponge
 
+**Depencies**
+* BevsPlugin
+* SpongeSettings (see below)
+
+**Settings**
+```
+	private @Getter @Setter Material launchMaterial = Material.SPONGE;
+	private @Getter @Setter LauncherType launcherType = LauncherType.BEVS;
+	private @Getter @Setter double vertVelocity = 10;
+	private @Getter @Setter double hortVelocity = 4;
+```
 
 **Example**
 ```
@@ -90,6 +102,28 @@ spongeSettings.setVertVelocity(2); //Default value is 4
 
 this.addModule(new SpongeModule(this, spongeSettings));
 ```
+
+#### SoupModule
+*games.bevs.core.module.soup.SoupModule*
+
+This module gives players the ability to right click soup to drink it for
+a health boost. this was inspired by mcpvp.
+
+**Depencies**
+* BevsPlugin
+* SoupSettings (see below)
+
+**Settings**
+```
+	private @Getter @Setter double health = 5;
+	private @Getter @Setter Material material = Material.MUSHROOM_SOUP;
+	private @Getter @Setter ItemStack resultsIn = new ItemStack(Material.BOWL);
+	private @Getter @Setter boolean cooldown = false;
+	private @Getter @Setter long cooldownMillis = 1000;
+	private @Getter @Setter String cooldownMessage = CC.red + "You soup is on cooldown for another {cooldown}!";
+	private @Getter @Setter LinkedList<Drinkable> drinkEffects = new LinkedList<>();
+```
+
 
 ## Set up
 * Clone the project
