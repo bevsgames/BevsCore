@@ -55,7 +55,6 @@ public class NetworkPlayerListener implements Listener
 		{
 			JsonObject data = jsonObject.get("data").getAsJsonObject();
 			String unqieIdStr = data.get("uniqueId").getAsString();
-			String username = data.get("username").getAsString();
 			
 			UUID uniqueId = UUID.fromString(unqieIdStr);
 			//Server we'll send it to
