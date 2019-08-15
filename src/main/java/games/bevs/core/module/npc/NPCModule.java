@@ -25,13 +25,14 @@ public class NPCModule extends Module
 		this.registerSelf();
 	}
 	
-	//For testing
-	@EventHandler
-	public void onPlace(BlockPlaceEvent e)
-	{
-		if(e.getBlock().getType() != Material.IRON_BLOCK) return;
-		FakePlayer fakePlayer = new FakePlayer(CC.bYellow + "BevsGames", e.getBlock().getWorld().getSpawnLocation());
-		fakePlayer.setSkin("Sprock");
-		fakePlayer.spawn();
-	}
+//	//For testing
+//	@EventHandler
+//	public void onPlace(BlockPlaceEvent e)
+//	{
+//		if(e.getBlock().getType() != Material.IRON_BLOCK) return;
+//		
+//		FakePlayer fakePlayer = new FakePlayer(CC.bYellow + "BevsGames", e.getBlock().getWorld().getSpawnLocation());
+//		fakePlayer.setSkin("Sprock");
+//		fakePlayer.spawn();
+//	}
 }
