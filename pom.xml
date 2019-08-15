@@ -123,7 +123,8 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
-							<outputFile>build\${project.name}.jar</outputFile>
+							<createDependencyReducedPom>false</createDependencyReducedPom>
+							<outputFile>out\${project.name}.jar</outputFile>
 							<shadedArtifactAttached>true</shadedArtifactAttached>
 							<shadedClassifierName>withLibs</shadedClassifierName>
 							<filters>
