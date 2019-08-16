@@ -18,7 +18,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @AbilityInfo(
         name = "Anchor",
-        author = "Fundryi & Sprock",
+        author = "Sprock & Fundryi",
         description = {
                 "You're immune against anything that deals knockback!",
                 "You also have a 33% chance of giving no knockback!"

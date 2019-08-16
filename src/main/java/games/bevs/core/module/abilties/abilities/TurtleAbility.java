@@ -2,26 +2,16 @@ package games.bevs.core.module.abilties.abilities;
 
 import games.bevs.core.module.abilties.AbilityInfo;
 import games.bevs.core.module.abilties.types.Ability;
+import games.bevs.core.module.combat.event.CustomDamageEvent;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-
-import javax.annotation.Nullable;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Stream;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -41,11 +31,8 @@ public class TurtleAbility extends Ability {
     private double maxTurtleDamage = 1;
 
     @EventHandler
-    public void onEntityDamage(EntityDamageByEntityEvent event) {
-        if (!(event.getDamager() instanceof Player)) {
-            return;
-        }
-        Player player = (Player) event.getDamager();
+    public void onTurtleAttack(CustomDamageEvent event) {
+        Player player = event.getAttackerPlayer();
         if (!this.hasAbility(player)) {
             return;
         }
@@ -56,23 +43,17 @@ public class TurtleAbility extends Ability {
             return;
         }
         event.setCancelled(true);
-        if (!(event.getDamager() instanceof Player)) {
+        if (!(event.getVictimLivingEntity() instanceof Player)) {
             return;
         }
-        if (!(event.getEntity() instanceof LivingEntity)) {
-            return;
-        }
-        LivingEntity entity = (LivingEntity) event.getEntity();
+        LivingEntity entity = event.getVictimLivingEntity();
         entity.damage(0);
-        entity.getWorld().playEffect(entity.getLocation(), Effect.HEART, 3);
+        entity.getWorld().playEffect(entity.getLocation().add(0,1,0), Effect.HEART, 0);
     }
 
     @EventHandler
-    public void onDamage(EntityDamageEvent event) {
-        if (!(event.getEntity() instanceof Player)) {
-            return;
-        }
-        Player player = (Player) event.getEntity();
+    public void onTurtleDefend(CustomDamageEvent event) {
+        Player player = event.getVictimPlayer();
         if(!(this.hasAbility(player)))
             return;
         if (!player.isSneaking()) {
@@ -85,9 +66,9 @@ public class TurtleAbility extends Ability {
             return;
         }
         if (event.getDamage() > maxTurtleDamage) {
-            event.setDamage(maxTurtleDamage);
+            event.setInitDamage(maxTurtleDamage);
         }
-        player.getWorld().playEffect(player.getLocation(), Effect.MOBSPAWNER_FLAMES, 3);
+        player.getWorld().playEffect(player.getLocation().add(0,1,0), Effect.MOBSPAWNER_FLAMES, 0);
     }
 
 }
