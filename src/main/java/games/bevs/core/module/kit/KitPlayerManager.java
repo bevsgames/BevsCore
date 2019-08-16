@@ -7,12 +7,19 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import games.bevs.core.commons.managers.PlayerManager;
 import games.bevs.core.module.kit.types.KitPlayer;
+import lombok.Getter;
+import lombok.Setter;
 
 public class KitPlayerManager extends PlayerManager<KitPlayer>
 {
-	public KitPlayerManager(JavaPlugin plugin)
+	@Getter
+	@Setter
+	private KitParent kitParent;
+	
+	public KitPlayerManager(JavaPlugin plugin, KitParent kitParent)
 	{
 		super(plugin, true);
+		this.kitParent = kitParent;
 	}
 
 	@Override

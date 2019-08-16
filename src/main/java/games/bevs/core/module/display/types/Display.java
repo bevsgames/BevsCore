@@ -41,7 +41,7 @@ public class Display implements Listener
 		this.getScreen().onPreBuild(player);
 		this.getScreen().build(this.getInventory(), player);
 		this.getScreen().onPostBuild(player);
-		InventoryTitleHelper.sendInventoryTitle(player, this.getScreen().getTitle());
+		InventoryTitleHelper.sendInventoryTitle(player, this.getScreen().getTitle(), this.getScreen().getSlots());
 	}
 	
 	public void open(Player player) 
@@ -66,12 +66,16 @@ public class Display implements Listener
 		if(this.inventory == null) return;
 		if(slot == -1) return;
 		if(!inv.getTitle().equals(this.inventory.getTitle())) return;
+		if(slot < this.getScreen().getSlots()) 
+		{
+			e.setCancelled(true);
+		}
 		Clickable clickable = this.getScreen().getClickable(slot);
 		if(clickable == null) return;
 		boolean right = e.getAction().name().contains("PICKUP");
 		boolean left = e.getAction().name().contains("PLACE");
 		ClickLog clicklog = new ClickLog(player, left, right, e.isShiftClick(), e.getCurrentItem(), slot, this);
-		clicklog.setCancelled(e.isCancelled());
+//		clicklog.setCancelled(e.isCancelled());
 		clickable.getClickAction().done(clicklog);
 		e.setCancelled(clicklog.isCancelled());
 	}

@@ -3,6 +3,7 @@ package games.bevs.core.module.display;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import games.bevs.core.BevsPlugin;
@@ -31,8 +32,9 @@ public class DisplayModule extends Module
 		this.registerSelf();
 	}
 
+	//For testing
 	@EventHandler
-	public void onJoin(PlayerJoinEvent e)
+	public void onPlace(BlockPlaceEvent e)
 	{
 		Player player = e.getPlayer();
 		Display display = new Display(""  + player.getName(), player);
@@ -47,4 +49,21 @@ public class DisplayModule extends Module
 		display.setScreen(screen, player);
 		display.open(player);
 	}
+	
+//	@EventHandler
+//	public void onJoin(PlayerJoinEvent e)
+//	{
+//		Player player = e.getPlayer();
+//		Display display = new Display(""  + player.getName(), player);
+//		this.registerListener(display);
+//		
+//		Screen screen = new Screen("Sprock's demo", 18, display);
+//		
+//		screen.setClickable(1, new Clickable(new ItemStackBuilder(Material.BOW), (clickLog) ->  {
+//			clickLog.getPlayer().sendMessage("CLIKED the bow");
+//		}));
+//		
+//		display.setScreen(screen, player);
+//		display.open(player);
+//	}
 }

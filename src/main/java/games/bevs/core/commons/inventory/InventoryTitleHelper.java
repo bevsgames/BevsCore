@@ -1,18 +1,27 @@
 package games.bevs.core.commons.inventory;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import games.bevs.core.commons.utils.PacketUtils;
+import net.minecraft.server.v1_8_R3.ItemStack;
+import net.minecraft.server.v1_8_R3.PacketPlayOutWindowItems;
 
 /**
  * A inventory helper that allows you to change the title of the current
  * opened inventory.
+ * 
+ * We need to send a remapped inventory after changing the sizes
+ * int paramInt, List<ItemStack> paramList
  */
 public class InventoryTitleHelper {
 	// Methods
@@ -88,6 +97,21 @@ public class InventoryTitleHelper {
 		} else {
 			sendPacket18(nms_PlayerConnection, nms_EntityPlayer, nms_Container, windowId, inventory, title, size);
 		}  
+		updatePlayerInventory(player);
+	}
+	
+	private static void updatePlayerInventory(Player player)
+	{
+		ArrayList<ItemStack> items = new ArrayList<>(37);
+		for(int i = 0; i < 36; i++)
+		{
+			ItemStack item = CraftItemStack.asNMSCopy(player.getInventory().getItem(i));
+			items.add(item);
+		}
+		
+		int containerId = PacketUtils.getNMSPlayer(player).defaultContainer.windowId;
+		PacketPlayOutWindowItems packet = new PacketPlayOutWindowItems(containerId, items);
+		PacketUtils.sendPacket(player, packet);
 	}
 
 	private static void sendPacket15a16a17(Object nms_playerConnection, Object nms_EntityPlayer, Object nms_Container, int windowId, Inventory inventory, String title, boolean flag) throws Exception {

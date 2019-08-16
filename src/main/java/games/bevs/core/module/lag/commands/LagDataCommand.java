@@ -13,7 +13,7 @@ public class LagDataCommand  extends BevsCommand
 	
 	public LagDataCommand(LagModule lagModule) 
 	{
-		super("lag", Rank.NORMAL);
+		super("lagdata", Rank.NORMAL);
 		this.lagModule = lagModule;
 	}
 

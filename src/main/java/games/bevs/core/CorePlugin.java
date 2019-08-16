@@ -4,16 +4,13 @@ import games.bevs.core.commons.database.api.Database;
 import games.bevs.core.commons.database.api.DatabaseSettings;
 import games.bevs.core.commons.database.mongo.MongoDatabase;
 import games.bevs.core.commons.database.none.NoneDatabase;
-import games.bevs.core.commons.network.PacketConnectionManager;
-import games.bevs.core.commons.network.packets.PlayerDataRequest;
-import games.bevs.core.commons.network.packets.PlayerDataResponse;
-import games.bevs.core.commons.redis.JedisSettings;
 import games.bevs.core.module.abilties.AbilityModule;
 import games.bevs.core.module.combat.CombatModule;
 import games.bevs.core.module.commandv2.CommandModule;
 import games.bevs.core.module.cooldown.CooldownModule;
 import games.bevs.core.module.display.DisplayModule;
 import games.bevs.core.module.essentials.EssentialsModule;
+import games.bevs.core.module.kit.KitModule;
 import games.bevs.core.module.npc.NPCModule;
 import games.bevs.core.module.player.PlayerDataModule;
 import games.bevs.core.module.punishment.PunishmentModule;
@@ -61,8 +58,10 @@ public class CorePlugin extends BevsPlugin
 		this.addModule(new SpongeModule(this, spongeSettings));
 		this.addModule(new TickerModule(this));
 		
-//		this.addModule(new DisplayModule(this));
+		this.addModule(new DisplayModule(this));
 		this.addModule(new NPCModule(this, commandModule));
+		
+		this.addModule(new KitModule(this));
 	}
 
 	@Override
