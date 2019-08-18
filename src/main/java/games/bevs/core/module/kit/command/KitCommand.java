@@ -21,6 +21,7 @@ public class KitCommand extends BevsCommand
 		if(sender instanceof Player)
 			targetPlayer = (Player) sender;
 		
+		//Allow us to do /kit <KitName> <PlayerName>
 		
 		if(targetPlayer == null)
 		{

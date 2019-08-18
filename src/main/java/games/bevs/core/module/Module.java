@@ -1,5 +1,6 @@
 package games.bevs.core.module;
 
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 
 import games.bevs.core.BevsPlugin;
@@ -71,6 +72,11 @@ public class Module implements Listener
 	public void registerListener(Listener listener)
 	{
 		PluginUtils.registerListener(listener, this.getPlugin());
+	}
+	
+	public void unregisterListener(Listener listener)
+	{
+		HandlerList.unregisterAll(listener);
 	}
 	
 	public void registerSelf()

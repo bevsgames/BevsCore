@@ -73,16 +73,20 @@ public class PlayerData
 		
 	}
 	
-	
 	public long getStatistic(String name)
 	{
 		return this.getStatistics().getOrDefault(name, 0l);
 	}
 	
+	public void setStatistic(String name, long value)
+	{
+		this.getStatistics().put(name, value);
+	}
+	
 	public void addStatistic(String name, long amount)
 	{
 		long currentValue = this.getStatistic(name);
-		this.getStatistics().put(name, currentValue + amount);
+		this.setStatistic(name, currentValue + amount);
 	}
 	
 	public boolean isMuted()
