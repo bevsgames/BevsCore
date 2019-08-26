@@ -18,7 +18,7 @@ public class MainTest {
 		PlayerDataMiniDB playerDataDB = mongo.getMiniDatabase(PlayerDataMiniDB.class);
 		
 		String username = "Sprock";
-		UUID uniqueId = UUID.fromString("5d793eed-51b7-4765-9b38-4fdaa00034d7");
+		UUID uniqueId = UUID.fromString("5d79aaad-51b7-4765-9b38-4fdaa00034d7");
 		
 		PlayerData playerDataUpload = new PlayerData(username, uniqueId);
 		playerDataDB.savePlayerData(playerDataUpload);
