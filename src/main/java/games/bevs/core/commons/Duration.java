@@ -116,6 +116,7 @@ public class Duration
 	@AllArgsConstructor
 	public enum TimeUnit
 	{
+		TICK(50l, "tick", "ticks", "t"),
 		SECOND(1000l, "second", "seconds", "s"),
 		MINUTE(1000l * 60, "minute", "minutes", "m"),
 		HOUR(1000l * 60 * 60, "hour", "hours", "h"),
