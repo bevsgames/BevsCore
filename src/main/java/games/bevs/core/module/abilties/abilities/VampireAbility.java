@@ -2,7 +2,6 @@ package games.bevs.core.module.abilties.abilities;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.inventory.ItemStack;
 
 import games.bevs.core.module.abilties.AbilityInfo;
 import games.bevs.core.module.abilties.types.Ability;
