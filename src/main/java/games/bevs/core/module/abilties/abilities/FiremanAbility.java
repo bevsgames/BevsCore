@@ -3,6 +3,7 @@ package games.bevs.core.module.abilties.abilities;
 import games.bevs.core.commons.itemstack.ItemStackBuilder;
 import games.bevs.core.module.abilties.AbilityInfo;
 import games.bevs.core.module.abilties.types.Ability;
+import games.bevs.core.module.combat.event.CustomDamageEvent;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,26 +45,26 @@ public class FiremanAbility extends Ability {
     }
 
     @EventHandler
-    public void onFireDamage(EntityDamageEvent event) {
-        Player player = (Player)event.getEntity();
+    public void onFiremanDamage(CustomDamageEvent event) {
+        Player player = event.getVictimPlayer();
         if (player == null) {
             return;
         }
-        if (!this.hasAbility(player)){
+        if (!event.isVictimIsPlayer() && !this.hasAbility(event.getVictimPlayer())) {
             return;
         }
-        if (event.getCause() == EntityDamageEvent.DamageCause.FIRE) {
+        if (event.getInitCause() == EntityDamageEvent.DamageCause.FIRE) {
             event.setCancelled(true);
             return;
         }
-        if (event.getCause() == EntityDamageEvent.DamageCause.FIRE_TICK) {
+        if (event.getInitCause() == EntityDamageEvent.DamageCause.FIRE_TICK) {
             event.setCancelled(true);
             return;
         }
-        if (event.getCause() == EntityDamageEvent.DamageCause.LAVA) {
+        if (event.getInitCause() == EntityDamageEvent.DamageCause.LAVA) {
             double damage = event.getDamage();
             damage *= 0.5;
-            event.setDamage(damage);
+            event.setInitDamage(damage);
         }
     }
 }

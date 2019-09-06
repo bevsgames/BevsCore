@@ -39,7 +39,7 @@ public class VikingAbility extends Ability {
     );
 
     @EventHandler
-    public void onEntityDamage(CustomDamageEvent event) {
+    public void onVikingAttack(CustomDamageEvent event) {
         if(!event.isAttackerIsPlayer() && !this.hasAbility(event.getAttackerPlayer())) {
             return;
         }

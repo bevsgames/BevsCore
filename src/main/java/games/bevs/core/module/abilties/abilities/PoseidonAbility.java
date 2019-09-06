@@ -31,7 +31,7 @@ public class PoseidonAbility extends Ability {
     private static final int speedMultiplier = 1;
 
     @EventHandler
-    public void onMove(PlayerMoveEvent event) {
+    public void onPoseidonMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         if (player == null) {
             return;

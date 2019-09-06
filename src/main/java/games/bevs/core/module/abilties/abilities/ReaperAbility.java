@@ -54,7 +54,7 @@ public class ReaperAbility extends Ability {
     }
 
     @EventHandler
-    public void onEntityDamage(CustomDamageEvent event) {
+    public void onReaperAttack(CustomDamageEvent event) {
         if (event.isCancelled()) {
             return;
         }

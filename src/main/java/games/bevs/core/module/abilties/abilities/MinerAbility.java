@@ -14,6 +14,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
@@ -48,7 +49,7 @@ public class MinerAbility extends Ability {
     }
 
     @EventHandler
-    public void onBlockBreak(BlockBreakEvent event) {
+    public void onMinerBreaking(BlockBreakEvent event) {
         Player player = event.getPlayer();
         if (player == null) {
             return;
@@ -83,6 +84,15 @@ public class MinerAbility extends Ability {
             Block adjacentBlock = block.getRelative(face);
             if (adjacentBlock.getType() == material)
                 destroySuroundingBlocks(adjacentBlock);
+        }
+    }
+
+    @EventHandler
+    public void onItemDamage(PlayerItemDamageEvent event) {
+        if(!(this.hasAbility(event.getPlayer())))
+            return;
+        if (event.getItem().isSimilar(Drill)) {
+            event.setCancelled(true);
         }
     }
 }

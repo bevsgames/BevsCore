@@ -35,7 +35,7 @@ public class ViperAbility extends Ability {
     private static final int multiplier = 0;
 
     @EventHandler
-    public void ViperAttack(CustomDamageEvent event) {
+    public void onViperAttack(CustomDamageEvent event) {
         if (event.isCancelled()) {
             return;
         }

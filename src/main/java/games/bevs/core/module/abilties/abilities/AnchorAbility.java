@@ -33,18 +33,17 @@ public class AnchorAbility extends Ability {
     private static final Sound HIT_SOUND = Sound.ANVIL_LAND;
     private static final float HIT_SOUND_PITCH_IN = 1.35f;
 
-
     @EventHandler
-    public void onKnockback(CustomDamageEvent e) 
+    public void onAnchorKnockback(CustomDamageEvent e)
     {
     	if(!e.isVictimIsPlayer()) return;
     	Player player = e.getVictimPlayer();
     	if(!this.hasAbility(player)) return;
     	if(MathUtils.getRandom().nextFloat() > NO_KNOCKBACK_CHANCE) return;
-    	
+
     	e.setCancelKnockback(true);
     	player.playSound(player.getLocation(), HIT_SOUND, 0.5f, HIT_SOUND_PITCH_IN);
-    	
+
     	if(e.isAttackerIsPlayer())
     	{
     		Player attacker = e.getAttackerPlayer();
