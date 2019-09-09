@@ -35,10 +35,10 @@ public class AchillesAbility extends Ability {
     public void onAchilles(CustomDamageEvent event) {
         Player attacker = event.getAttackerPlayer();
         Player defender = event.getVictimPlayer();
+        if (!event.isVictimIsPlayer() && !this.hasAbility(defender)){
+            return;
+        }
         if (attacker.getItemInHand().getType().name().toLowerCase().contains("wood")) {
-            if (!event.isVictimIsPlayer() && !this.hasAbility(defender)){
-                return;
-            }
             defender.getWorld().playEffect(defender.getLocation().add(0, 1, 0), Effect.STEP_SOUND, 66);
             attacker.playSound(attacker.getLocation(), Sound.IRONGOLEM_HIT, 10.0f, 1.0f);
             event.setInitDamage(event.getDamage() * DamageModifier);
