@@ -5,7 +5,9 @@ import games.bevs.core.module.abilties.AbilityInfo;
 import games.bevs.core.module.abilties.types.Ability;
 import games.bevs.core.module.combat.event.CustomDamageEvent;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -24,6 +26,8 @@ import org.bukkit.event.EventHandler;
         })
 
 public class AchillesAbility extends Ability {
+
+    public @Getter @Setter Material itemMaterial = Material.WOOD_SWORD;
 
     private final static float DamageModifier = 2;
 

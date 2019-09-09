@@ -3,7 +3,9 @@ package games.bevs.core.module.abilties.abilities;
 import games.bevs.core.module.abilties.AbilityInfo;
 import games.bevs.core.module.abilties.types.Ability;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.bukkit.Material;
 import org.bukkit.entity.Chicken;
 import org.bukkit.entity.Cow;
@@ -32,6 +34,8 @@ import java.util.List;
 		})
 
 public class HunterAbility extends Ability {
+
+	public @Getter @Setter Material itemMaterial = Material.COOKED_BEEF;
 
 	@EventHandler
 	public void onEntityDeath(EntityDeathEvent event) {

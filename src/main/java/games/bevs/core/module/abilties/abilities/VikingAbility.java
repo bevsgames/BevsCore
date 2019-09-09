@@ -27,6 +27,8 @@ import java.util.List;
 
 public class VikingAbility extends Ability {
 
+    public @Getter @Setter Material itemMaterial = Material.DIAMOND_AXE;
+
     private static final double VIKING_DAMAGE = 2;
     private static final List<Material> AXES = ImmutableList.of(
             Material.WOOD_AXE,
