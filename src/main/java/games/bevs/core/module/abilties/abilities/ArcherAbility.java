@@ -5,7 +5,7 @@ import games.bevs.core.commons.itemstack.ItemStackBuilder;
 import games.bevs.core.module.abilties.AbilityInfo;
 import games.bevs.core.module.abilties.types.Ability;
 import games.bevs.core.module.combat.event.CustomDamageEvent;
-import games.bevs.core.module.utils.LocationUtils;
+import games.bevs.core.commons.utils.LocationUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

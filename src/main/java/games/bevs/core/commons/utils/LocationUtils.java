@@ -1,4 +1,4 @@
-package games.bevs.core.module.utils;
+package games.bevs.core.commons.utils;
 
 import lombok.experimental.UtilityClass;
 import org.bukkit.Location;
