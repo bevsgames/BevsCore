@@ -1,6 +1,5 @@
 package games.bevs.core.module.abilties.abilities;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import games.bevs.core.commons.itemstack.ItemStackBuilder;
 import games.bevs.core.module.abilties.AbilityInfo;
@@ -14,16 +13,12 @@ import lombok.Setter;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
@@ -39,9 +34,9 @@ import java.util.Map;
         name = "Archer",
         author = "Fundryi",
         description = {
-                "&7Wow a bow, with knockback!",
-                "&7You get a free arrow if you hit someone.",
-                "&7You will find more flints & feathers."
+                "Wow a bow, with knockback!",
+                "You get a free arrow if you hit someone.",
+                "You will find more flints & feathers."
         })
 
 public class ArcherAbility extends Ability {
