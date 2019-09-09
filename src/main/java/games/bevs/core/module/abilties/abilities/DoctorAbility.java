@@ -2,7 +2,6 @@ package games.bevs.core.module.abilties.abilities;
 
 import com.google.common.collect.ImmutableList;
 import games.bevs.core.commons.itemstack.ItemStackBuilder;
-import games.bevs.core.commons.utils.PlayerUtils;
 import games.bevs.core.commons.utils.StringUtils;
 import games.bevs.core.module.abilties.AbilityInfo;
 import games.bevs.core.module.abilties.types.Ability;
