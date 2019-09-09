@@ -1,5 +1,6 @@
 package games.bevs.core.module.abilties.abilities;
 
+import games.bevs.core.commons.CC;
 import games.bevs.core.commons.itemstack.ItemStackBuilder;
 import games.bevs.core.module.abilties.AbilityInfo;
 import games.bevs.core.module.abilties.types.Ability;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
@@ -65,9 +67,9 @@ public class FishermanAbility extends Ability {
             return;
         }
         caught.teleport(event.getPlayer());
-//        if (caught instanceof Player) {
-//            ActionBar.sendToPlayer(caught, ChatColor.RED + "You have been fished by a Fisherman!");
-//        }
+        if (caught instanceof Player) {
+            caught.sendMessage("" + CC.red + "You have been fished by a Fisherman!");
+        }
     }
 
 	@EventHandler
