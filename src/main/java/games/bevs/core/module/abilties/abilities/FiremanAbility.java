@@ -23,9 +23,9 @@ import java.util.List;
         name = "Fireman",
         author = "Fundryi",
         description = {
-                "&7Fire is a cold breeze for you, and only tickles.",
-                "&7Lava only does half of the usual damage.",
-                "&7You also spawn with an water bucket!"
+                "Fire is a cold breeze for you, and only tickles.",
+                "Lava only does half of the usual damage.",
+                "You also spawn with an water bucket!"
         })
 
 public class FiremanAbility extends Ability {

@@ -19,8 +19,8 @@ import org.bukkit.potion.PotionEffectType;
         name = "Jelly",
         author = "Fundryi",
         description = {
-                "&7You gain strength and speed in the water",
-                "&7So be sure to lure your opponents into water lakes"
+                "You gain strength and speed in the water",
+                "So be sure to lure your opponents into water lakes"
         })
 
 public class PoseidonAbility extends Ability {

@@ -29,8 +29,8 @@ import java.util.List;
         name = "Lumberjack",
         author = "Fundryi",
         description = {
-                "&7You can destroy whole trees",
-                "&7with breaking 1 block!"
+                "You can destroy whole trees",
+                "with breaking 1 block!"
         })
 
 public class LumberjackAbility extends Ability {
@@ -65,7 +65,7 @@ public class LumberjackAbility extends Ability {
     );
 
     @EventHandler
-    public void onBlockBreak(BlockBreakEvent event) {
+    public void onLumberjackBreak(BlockBreakEvent event) {
         ItemStack inHand = event.getPlayer().getItemInHand();
         if (inHand == null) {
             return;

@@ -2,6 +2,7 @@ package games.bevs.core.module.abilties.abilities;
 
 import games.bevs.core.module.abilties.AbilityInfo;
 import games.bevs.core.module.abilties.types.Ability;
+import games.bevs.core.module.combat.event.CustomDamageEvent;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,10 +20,10 @@ import org.bukkit.util.Vector;
         name = "Jelly",
         author = "Fundryi",
         description = {
-                "&7I guess you bounce a lot?",
-                "&7You take no fall damage and will bounce around!",
-                "&7Sneaking prevents you from bouncing but",
-                "&7you will recive 50% of the normal fall damage!"
+                "I guess you bounce a lot?",
+                "You take no fall damage and will bounce around!",
+                "Sneaking prevents you from bouncing but",
+                "you will recive 50% of the normal fall damage!"
         })
 
 public class JellyAbility extends Ability {
@@ -30,24 +31,21 @@ public class JellyAbility extends Ability {
     public @Getter @Setter Material itemMaterial = Material.SLIME_BLOCK;
 
     @EventHandler
-    public void onDamage(EntityDamageEvent event) {
-        Player player = (Player)event.getEntity();
+    public void onJellyFallDamage(CustomDamageEvent event) {
+        Player player = event.getVictimPlayer();
         if (player == null) {
             return;
         }
-        if (!this.hasAbility(player)){
+        if(!event.isVictimIsPlayer() && !this.hasAbility(event.getVictimPlayer())) {
             return;
         }
-        if (!(event.getEntity() instanceof Player)) {
-            return;
-        }
-        if (!(event.getCause() == EntityDamageEvent.DamageCause.FALL)) {
+        if (!(event.getInitCause() == EntityDamageEvent.DamageCause.FALL)) {
             return;
         }
         if (player.isSneaking()) {
             double damage = event.getDamage();
             damage *= 0.5;
-            event.setDamage(damage);
+            event.setInitDamage(damage);
             player.getWorld().playEffect(player.getLocation().add(0,1,0), Effect.EXPLOSION, 3);
             return;
         }

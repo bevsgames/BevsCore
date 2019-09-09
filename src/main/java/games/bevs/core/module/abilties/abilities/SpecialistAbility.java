@@ -24,9 +24,9 @@ import java.util.List;
         name = "Specialist",
         author = "Fundryi",
         description = {
-                "&7Enchanting on the way!",
-                "&7Portable Enchantment Table so no one can steal it.",
-                "&7You also receive 2 EXP Bottles per kill!"
+                "Enchanting on the way!",
+                "Portable Enchantment Table so no one can steal it.",
+                "You also receive 2 EXP Bottles per kill!"
         })
 
 public class SpecialistAbility extends Ability {
@@ -47,7 +47,7 @@ public class SpecialistAbility extends Ability {
     }
 
     @EventHandler
-    public void onInteract(PlayerInteractEvent event) {
+    public void onSpecialistEnchant(PlayerInteractEvent event) {
         ItemStack inHand = event.getPlayer().getInventory().getItemInHand();
         if (inHand == null) {
             return;

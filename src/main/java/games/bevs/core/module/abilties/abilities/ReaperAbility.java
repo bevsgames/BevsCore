@@ -27,8 +27,8 @@ import java.util.concurrent.ThreadLocalRandom;
         name = "Reaper",
         author = "Fundryi",
         description = {
-                "&7You have a 20% chance of giving",
-                "&7Wither Effect 1 for 5 seconds to a player,",
+                "You have a 20% chance of giving",
+                "Wither Effect 1 for 5 seconds to a player,",
                 "if you hit them with your Hoe."
         })
 

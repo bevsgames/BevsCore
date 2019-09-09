@@ -23,10 +23,10 @@ import org.bukkit.event.entity.EntityDamageEvent;
         name = "Stomper",
         author = "Fundryi",
         description = {
-                "&7Fall damage you would receive",
-                "&7will be transferred to the player",
-                "&7in a 2x2x2 radius where you land!",
-                "&7If they sneak they will get max 3 hearts damage."
+                "Fall damage you would receive",
+                "will be transferred to the player",
+                "in a 2x2x2 radius where you land!",
+                "If they sneak they will get max 3 hearts damage."
         })
 
 public class StomperAbility extends Ability {
@@ -34,7 +34,7 @@ public class StomperAbility extends Ability {
     public @Getter @Setter Material itemMaterial = Material.STICK;
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void omStomp(CustomDamageEvent event) {
+    public void onStomp(CustomDamageEvent event) {
         if(!event.isAttackerIsPlayer() && !this.hasAbility(event.getAttackerPlayer())) {
             return;
         }

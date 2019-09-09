@@ -22,8 +22,8 @@ import java.util.concurrent.ThreadLocalRandom;
         name = "Snail",
         author = "Fundryi",
         description = {
-                "&7You have a 25% chance of giving",
-                "&7slowness 2 for 5 seconds to a player."
+                "You have a 25% chance of giving",
+                "slowness 2 for 5 seconds to a player."
         })
 
 public class SnailAbility extends Ability {

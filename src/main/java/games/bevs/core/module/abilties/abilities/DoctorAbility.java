@@ -31,10 +31,10 @@ import java.util.List;
         name = "Doctor",
         author = "Fundryi",
         description = {
-                "&7You can heal players from their sickness",
-                "&7with your scalpel.",
-                "&7It will remove EVERY potion effect!",
-                "&7Ohh and you're immune to any damage Potions/Effects!"
+                "You can heal players from their sickness",
+                "with your scalpel.",
+                "It will remove EVERY potion effect!",
+                "Ohh and you're immune to any damage Potions/Effects!"
         })
 
 public class DoctorAbility extends Ability {
@@ -62,7 +62,7 @@ public class DoctorAbility extends Ability {
     }
 
     @EventHandler
-    public void onInteractEntity(PlayerInteractEntityEvent event) {
+    public void onDoctorRightClick(PlayerInteractEntityEvent event) {
         ItemStack inHand = event.getPlayer().getItemInHand();
         if (inHand == null) {
             return;
@@ -99,7 +99,7 @@ public class DoctorAbility extends Ability {
     }
 
     @EventHandler
-    public void onDamage(CustomDamageEvent event) {
+    public void onDoctorDamageFilter(CustomDamageEvent event) {
         if(!event.isVictimIsPlayer() && !this.hasAbility(event.getVictimPlayer())) {
             return;
         }

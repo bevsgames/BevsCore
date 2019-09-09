@@ -22,8 +22,8 @@ import java.util.concurrent.ThreadLocalRandom;
         name = "Viper",
         author = "Fundryi",
         description = {
-                "&7You have a 25% chance of giving",
-                "&7Poison 1 for 5 seconds to a player."
+                "You have a 25% chance of giving",
+                "Poison 1 for 5 seconds to a player."
         })
 
 public class ViperAbility extends Ability {

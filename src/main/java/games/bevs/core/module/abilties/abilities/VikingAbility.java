@@ -20,14 +20,12 @@ import java.util.List;
         name = "Viking",
         author = "Fundryi",
         description = {
-                "&7You're very strong with axes,",
-                "&7in fact you deal 1 heart more damage",
-                "&7with every axe in the game."
+                "You're very strong with axes,",
+                "in fact you deal 1 heart more damage",
+                "with every axe in the game."
         })
 
 public class VikingAbility extends Ability {
-
-    public @Getter @Setter Material itemMaterial = Material.DIAMOND_AXE;
 
     private static final double VIKING_DAMAGE = 2;
     private static final List<Material> AXES = ImmutableList.of(

@@ -26,9 +26,9 @@ import java.util.List;
         name = "Miner",
         author = "Fundryi",
         description = {
-                "&7Mining is fun for you!",
-                "&7You can Veinmine any kind of ORE!",
-                "&7Your Pickaxe is quite fast..."
+                "Mining is fun for you!",
+                "You can Veinmine any kind of ORE!",
+                "Your Pickaxe is quite fast..."
         })
 
 public class MinerAbility extends Ability {
@@ -49,7 +49,7 @@ public class MinerAbility extends Ability {
     }
 
     @EventHandler
-    public void onMinerBreaking(BlockBreakEvent event) {
+    public void onMinerBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
         if (player == null) {
             return;

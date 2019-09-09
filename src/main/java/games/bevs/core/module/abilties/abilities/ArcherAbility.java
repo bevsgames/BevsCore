@@ -64,7 +64,7 @@ public class ArcherAbility extends Ability {
     }
 
     @EventHandler
-    public void onBlockBreak(BlockBreakEvent event) {
+    public void onArcherBlockBreak(BlockBreakEvent event) {
         if(!this.hasAbility(event.getPlayer())) {
             return;
         }
@@ -78,7 +78,7 @@ public class ArcherAbility extends Ability {
     }
 
     @EventHandler
-    public void onEntityDamage(CustomDamageEvent event) {
+    public void onArcherArrowHit(CustomDamageEvent event) {
         if (!event.isAttackerIsPlayer() && !this.hasAbility(event.getAttackerPlayer())) {
             return;
         }
@@ -94,7 +94,7 @@ public class ArcherAbility extends Ability {
     }
 
     @EventHandler
-    public void onEntityDeath(EntityDeathEvent event) {
+    public void onArcherEntityKill(EntityDeathEvent event) {
         if(!this.hasAbility(event.getEntity().getKiller())) {
             return;
         }

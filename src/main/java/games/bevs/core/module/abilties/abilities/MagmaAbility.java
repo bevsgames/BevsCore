@@ -20,8 +20,8 @@ import java.util.concurrent.ThreadLocalRandom;
         name = "Magma",
         author = "Fundryi",
         description = {
-                "&7You have a 15% chance on setting",
-                "&7players on fire for 5 seconds."
+                "You have a 15% chance on setting",
+                "players on fire for 5 seconds."
         })
 
 public class MagmaAbility extends Ability {
@@ -32,7 +32,7 @@ public class MagmaAbility extends Ability {
     private static final int length = 5;
 
     @EventHandler
-    public void MagmaAttack(CustomDamageEvent event) {
+    public void onMagmaAttack(CustomDamageEvent event) {
         if (event.isCancelled()) {
             return;
         }
