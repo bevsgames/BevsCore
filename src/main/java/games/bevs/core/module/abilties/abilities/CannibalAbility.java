@@ -23,8 +23,9 @@ import java.util.concurrent.ThreadLocalRandom;
         name = "Cannibal",
         author = "Fundryi",
         description = {
-                "&7You have a 25% chance of giving",
-                "&7Poison 1 for 5 seconds to a player."
+                "&7You have a 35% chance of giving",
+                "&7hunger 2 for 5 seconds to a player.",
+                "&7You also restore hunger if you hit them."
         })
 
 public class CannibalAbility extends Ability {
