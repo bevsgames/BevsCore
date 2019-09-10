@@ -39,21 +39,14 @@ public class CannibalAbility extends Ability {
 
     @EventHandler
     public void onCannibalAttack(CustomDamageEvent event) {
-        if (event.isCancelled()) {
-            return;
-        }
         Player player = event.getAttackerPlayer();
-        if(!event.isAttackerIsPlayer() && !this.hasAbility(player)) {
-            return;
-        }
-        if(event.isAttackerIsPlayer()){
-            int hunger = event.getAttackerPlayer().getFoodLevel();
+        if(event.isAttackerIsPlayer() && this.hasAbility(player)){
+            int hunger = player.getFoodLevel();
             if (hunger < 30) {
                 hunger += addHunger;
                 player.setFoodLevel(hunger);
             }
         }
-
         LivingEntity entity = event.getVictimLivingEntity();
         if (ThreadLocalRandom.current().nextInt(101) <= chance) {
             entity.getWorld().playEffect(entity.getLocation().add(0,1,0), Effect.CLOUD, 3);
