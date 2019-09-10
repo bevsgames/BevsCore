@@ -31,34 +31,37 @@ public class TurtleAbility extends Ability {
 
     @EventHandler
     public void onTurtleAttack(CustomDamageEvent event) {
-        if (!event.isAttackerIsPlayer() && !this.hasAbility(event.getAttackerPlayer())) {
-            return;
+        Player attacker = event.getAttackerPlayer();
+        if (event.isAttackerIsPlayer()) {
+            if (!this.hasAbility(attacker)) {
+                return;
+            }
+            if(!event.getAttackerPlayer().isSneaking()){
+                event.setCancelled(true);
+                LivingEntity victim = event.getVictimLivingEntity();
+                victim.damage(0);
+                victim.getWorld().playEffect(victim.getLocation().add(0,1,0), Effect.HEART, 0);
+            }
         }
-        if (event.isAttackerIsPlayer() && !event.getAttackerPlayer().isSneaking()) {
-            return;
-        }
-        event.setCancelled(true);
-        LivingEntity victim = event.getVictimLivingEntity();
-        victim.damage(0);
-        victim.getWorld().playEffect(victim.getLocation().add(0,1,0), Effect.HEART, 0);
     }
 
     @EventHandler
     public void onTurtleDefend(CustomDamageEvent event) {
         Player victim = event.getVictimPlayer();
-        if(!event.isVictimIsPlayer() && !this.hasAbility(victim)) {
-            return;
+        if (event.isVictimIsPlayer()) {
+            if (!this.hasAbility(victim)) {
+                return;
+            }
+            if (!victim.isSneaking()) {
+                return;
+            }
+            if (victim.getHealth() <= 1) {
+                return;
+            }
+            if (event.getInitDamage() > maxTurtleDamage) {
+                event.setInitDamage(maxTurtleDamage);
+            }
+            victim.getWorld().playEffect(victim.getLocation().add(0, 1, 0), Effect.MOBSPAWNER_FLAMES, 0);
         }
-        if (!event.isVictimIsPlayer() && !victim.isSneaking()) {
-            return;
-        }
-        if (victim.getHealth() <= 1) {
-            return;
-        }
-        if (event.getDamage() > maxTurtleDamage) {
-            event.setInitDamage(maxTurtleDamage);
-        }
-        victim.getWorld().playEffect(victim.getLocation().add(0,1,0), Effect.MOBSPAWNER_FLAMES, 0);
     }
-
 }
