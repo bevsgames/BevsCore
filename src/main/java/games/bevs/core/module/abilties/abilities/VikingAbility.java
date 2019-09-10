@@ -40,16 +40,15 @@ public class VikingAbility extends Ability {
 
     @EventHandler
     public void onVikingAttack(CustomDamageEvent event) {
-        if(!event.isAttackerIsPlayer() && !this.hasAbility(event.getAttackerPlayer())) {
-            return;
+        if(event.isAttackerIsPlayer() && this.hasAbility(event.getAttackerPlayer())) {
+            ItemStack inHand = event.getAttackerPlayer().getItemInHand();
+            if (inHand == null) {
+                return;
+            }
+            if (!AXES.contains(inHand.getType())) {
+                return;
+            }
+            event.setInitDamage(event.getDamage() + VIKING_DAMAGE);
         }
-        ItemStack inHand = event.getAttackerPlayer().getItemInHand();
-        if (inHand == null) {
-            return;
-        }
-        if (!AXES.contains(inHand.getType())) {
-            return;
-        }
-        event.setInitDamage(event.getDamage() + VIKING_DAMAGE);
     }
 }

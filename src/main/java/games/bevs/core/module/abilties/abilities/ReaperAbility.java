@@ -55,13 +55,7 @@ public class ReaperAbility extends Ability {
 
     @EventHandler
     public void onReaperAttack(CustomDamageEvent event) {
-        if (event.isCancelled()) {
-            return;
-        }
-        if (!event.isAttackerIsPlayer() && !this.hasAbility(event.getAttackerPlayer())) {
-            return;
-        }
-        if(event.isAttackerIsPlayer()){
+        if(event.isAttackerIsPlayer() && this.hasAbility(event.getAttackerPlayer())){
             ItemStack inHand = event.getAttackerPlayer().getInventory().getItemInHand();
             if (inHand == null) {
                 return;
