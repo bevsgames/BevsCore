@@ -14,7 +14,7 @@ public class InventoryUtils
 	public static void clearAllInventory(Player player)
 	{
 		InventoryUtils.clearArmor(player);
-		InventoryUtils.clearInventoryCrafting(player);
+//		InventoryUtils.clearInventoryCrafting(player);
 		InventoryUtils.clearCursor(player);
 	}
 	
@@ -38,7 +38,7 @@ public class InventoryUtils
 	{
 		PlayerInventory inv = player.getInventory();
 		for(int i = 0; i < 4; i++)
-			inv.setItem(80 + i, null);
+			inv.setItem(1 + i, null);
 	}
 	
 	public static void clearCursor(Player player)
