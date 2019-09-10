@@ -19,57 +19,49 @@ import org.bukkit.event.EventHandler;
         name = "Turtle",
         author = "Fundryi",
         description = {
-                "You're immune against anything that deals knockback!",
-                "You also have a 33% chance of giving no knockback!"
+                "You only take 0.5 hearts of damage if you sneak!",
+                "You can not deal any damage while sneaking!"
         })
 
 public class TurtleAbility extends Ability {
 
     public @Getter @Setter Material itemMaterial = Material.DIAMOND_CHESTPLATE;
 
-    private boolean needToBlock = false; //OFF because you cant deal damage when sneaking.
     private double maxTurtleDamage = 1;
 
     @EventHandler
     public void onTurtleAttack(CustomDamageEvent event) {
-        //Attacker = Turtle Player
-        //Turtle Player > Check if he is Kit/Sneak/Blocking
         Player attacker = event.getAttackerPlayer();
-        if (!this.hasAbility(attacker)) {
-            return;
+        if (event.isAttackerIsPlayer()) {
+            if (!this.hasAbility(attacker)) {
+                return;
+            }
+            if(!event.getAttackerPlayer().isSneaking()){
+                event.setCancelled(true);
+                LivingEntity victim = event.getVictimLivingEntity();
+                victim.damage(0);
+                victim.getWorld().playEffect(victim.getLocation().add(0,1,0), Effect.HEART, 0);
+            }
         }
-        if (!attacker.isSneaking()) {
-            return;
-        }
-        if (needToBlock && !attacker.isBlocking()) {
-            return;
-        }
-        event.setCancelled(true);
-        //Victim only gets 0 damage if above is right.
-        LivingEntity victim = event.getVictimLivingEntity();
-        victim.damage(0);
-        victim.getWorld().playEffect(victim.getLocation().add(0,1,0), Effect.HEART, 0);
     }
 
     @EventHandler
     public void onTurtleDefend(CustomDamageEvent event) {
-        //Victim = Turtle Player
         Player victim = event.getVictimPlayer();
-        if(!(this.hasAbility(victim)))
-            return;
-        if (!victim.isSneaking()) {
-            return;
+        if (event.isVictimIsPlayer()) {
+            if (!this.hasAbility(victim)) {
+                return;
+            }
+            if (!victim.isSneaking()) {
+                return;
+            }
+            if (victim.getHealth() <= 1) {
+                return;
+            }
+            if (event.getInitDamage() > maxTurtleDamage) {
+                event.setInitDamage(maxTurtleDamage);
+            }
+            victim.getWorld().playEffect(victim.getLocation().add(0, 1, 0), Effect.MOBSPAWNER_FLAMES, 0);
         }
-        if (victim.getHealth() <= 1) {
-            return;
-        }
-        if (needToBlock && !victim.isBlocking()) {
-            return;
-        }
-        if (event.getDamage() > maxTurtleDamage) {
-            event.setInitDamage(maxTurtleDamage);
-        }
-        victim.getWorld().playEffect(victim.getLocation().add(0,1,0), Effect.MOBSPAWNER_FLAMES, 0);
     }
-
 }
