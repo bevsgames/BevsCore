@@ -8,12 +8,15 @@ import org.bukkit.entity.Player;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Getter
+@RequiredArgsConstructor
 @AllArgsConstructor
 public class SimpleMCPlayer
 {
 	private @NonNull UUID uniquieId;
+	private String username;
 	
 	public Player getPlayer()
 	{

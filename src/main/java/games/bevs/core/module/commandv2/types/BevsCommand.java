@@ -1,5 +1,6 @@
 package games.bevs.core.module.commandv2.types;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -12,8 +13,10 @@ import org.bukkit.entity.Player;
 
 import games.bevs.core.commons.player.PlayerData;
 import games.bevs.core.commons.player.rank.Rank;
+import games.bevs.core.commons.server.Console;
 import games.bevs.core.commons.utils.StringUtils;
 import games.bevs.core.module.commandv2.CommandModule;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +25,9 @@ public class BevsCommand extends Command implements TabCompleter {
 	private @Getter @Setter CommandModule commandModule;
 	private @Getter Rank requiredRank;
 	private @Getter @Setter String displayName;
+	
+	@Getter(AccessLevel.PROTECTED)
+	private HashMap<String, BevsSubCommand> subcommands = new HashMap<>();
 
 	public BevsCommand(String name, String description, String usageMessage, List<String> aliases, Rank requiredRank) {
 		super(name, description, usageMessage, aliases);
@@ -35,6 +41,17 @@ public class BevsCommand extends Command implements TabCompleter {
 		this.setDisplayName(StringUtils.capitalize(this.getName()));
 		this.requiredRank = requiredRank;
 		this.setPermission("bevs.games." + this.requiredRank.name());
+	}
+	
+	public void addSubCommand(BevsSubCommand... commands)
+	{
+		for(BevsSubCommand command : commands)
+		{
+			this.subcommands.put(command.getName(), command);
+			command.getAliases().forEach(name -> {
+				this.subcommands.put(name, command);
+			});
+		}
 	}
 
 	protected List<String> getOnlinePlayers(CommandSender sender) {
@@ -83,7 +100,7 @@ public class BevsCommand extends Command implements TabCompleter {
 			sender.sendMessage(error(COMMAND_NO_PERMISSION));
 			return false;
 		}
-
+		
 		return this.onExecute(sender, commandName, args);
 	}
 
@@ -93,6 +110,15 @@ public class BevsCommand extends Command implements TabCompleter {
 	}
 
 	public boolean onExecute(CommandSender sender, String commandName, String[] args) {
+		if(args.length >= 1)
+		{
+			BevsSubCommand subCommand = this.subcommands.get(args[0].toLowerCase());
+			if(subCommand != null)
+			{
+				subCommand.onExecute(sender, args[0], args);
+			}
+		}
+		
 		return true;
 	}
 
