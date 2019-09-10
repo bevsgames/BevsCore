@@ -12,11 +12,14 @@ public class PlayerUtils
 		InventoryUtils.clearAllInventory(player);
 		EffectUtils.clearEffects(player);
 		
+		
+		
 		PlayerUtils.resetHealth(player);
 		PlayerUtils.resetHunger(player);
 		PlayerUtils.resetFire(player);
 		PlayerUtils.resetFall(player);
 		PlayerUtils.resetExp(player);
+		PlayerUtils.resetFly(player);
 	}
 	
 	public static void resetHunger(Player player)
@@ -38,6 +41,12 @@ public class PlayerUtils
 	public static void resetFall(Player player)
 	{
 		player.setFallDistance(0);
+	}
+	
+	public static void resetFly(Player player)
+	{
+		player.setFlying(false);
+		player.setAllowFlight(false);
 	}
 	
 	public static void resetExp(Player player)
