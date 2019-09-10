@@ -34,7 +34,7 @@ public class TurtleAbility extends Ability {
         if (!event.isAttackerIsPlayer() && !this.hasAbility(event.getAttackerPlayer())) {
             return;
         }
-        if (!event.getAttackerPlayer().isSneaking()) {
+        if (event.isAttackerIsPlayer() && !event.getAttackerPlayer().isSneaking()) {
             return;
         }
         event.setCancelled(true);
@@ -49,7 +49,7 @@ public class TurtleAbility extends Ability {
         if(!event.isVictimIsPlayer() && !this.hasAbility(victim)) {
             return;
         }
-        if (!victim.isSneaking()) {
+        if (!event.isVictimIsPlayer() && !victim.isSneaking()) {
             return;
         }
         if (victim.getHealth() <= 1) {

@@ -29,7 +29,7 @@ public class AchillesAbility extends Ability {
 
     public @Getter @Setter Material itemMaterial = Material.WOOD_SWORD;
 
-    private final static float DamageModifier = 2;
+    private @Getter @Setter double DamageModifier = 2;
 
     @EventHandler
     public void onAchilles(CustomDamageEvent event) {
@@ -38,19 +38,13 @@ public class AchillesAbility extends Ability {
         if (!event.isVictimIsPlayer() && !this.hasAbility(defender)){
             return;
         }
-        if (attacker.getItemInHand().getType().name().toLowerCase().contains("wood")) {
+        if (event.isAttackerIsPlayer() && attacker.getItemInHand().getType().name().toLowerCase().contains("wood")) {
             defender.getWorld().playEffect(defender.getLocation().add(0, 1, 0), Effect.STEP_SOUND, 66);
             attacker.playSound(attacker.getLocation(), Sound.IRONGOLEM_HIT, 10.0f, 1.0f);
-            event.setInitDamage(event.getDamage() * DamageModifier);
+            event.setInitDamage(event.getInitDamage() * DamageModifier);
         }else{
-            if (!event.isVictimIsPlayer() && !this.hasAbility(defender)){
-                return;
-            }
-            event.setInitDamage(event.getDamage() / DamageModifier);
-            Material item = attacker.getItemInHand().getType();
-            boolean isWoodenSword = item == Material.WOOD_SWORD;
-            if(!isWoodenSword)
-            {
+            event.setInitDamage(event.getInitDamage() / DamageModifier);
+            if(event.isAttackerIsPlayer() && !attacker.getItemInHand().getType().name().toLowerCase().contains("wood")){
                 attacker.sendMessage(CC.red + "Huh, the " + CC.bGold + "Wood" + CC.reset + "" + CC.red + " handle did more damage to this guy...");
             }
         }

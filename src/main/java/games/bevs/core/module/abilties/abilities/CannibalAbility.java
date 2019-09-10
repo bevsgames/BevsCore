@@ -42,14 +42,16 @@ public class CannibalAbility extends Ability {
         if (event.isCancelled()) {
             return;
         }
-        if(!event.isAttackerIsPlayer() && !this.hasAbility(event.getAttackerPlayer())) {
+        Player player = event.getAttackerPlayer();
+        if(!event.isAttackerIsPlayer() && !this.hasAbility(player)) {
             return;
         }
-        Player player = event.getAttackerPlayer();
-        int hunger = player.getFoodLevel();
-        if (hunger < 30) {
-            hunger += addHunger;
-            player.setFoodLevel(hunger);
+        if(event.isAttackerIsPlayer()){
+            int hunger = event.getAttackerPlayer().getFoodLevel();
+            if (hunger < 30) {
+                hunger += addHunger;
+                player.setFoodLevel(hunger);
+            }
         }
 
         LivingEntity entity = event.getVictimLivingEntity();

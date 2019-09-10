@@ -61,17 +61,19 @@ public class ReaperAbility extends Ability {
         if (!event.isAttackerIsPlayer() && !this.hasAbility(event.getAttackerPlayer())) {
             return;
         }
-        ItemStack inHand = event.getAttackerPlayer().getInventory().getItemInHand();
-        if (inHand == null) {
-            return;
-        }
-        if (!inHand.isSimilar(ReaperHoe)) {
-            return;
-        }
-        LivingEntity entity = event.getVictimLivingEntity();
-        if (ThreadLocalRandom.current().nextInt(101) <= chance) {
-            entity.getWorld().playEffect(entity.getLocation(), Effect.SMOKE, 3);
-            entity.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, length * 20, multiplier), true);
+        if(event.isAttackerIsPlayer()){
+            ItemStack inHand = event.getAttackerPlayer().getInventory().getItemInHand();
+            if (inHand == null) {
+                return;
+            }
+            if (!inHand.isSimilar(ReaperHoe)) {
+                return;
+            }
+            LivingEntity entity = event.getVictimLivingEntity();
+            if (ThreadLocalRandom.current().nextInt(101) <= chance) {
+                entity.getWorld().playEffect(entity.getLocation(), Effect.SMOKE, 3);
+                entity.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, length * 20, multiplier), true);
+            }
         }
     }
 
