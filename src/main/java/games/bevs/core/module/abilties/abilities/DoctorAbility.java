@@ -77,7 +77,6 @@ public class DoctorAbility extends Ability {
         if (!(event.getRightClicked() instanceof LivingEntity)) {
             return;
         }
-        //cleanseEntity(event.getPlayer());
         cleanseEntity((LivingEntity) event.getRightClicked());
 
         Player selfPlayer = event.getPlayer();
@@ -89,6 +88,33 @@ public class DoctorAbility extends Ability {
         } else {
             selfPlayer.sendMessage(ChatColor.GREEN + "You have healed a " +
                     StringUtils.capitalizeFirstLetter("" + otherEntity.getType()) + "!");
+        }
+    }
+
+    @EventHandler
+    public void onDoctorLeftClick(CustomDamageEvent event) {
+        Player player = event.getAttackerPlayer();
+        if(event.isAttackerIsPlayer() && this.hasAbility(player)) {
+            ItemStack inHand = player.getItemInHand();
+            if (inHand == null) {
+                return;
+            }
+            if (!inHand.isSimilar(Scalpel)) {
+                return;
+            }
+            event.setCancelled(true);
+            cleanseEntity(event.getVictimLivingEntity());
+
+            Player selfPlayer = event.getAttackerPlayer();
+            Player otherPlayer = event.getVictimPlayer();
+            Entity otherEntity = event.getVictimLivingEntity();
+            if (event.isAttackerIsPlayer()) {
+                otherPlayer.sendMessage(ChatColor.GREEN + "You have been healed by a doctor!");
+                selfPlayer.sendMessage(ChatColor.GREEN + "You have healed " + otherPlayer.getName() + "!");
+            } else {
+                selfPlayer.sendMessage(ChatColor.GREEN + "You have healed a " +
+                        StringUtils.capitalizeFirstLetter("" + otherEntity.getType()) + "!");
+            }
         }
     }
 
@@ -105,6 +131,7 @@ public class DoctorAbility extends Ability {
         }
         if (filteredCauses.contains(event.getInitCause())) {
             event.setCancelled(true);
+            event.setCancelled("Doctor Damage Filter");
         }
     }
 
