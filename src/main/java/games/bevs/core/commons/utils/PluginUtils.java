@@ -1,6 +1,7 @@
 package games.bevs.core.commons.utils;
 
 import org.bukkit.Bukkit;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -8,6 +9,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class PluginUtils {
 	public static void registerListener(Listener listener, JavaPlugin plugin) {
 		Bukkit.getPluginManager().registerEvents(listener, plugin);
+	}
+	
+	public static void unregisterListener(Listener listener) {
+		HandlerList.unregisterAll(listener);
 	}
 
 	public static int repeat(JavaPlugin plugin, Runnable run, long deplay, long sprint) {

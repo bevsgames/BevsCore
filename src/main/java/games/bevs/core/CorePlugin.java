@@ -45,7 +45,6 @@ public class CorePlugin extends BevsPlugin
 
 		this.addModule(new CombatModule(this, commandModule, playerModule));
 
-		this.addModule(new CombatModule(this, commandModule, playerModule));
 		CooldownModule cooldown = this.addModule(new CooldownModule(this, commandModule));
 		this.addModule(new AbilityModule(this, commandModule, cooldown, true));
 
