@@ -13,8 +13,9 @@ public class InventoryUtils
 	 */
 	public static void clearAllInventory(Player player)
 	{
+		player.getInventory().clear();
 		InventoryUtils.clearArmor(player);
-//		InventoryUtils.clearInventoryCrafting(player);
+		InventoryUtils.clearInventoryCrafting(player);
 		InventoryUtils.clearCursor(player);
 	}
 	
