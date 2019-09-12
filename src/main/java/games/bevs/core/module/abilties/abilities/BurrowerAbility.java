@@ -25,7 +25,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @AbilityInfo(name = "Burrower", author = "teddyyy", description = { "Use your item to escape away",
 		"creating your own personal room!" })
-public class Burrower extends CooldownAbility {
+public class BurrowerAbility extends CooldownAbility {
 	// Ability Settings
 	private @Getter @Setter String itemName = CC.blue + "Burrower";
 	private @Getter @Setter Material itemMaterial = Material.SLIME_BALL;
