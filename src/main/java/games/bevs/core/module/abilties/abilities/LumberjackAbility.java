@@ -101,6 +101,8 @@ public class LumberjackAbility extends Ability {
 
     @EventHandler
     public void onItemDamage(PlayerItemDamageEvent event) {
+        if(!(this.hasAbility(event.getPlayer())))
+            return;
         if (event.getItem().isSimilar(WoodAxe)) {
             event.setCancelled(true);
         }
