@@ -61,6 +61,10 @@ public class FiremanAbility extends Ability {
             event.setCancelled(true);
             return;
         }
+        if (event.getInitCause() == EntityDamageEvent.DamageCause.LIGHTNING) {
+            event.setCancelled(true);
+            return;
+        }
         if (event.getInitCause() == EntityDamageEvent.DamageCause.LAVA) {
             double damage = event.getDamage();
             damage *= 0.5;
