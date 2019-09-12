@@ -28,16 +28,15 @@ public class ForgerAbility extends Ability {
     public @Getter @Setter Material itemMaterial = Material.COAL;
 
     @EventHandler
-    public void onItemClick(InventoryClickEvent event)
-    {
-        if (event.getCursor() == null || event.getCurrentItem() == null){
+    public void onItemClick(InventoryClickEvent event) {
+        if (event.getCursor() == null || event.getCurrentItem() == null) {
             return;
         }
-        if (!(event.getWhoClicked() instanceof Player)){
+        if (!(event.getWhoClicked() instanceof Player)) {
             return;
         }
         Player forger = (Player) event.getWhoClicked();
-        if(!this.hasAbility(forger)) {
+        if (!this.hasAbility(forger)) {
             return;
         }
 
@@ -50,19 +49,17 @@ public class ForgerAbility extends Ability {
         if (coal == null)
             return;
 
-        for (int i = 0; i < 2; i++)
-        {
+        for (int i = 0; i < 2; i++) {
             if (ore == null)
                 ore = event.getCurrentItem();
             else
                 ore = event.getCursor();
 
-            if (ore.getType() == Material.IRON_ORE)
-            {
+            if (ore.getType() == Material.IRON_ORE) {
                 event.setCursor(null);
                 event.setCurrentItem(null);
 
-                if(!this.hasAbility(forger)) {
+                if (!this.hasAbility(forger)) {
                     return;
                 }
 
@@ -75,13 +72,11 @@ public class ForgerAbility extends Ability {
                     event.getWhoClicked().getInventory().addItem(new ItemStack(Material.IRON_ORE, remainder));
                 else if (remainder < 0)
                     event.getWhoClicked().getInventory().addItem(new ItemStack(Material.COAL, coal.getAmount() - ore.getAmount()));
-            }
-            else if (ore.getType() == Material.GOLD_ORE)
-            {
+            } else if (ore.getType() == Material.GOLD_ORE) {
                 event.setCursor(null);
                 event.setCurrentItem(null);
 
-                if(!this.hasAbility(forger)) {
+                if (!this.hasAbility(forger)) {
                     return;
                 }
 
