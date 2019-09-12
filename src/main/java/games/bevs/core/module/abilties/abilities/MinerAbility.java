@@ -54,7 +54,7 @@ public class MinerAbility extends Ability {
         if (player == null) {
             return;
         }
-        if (!this.hasAbility(player)){
+        if (!this.hasAbility(player)) {
             return;
         }
         Material getBlock = (event).getBlock().getType();
@@ -89,7 +89,7 @@ public class MinerAbility extends Ability {
 
     @EventHandler
     public void onItemDamage(PlayerItemDamageEvent event) {
-        if(!(this.hasAbility(event.getPlayer())))
+        if (!(this.hasAbility(event.getPlayer())))
             return;
         if (event.getItem().isSimilar(Drill)) {
             event.setCancelled(true);

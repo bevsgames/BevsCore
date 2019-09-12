@@ -34,14 +34,12 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class ReaperAbility extends Ability {
 
-    public @Getter @Setter String itemName = "Reaper Hoe";
-    public @Getter @Setter Material itemMaterial = Material.WOOD_HOE;
-
-    private @Getter ItemStack ReaperHoe;
-
     private static final int chance = 20;
     private static final int length = 5;
     private static final int multiplier = 0;
+    public @Getter @Setter String itemName = "Reaper Hoe";
+    public @Getter @Setter Material itemMaterial = Material.WOOD_HOE;
+    private @Getter ItemStack ReaperHoe;
 
     @Override
     public void onLoad() {
@@ -55,7 +53,7 @@ public class ReaperAbility extends Ability {
 
     @EventHandler
     public void onReaperAttack(CustomDamageEvent event) {
-        if(event.isAttackerIsPlayer() && this.hasAbility(event.getAttackerPlayer())){
+        if (event.isAttackerIsPlayer() && this.hasAbility(event.getAttackerPlayer())) {
             ItemStack inHand = event.getAttackerPlayer().getInventory().getItemInHand();
             if (inHand == null) {
                 return;
@@ -71,12 +69,12 @@ public class ReaperAbility extends Ability {
         }
     }
 
-	@EventHandler
-	public void onItemDamage(PlayerItemDamageEvent event) {
-    	if(!(this.hasAbility(event.getPlayer())))
-    		return;
-		if (event.getItem().isSimilar(ReaperHoe)) {
-			event.setCancelled(true);
-		}
-	}
+    @EventHandler
+    public void onItemDamage(PlayerItemDamageEvent event) {
+        if (!(this.hasAbility(event.getPlayer())))
+            return;
+        if (event.getItem().isSimilar(ReaperHoe)) {
+            event.setCancelled(true);
+        }
+    }
 }

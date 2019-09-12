@@ -30,17 +30,16 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class CannibalAbility extends Ability {
 
-    public @Getter @Setter Material itemMaterial = Material.STICK;
-
     private static final int chance = 35;
     private static final int length = 10;
     private static final int multiplier = 1;
     private static final int addHunger = 3;
+    public @Getter @Setter Material itemMaterial = Material.STICK;
 
     @EventHandler
     public void onCannibalAttack(CustomDamageEvent event) {
         Player player = event.getAttackerPlayer();
-        if(event.isAttackerIsPlayer() && this.hasAbility(player)){
+        if (event.isAttackerIsPlayer() && this.hasAbility(player)) {
             int hunger = player.getFoodLevel();
             if (hunger < 30) {
                 hunger += addHunger;
@@ -49,7 +48,7 @@ public class CannibalAbility extends Ability {
         }
         LivingEntity entity = event.getVictimLivingEntity();
         if (ThreadLocalRandom.current().nextInt(101) <= chance) {
-            entity.getWorld().playEffect(entity.getLocation().add(0,1,0), Effect.CLOUD, 3);
+            entity.getWorld().playEffect(entity.getLocation().add(0, 1, 0), Effect.CLOUD, 3);
             entity.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, length * 20, multiplier), true);
         }
     }

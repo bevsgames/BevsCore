@@ -35,7 +35,7 @@ public class StomperAbility extends Ability {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onStomp(CustomDamageEvent event) {
-        if(!event.isAttackerIsPlayer() && !this.hasAbility(event.getAttackerPlayer())) {
+        if (!event.isAttackerIsPlayer() && !this.hasAbility(event.getAttackerPlayer())) {
             return;
         }
         if (event.getInitCause() != EntityDamageEvent.DamageCause.FALL) {
@@ -57,7 +57,7 @@ public class StomperAbility extends Ability {
                 }
             }
             stomper.playSound(stomper.getLocation(), Sound.ANVIL_LAND, 1, 1);
-            stomper.getWorld().playEffect(stomper.getLocation().add(0,1,0), Effect.EXPLOSION_HUGE, 1,1);
+            stomper.getWorld().playEffect(stomper.getLocation().add(0, 1, 0), Effect.EXPLOSION_HUGE, 1, 1);
         }
         event.setInitDamage(4);
     }

@@ -25,10 +25,9 @@ import org.bukkit.potion.PotionEffectType;
 
 public class PoseidonAbility extends Ability {
 
-    public @Getter @Setter Material itemMaterial = Material.SLIME_BLOCK;
-
     private static final int damageMultiplier = 0;
     private static final int speedMultiplier = 1;
+    public @Getter @Setter Material itemMaterial = Material.SLIME_BLOCK;
 
     @EventHandler
     public void onPoseidonMove(PlayerMoveEvent event) {
@@ -36,7 +35,7 @@ public class PoseidonAbility extends Ability {
         if (player == null) {
             return;
         }
-        if (!this.hasAbility(player)){
+        if (!this.hasAbility(player)) {
             return;
         }
         if (player.getLocation().getBlock().isLiquid()) {

@@ -56,7 +56,7 @@ public class FishermanAbility extends Ability {
         if (!inHand.isSimilar(FishingRod)) {
             return;
         }
-        if(!this.hasAbility(event.getPlayer())) {
+        if (!this.hasAbility(event.getPlayer())) {
             return;
         }
         if (event.getState() != PlayerFishEvent.State.CAUGHT_ENTITY) {
@@ -72,12 +72,12 @@ public class FishermanAbility extends Ability {
         }
     }
 
-	@EventHandler
-	public void onItemDamage(PlayerItemDamageEvent event) {
-    	if(!(this.hasAbility(event.getPlayer())))
-    		return;
-		if (event.getItem().isSimilar(FishingRod)) {
-			event.setCancelled(true);
-		}
-	}
+    @EventHandler
+    public void onItemDamage(PlayerItemDamageEvent event) {
+        if (!(this.hasAbility(event.getPlayer())))
+            return;
+        if (event.getItem().isSimilar(FishingRod)) {
+            event.setCancelled(true);
+        }
+    }
 }

@@ -2,10 +2,10 @@ package games.bevs.core.module.abilties.abilities;
 
 import com.google.common.collect.ImmutableMap;
 import games.bevs.core.commons.itemstack.ItemStackBuilder;
+import games.bevs.core.commons.utils.LocationUtils;
 import games.bevs.core.module.abilties.AbilityInfo;
 import games.bevs.core.module.abilties.types.Ability;
 import games.bevs.core.module.combat.event.CustomDamageEvent;
-import games.bevs.core.commons.utils.LocationUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,20 +41,18 @@ import java.util.Map;
 
 public class ArcherAbility extends Ability {
 
-    public @Getter @Setter String itemName = "Sniper Bow";
-    public @Getter @Setter Material itemMaterial = Material.BOW;
-    public @Getter @Setter Material itemMaterialArrow = Material.ARROW;
-
-    private @Getter ItemStack SniperBow;
-    private @Getter ItemStack SniperArrow;
-
     private static final Map<Material, ItemStack> specialBlockBreaks = ImmutableMap.of(
             Material.GRAVEL, new ItemStack(Material.FLINT, 1)
     );
+    public @Getter @Setter String itemName = "Sniper Bow";
+    public @Getter @Setter Material itemMaterial = Material.BOW;
+    public @Getter @Setter Material itemMaterialArrow = Material.ARROW;
+    private @Getter ItemStack SniperBow;
+    private @Getter ItemStack SniperArrow;
 
     @Override
     public void onLoad() {
-        this.SniperBow = new ItemStackBuilder(itemMaterial).displayName(itemName).enchantment(Enchantment.ARROW_KNOCKBACK,1).build();
+        this.SniperBow = new ItemStackBuilder(itemMaterial).displayName(itemName).enchantment(Enchantment.ARROW_KNOCKBACK, 1).build();
         this.SniperArrow = new ItemStackBuilder(itemMaterialArrow, 10).build();
     }
 
@@ -65,7 +63,7 @@ public class ArcherAbility extends Ability {
 
     @EventHandler
     public void onArcherBlockBreak(BlockBreakEvent event) {
-        if(!this.hasAbility(event.getPlayer())) {
+        if (!this.hasAbility(event.getPlayer())) {
             return;
         }
         specialBlockBreaks.computeIfPresent(event.getBlock().getType(), (material, itemStack) -> {
@@ -95,7 +93,7 @@ public class ArcherAbility extends Ability {
 
     @EventHandler
     public void onArcherEntityKill(EntityDeathEvent event) {
-        if(!this.hasAbility(event.getEntity().getKiller())) {
+        if (!this.hasAbility(event.getEntity().getKiller())) {
             return;
         }
         if (event.getEntity().getKiller() != null) {

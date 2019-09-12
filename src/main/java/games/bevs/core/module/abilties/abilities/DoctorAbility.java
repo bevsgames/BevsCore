@@ -67,7 +67,7 @@ public class DoctorAbility extends Ability {
         if (inHand == null) {
             return;
         }
-        if(!this.hasAbility(event.getPlayer())) {
+        if (!this.hasAbility(event.getPlayer())) {
             return;
         }
         if (!inHand.isSimilar(Scalpel)) {
@@ -80,7 +80,7 @@ public class DoctorAbility extends Ability {
         cleanseEntity((LivingEntity) event.getRightClicked());
 
         Player selfPlayer = event.getPlayer();
-        Player otherPlayer = (Player)event.getRightClicked();
+        Player otherPlayer = (Player) event.getRightClicked();
         Entity otherEntity = event.getRightClicked();
         if (event.getRightClicked() instanceof Player) {
             otherPlayer.sendMessage(ChatColor.GREEN + "You have been healed by a doctor!");
@@ -94,7 +94,7 @@ public class DoctorAbility extends Ability {
     @EventHandler
     public void onDoctorLeftClick(CustomDamageEvent event) {
         Player player = event.getAttackerPlayer();
-        if(event.isAttackerIsPlayer() && this.hasAbility(player)) {
+        if (event.isAttackerIsPlayer() && this.hasAbility(player)) {
             ItemStack inHand = player.getItemInHand();
             if (inHand == null) {
                 return;
@@ -126,7 +126,7 @@ public class DoctorAbility extends Ability {
 
     @EventHandler
     public void onDoctorDamageFilter(CustomDamageEvent event) {
-        if(!event.isVictimIsPlayer() && !this.hasAbility(event.getVictimPlayer())) {
+        if (!event.isVictimIsPlayer() && !this.hasAbility(event.getVictimPlayer())) {
             return;
         }
         if (filteredCauses.contains(event.getInitCause())) {
@@ -137,7 +137,7 @@ public class DoctorAbility extends Ability {
 
     @EventHandler
     public void onItemDamage(PlayerItemDamageEvent event) {
-        if(!(this.hasAbility(event.getPlayer())))
+        if (!(this.hasAbility(event.getPlayer())))
             return;
         if (event.getItem().isSimilar(Scalpel)) {
             event.setCancelled(true);

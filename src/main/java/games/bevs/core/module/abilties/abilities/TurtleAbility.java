@@ -36,11 +36,11 @@ public class TurtleAbility extends Ability {
             if (!this.hasAbility(attacker)) {
                 return;
             }
-            if(!event.getAttackerPlayer().isSneaking()){
+            if (!event.getAttackerPlayer().isSneaking()) {
                 event.setCancelled(true);
                 LivingEntity victim = event.getVictimLivingEntity();
                 victim.damage(0);
-                victim.getWorld().playEffect(victim.getLocation().add(0,1,0), Effect.HEART, 0);
+                victim.getWorld().playEffect(victim.getLocation().add(0, 1, 0), Effect.HEART, 0);
             }
         }
     }

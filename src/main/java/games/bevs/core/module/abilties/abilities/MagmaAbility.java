@@ -26,22 +26,21 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class MagmaAbility extends Ability {
 
-    public @Getter @Setter Material itemMaterial = Material.STICK;
-
     private static final int chance = 15;
     private static final int length = 5;
+    public @Getter @Setter Material itemMaterial = Material.STICK;
 
     @EventHandler
     public void onMagmaAttack(CustomDamageEvent event) {
         if (event.isCancelled()) {
             return;
         }
-        if(!event.isAttackerIsPlayer() && !this.hasAbility(event.getAttackerPlayer())) {
+        if (!event.isAttackerIsPlayer() && !this.hasAbility(event.getAttackerPlayer())) {
             return;
         }
         LivingEntity entity = event.getVictimLivingEntity();
         if (ThreadLocalRandom.current().nextInt(101) <= chance) {
-            entity.getWorld().playEffect(entity.getLocation().add(0,1,0), Effect.SMOKE, 1,1);
+            entity.getWorld().playEffect(entity.getLocation().add(0, 1, 0), Effect.SMOKE, 1, 1);
             entity.setFireTicks(length * 20);
         }
     }

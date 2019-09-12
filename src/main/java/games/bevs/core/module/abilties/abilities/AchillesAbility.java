@@ -35,16 +35,16 @@ public class AchillesAbility extends Ability {
     public void onAchilles(CustomDamageEvent event) {
         Player attacker = event.getAttackerPlayer();
         Player defender = event.getVictimPlayer();
-        if (!event.isVictimIsPlayer() && !this.hasAbility(defender)){
+        if (!event.isVictimIsPlayer() && !this.hasAbility(defender)) {
             return;
         }
         if (event.isAttackerIsPlayer() && attacker.getItemInHand().getType().name().toLowerCase().contains("wood")) {
             defender.getWorld().playEffect(defender.getLocation().add(0, 1, 0), Effect.STEP_SOUND, 66);
             attacker.playSound(attacker.getLocation(), Sound.IRONGOLEM_HIT, 10.0f, 1.0f);
             event.setInitDamage(event.getInitDamage() * DamageModifier);
-        }else{
+        } else {
             event.setInitDamage(event.getInitDamage() / DamageModifier);
-            if(event.isAttackerIsPlayer() && !attacker.getItemInHand().getType().name().toLowerCase().contains("wood")){
+            if (event.isAttackerIsPlayer() && !attacker.getItemInHand().getType().name().toLowerCase().contains("wood")) {
                 attacker.sendMessage(CC.red + "Huh, the " + CC.bGold + "Wood" + CC.reset + "" + CC.red + " handle did more damage to this guy...");
             }
         }

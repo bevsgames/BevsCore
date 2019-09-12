@@ -36,7 +36,7 @@ public class JellyAbility extends Ability {
         if (player == null) {
             return;
         }
-        if(!event.isVictimIsPlayer() && !this.hasAbility(event.getVictimPlayer())) {
+        if (!event.isVictimIsPlayer() && !this.hasAbility(event.getVictimPlayer())) {
             return;
         }
         if (!(event.getInitCause() == EntityDamageEvent.DamageCause.FALL)) {
@@ -46,10 +46,10 @@ public class JellyAbility extends Ability {
             double damage = event.getDamage();
             damage *= 0.5;
             event.setInitDamage(damage);
-            player.getWorld().playEffect(player.getLocation().add(0,1,0), Effect.EXPLOSION, 3);
+            player.getWorld().playEffect(player.getLocation().add(0, 1, 0), Effect.EXPLOSION, 3);
             return;
         }
-        player.getWorld().playEffect(player.getLocation().add(0,1,0), Effect.SLIME, 3);
+        player.getWorld().playEffect(player.getLocation().add(0, 1, 0), Effect.SLIME, 3);
         double velHeight = player.getVelocity().getY() + (player.getFallDistance() / 12);
         Vector vector = player.getEyeLocation().getDirection();
         vector.multiply(2);

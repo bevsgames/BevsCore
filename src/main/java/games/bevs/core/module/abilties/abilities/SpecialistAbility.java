@@ -55,7 +55,7 @@ public class SpecialistAbility extends Ability {
         if (!inHand.isSimilar(PortableEnchanter)) {
             return;
         }
-        if(!this.hasAbility(event.getPlayer())) {
+        if (!this.hasAbility(event.getPlayer())) {
             return;
         }
         Player player = event.getPlayer();
@@ -74,7 +74,7 @@ public class SpecialistAbility extends Ability {
             return;
         }
         Player victim = event.getVictimPlayer();
-        if (!(victim.getHealth() <= 1 && victim.getLastDamage() >= 1 )){
+        if (!(victim.getHealth() <= 1 && victim.getLastDamage() >= 1)) {
             return;
         }
         attacker.getInventory().addItem(new ItemStack(Material.EXP_BOTTLE, 2));

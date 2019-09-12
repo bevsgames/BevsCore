@@ -2,9 +2,9 @@ package games.bevs.core.module.abilties.abilities;
 
 import com.google.common.collect.ImmutableList;
 import games.bevs.core.commons.itemstack.ItemStackBuilder;
+import games.bevs.core.commons.utils.LocationUtils;
 import games.bevs.core.module.abilties.AbilityInfo;
 import games.bevs.core.module.abilties.types.Ability;
-import games.bevs.core.commons.utils.LocationUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,26 +35,10 @@ import java.util.List;
 
 public class LumberjackAbility extends Ability {
 
-    public @Getter @Setter String itemName = "Wood Destroyer";
-    public @Getter @Setter Material itemMaterial = Material.WOOD_AXE;
-
-    private @Getter ItemStack WoodAxe;
-
-    @Override
-    public void onLoad() {
-        this.WoodAxe = new ItemStackBuilder(itemMaterial).displayName(itemName).enchantment(Enchantment.DIG_SPEED,5).build();
-    }
-
-    @Override
-    public List<ItemStack> getItems() {
-        return Arrays.asList(WoodAxe);
-    }
-
     private static final List<Material> LOG_MATERIALS = ImmutableList.of(
             Material.LOG,
             Material.LOG_2
     );
-
     private static final List<BlockFace> DIRECTIONS = ImmutableList.of(
             BlockFace.UP,
             BlockFace.DOWN,
@@ -63,6 +47,19 @@ public class LumberjackAbility extends Ability {
             BlockFace.SOUTH,
             BlockFace.WEST
     );
+    public @Getter @Setter String itemName = "Wood Destroyer";
+    public @Getter @Setter Material itemMaterial = Material.WOOD_AXE;
+    private @Getter ItemStack WoodAxe;
+
+    @Override
+    public void onLoad() {
+        this.WoodAxe = new ItemStackBuilder(itemMaterial).displayName(itemName).enchantment(Enchantment.DIG_SPEED, 5).build();
+    }
+
+    @Override
+    public List<ItemStack> getItems() {
+        return Arrays.asList(WoodAxe);
+    }
 
     @EventHandler
     public void onLumberjackBreak(BlockBreakEvent event) {
@@ -73,7 +70,7 @@ public class LumberjackAbility extends Ability {
         if (inHand.isSimilar(WoodAxe)) {
             return;
         }
-        if(!this.hasAbility(event.getPlayer())) {
+        if (!this.hasAbility(event.getPlayer())) {
             return;
         }
         if (LOG_MATERIALS.contains(event.getBlock().getType())) {
@@ -95,13 +92,13 @@ public class LumberjackAbility extends Ability {
             if (!LOG_MATERIALS.contains(adjacent.getType())) {
                 continue;
             }
-                deforest(adjacent);
+            deforest(adjacent);
         }
     }
 
     @EventHandler
     public void onItemDamage(PlayerItemDamageEvent event) {
-        if(!(this.hasAbility(event.getPlayer())))
+        if (!(this.hasAbility(event.getPlayer())))
             return;
         if (event.getItem().isSimilar(WoodAxe)) {
             event.setCancelled(true);
