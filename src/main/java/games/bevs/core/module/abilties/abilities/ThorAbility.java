@@ -39,7 +39,7 @@ import java.util.List;
         name = "Thor",
         author = "Sprock",
         description = {
-        "Hitting Ground with an axe causes lighting to strike"
+                "Hitting Ground with an axe causes lighting to strike"
         })
 
 public class ThorAbility extends CooldownAbility {
