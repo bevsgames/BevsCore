@@ -17,10 +17,19 @@ import org.bukkit.inventory.ItemStack;
  *
  * @owner BevsGames
  */
+
 @NoArgsConstructor
 @AllArgsConstructor
-@AbilityInfo(name = "Boxer", author = "Sprock", description = {"Fists will do more damage", "You also receive less damage from players."})
+@AbilityInfo(
+        name = "Boxer",
+        author = "Sprock",
+        description = {
+                "Fists will do more damage",
+                "You also receive less damage from players."
+        })
+
 public class BoxerAbility extends Ability {
+
     private @Getter @Setter double damageDeal = 4;
 
     @EventHandler
