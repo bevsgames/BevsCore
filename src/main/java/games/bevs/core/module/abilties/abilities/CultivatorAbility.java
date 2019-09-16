@@ -30,7 +30,7 @@ public class CultivatorAbility extends Ability {
     public @Getter @Setter Material itemMaterial = Material.SAPLING;
 
     @EventHandler
-    public void onPlace(BlockPlaceEvent event) {
+    public void onCultivatorSapling(BlockPlaceEvent event) {
         if (!this.hasAbility(event.getPlayer()))
             return;
         if (event.getBlock().getType() == Material.SAPLING) {
@@ -42,7 +42,7 @@ public class CultivatorAbility extends Ability {
     }
 
     @EventHandler
-    public void onInt(PlayerInteractEvent event) {
+    public void onCultivatorCrops(PlayerInteractEvent event) {
         if (!this.hasAbility(event.getPlayer()))
             return;
         if (event.getClickedBlock() == null)
