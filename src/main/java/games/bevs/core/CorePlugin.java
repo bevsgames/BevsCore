@@ -57,7 +57,7 @@ public class CorePlugin extends BevsPlugin
 		this.addModule(new SpongeModule(this, spongeSettings));
 		this.addModule(new TickerModule(this));
 		
-		this.addModule(new DisplayModule(this));
+//		this.addModule(new DisplayModule(this));
 		this.addModule(new NPCModule(this, commandModule));
 		
 		this.addModule(new KitModule(this));
