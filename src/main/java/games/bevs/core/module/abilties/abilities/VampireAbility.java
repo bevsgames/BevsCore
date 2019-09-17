@@ -19,26 +19,26 @@ import org.bukkit.event.EventHandler;
 @NoArgsConstructor
 @AllArgsConstructor
 @AbilityInfo(
-        name = "Vampire",
-        author = "Sprock",
-        description = {
-                "Gain extra hearts when you die"
-        })
+		name = "Vampire",
+		author = "Sprock",
+		description = {
+				"Gain extra hearts when you die"
+		})
 
 public class VampireAbility extends Ability {
 
-    //1 Minecraft Heart = 2 Heart
-    private @Getter @Setter double maxStealHearts = 4;
+	//1 Minecraft Heart = 2 Heart
+	private @Getter @Setter double maxStealHearts = 4;
 
-    @EventHandler
-    public void onPunch(CustomDamageEvent e) {
-        if (e.isAttackerIsPlayer() && (this.hasAbility(e.getAttackerPlayer()))) {
-            if (!e.isVictimIsPlayer())
-                return;
-            Player player = e.getAttackerPlayer();
+	@EventHandler
+	public void onPunch(CustomDamageEvent e) {
+		if (e.isAttackerIsPlayer() && (this.hasAbility(e.getAttackerPlayer()))) {
+			if (!e.isVictimIsPlayer())
+				return;
+			Player player = e.getAttackerPlayer();
 
-            if (e.willDie())
-                player.setHealth(player.getHealth() + this.maxStealHearts);
-        }
-    }
+			if (e.willDie())
+				player.setHealth(player.getHealth() + this.maxStealHearts);
+		}
+	}
 }

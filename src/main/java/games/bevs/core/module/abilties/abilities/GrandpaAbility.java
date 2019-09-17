@@ -25,41 +25,41 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @AbilityInfo(
-        name = "Grandpa",
-        author = "Sprock",
-        description = {
-                "Hitting player with a selected item",
-                "sends anyone flying"
-        })
+		name = "Grandpa",
+		author = "Sprock",
+		description = {
+				"Hitting player with a selected item",
+				"sends anyone flying"
+		})
 
 public class GrandpaAbility extends Ability {
 
-    //Ability Settings
-    public @Getter @Setter String itemName = "Grandpa's Cane";
-    public @Getter @Setter Material itemMaterial = Material.STICK;
-    public @Getter @Setter double knockbackMultipler = 3.0d;
+	//Ability Settings
+	public @Getter @Setter String itemName = "Grandpa's Cane";
+	public @Getter @Setter Material itemMaterial = Material.STICK;
+	public @Getter @Setter double knockbackMultipler = 3.0d;
 
-    //Class variables
-    private @Getter ItemStack knockbackItem;
+	//Class variables
+	private @Getter ItemStack knockbackItem;
 
-    @Override
-    public void onLoad() {
-        this.knockbackItem = new ItemStackBuilder(itemMaterial).displayName(itemName).build();
-    }
+	@Override
+	public void onLoad() {
+		this.knockbackItem = new ItemStackBuilder(itemMaterial).displayName(itemName).build();
+	}
 
-    @Override
-    public List<ItemStack> getItems() {
-        return Arrays.asList(knockbackItem);
-    }
+	@Override
+	public List<ItemStack> getItems() {
+		return Arrays.asList(knockbackItem);
+	}
 
-    @EventHandler
-    public void onPunch(CustomDamageEvent e) {
-        if (e.isAttackerIsPlayer() && (this.hasAbility(e.getAttackerPlayer()))) {
-            Player player = e.getAttackerPlayer();
-            ItemStack itemInHand = player.getItemInHand();
-            if (itemInHand != null && itemInHand.getAmount() != 0 && itemInHand.isSimilar(this.getKnockbackItem())) {
-                e.addKnockback(getKnockbackMultipler(), player.getName());
-            }
-        }
-    }
+	@EventHandler
+	public void onPunch(CustomDamageEvent e) {
+		if (e.isAttackerIsPlayer() && (this.hasAbility(e.getAttackerPlayer()))) {
+			Player player = e.getAttackerPlayer();
+			ItemStack itemInHand = player.getItemInHand();
+			if (itemInHand != null && itemInHand.getAmount() != 0 && itemInHand.isSimilar(this.getKnockbackItem())) {
+				e.addKnockback(getKnockbackMultipler(), player.getName());
+			}
+		}
+	}
 }

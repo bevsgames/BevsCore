@@ -5,11 +5,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(value={ElementType.TYPE})
-@Retention(value=RetentionPolicy.RUNTIME)
-public @interface AbilityInfo
-{
-	public String name();
-	public String author() default "Unknown";
-	public String[] description();
+@Target(value = {ElementType.TYPE})
+@Retention(value = RetentionPolicy.RUNTIME)
+public @interface AbilityInfo {
+	String name();
+
+	String author() default "Unknown";
+
+	String[] description();
 }

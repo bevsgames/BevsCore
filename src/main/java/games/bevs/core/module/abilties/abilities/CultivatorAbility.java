@@ -19,38 +19,38 @@ import org.bukkit.material.Crops;
 @NoArgsConstructor
 @AllArgsConstructor
 @AbilityInfo(
-        name = "Cultivator",
-        author = "Fundryi",
-        description = {
-                "TESTING"
-        })
+		name = "Cultivator",
+		author = "Fundryi",
+		description = {
+				"TESTING"
+		})
 
 public class CultivatorAbility extends Ability {
 
-    public @Getter @Setter Material itemMaterial = Material.SAPLING;
+	public @Getter @Setter Material itemMaterial = Material.SAPLING;
 
-    @EventHandler
-    public void onCultivatorSapling(BlockPlaceEvent event) {
-        if (!this.hasAbility(event.getPlayer()))
-            return;
-        if (event.getBlock().getType() == Material.SAPLING) {
-            event.getBlock().setType(Material.AIR);
-            event.getPlayer().getWorld().generateTree(event.getBlock().getLocation(), TreeType.TREE);
-        } else {
-            event.getBlock().setData((byte) 7);
-        }
-    }
+	@EventHandler
+	public void onCultivatorSapling(BlockPlaceEvent event) {
+		if (!this.hasAbility(event.getPlayer()))
+			return;
+		if (event.getBlock().getType() == Material.SAPLING) {
+			event.getBlock().setType(Material.AIR);
+			event.getPlayer().getWorld().generateTree(event.getBlock().getLocation(), TreeType.TREE);
+		} else {
+			event.getBlock().setData((byte) 7);
+		}
+	}
 
-    @EventHandler
-    public void onCultivatorCrops(PlayerInteractEvent event) {
-        if (!this.hasAbility(event.getPlayer()))
-            return;
-        if (event.getClickedBlock() == null)
-            return;
-        Block block = event.getClickedBlock().getRelative(BlockFace.UP);
-        if (block.getType() == Material.CROPS) {
-            Crops crops = (Crops) block.getState();
-            crops.setState(CropState.RIPE);
-        }
-    }
+	@EventHandler
+	public void onCultivatorCrops(PlayerInteractEvent event) {
+		if (!this.hasAbility(event.getPlayer()))
+			return;
+		if (event.getClickedBlock() == null)
+			return;
+		Block block = event.getClickedBlock().getRelative(BlockFace.UP);
+		if (block.getType() == Material.CROPS) {
+			Crops crops = (Crops) block.getState();
+			crops.setState(CropState.RIPE);
+		}
+	}
 }
